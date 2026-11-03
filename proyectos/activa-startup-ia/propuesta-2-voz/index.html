@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#131332">
 <!-- Propuesta 2 · La voz. La más expresiva: la voz se vuelve forma.
      Portada con 100 barras de audio (una por cupo), orbe de voz en la alianza, casos que hablan,
-     «¿Puedo postular?», recorrido que avanza al bajar y cuenta regresiva. -->
+     recorrido de 4 pasos (con la verificación de requisitos en el paso 1) y cuenta regresiva. -->
 <link rel="stylesheet" href="../../../base/tokens.css">
 <link rel="stylesheet" href="../../../base/base.css">
 <link rel="stylesheet" href="../../../modulos/01-barra-aviso-por-fecha/modulo.css">
@@ -17,8 +17,8 @@
 <link rel="stylesheet" href="../../../modulos/05-aparicion-al-desplazar/modulo.css">
 <link rel="stylesheet" href="../../../modulos/06-cifras-y-dias/modulo.css">
 <link rel="stylesheet" href="../../../modulos/07-cuenta-regresiva/modulo.css">
+<link rel="stylesheet" href="../../../modulos/11-ventana-desde-la-tarjeta/modulo.css">
 <link rel="stylesheet" href="../../../modulos/12-preguntas-frecuentes/modulo.css">
-<link rel="stylesheet" href="../../../modulos/13-pestanas/modulo.css">
 <link rel="stylesheet" href="../../../modulos/15-formulario-por-pasos/modulo.css">
 <link rel="stylesheet" href="../comun/activa.css">
 <style>
@@ -30,10 +30,6 @@
 .onda-portada::after { content: ""; position: absolute; inset: auto 0 0; height: 40%; background: linear-gradient(transparent, var(--navy-975)); pointer-events: none; }
 .onda-portada .contenedor { position: relative; z-index: 1; width: 100%; padding-top: 150px; padding-bottom: clamp(40px, 8vh, 96px); max-width: calc(var(--contenedor) + var(--margen) * 2); }
 .onda-portada h1 { font-size: clamp(50px, 9.4vw, 144px); letter-spacing: -.05em; line-height: .96; }
-.onda-nota { position: absolute; z-index: 1; right: var(--margen); top: 46%; font: 600 11px var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--lila); display: flex; gap: 10px; align-items: center; }
-.onda-nota::before { content: ""; width: 4px; height: 22px; border-radius: 2px; background: var(--lima); }
-@media (max-width: 760px) { .onda-nota { top: 112px; left: var(--margen); right: auto; } }
-
 /* Cuánto es: equivalencias en mosaico */
 .equiv { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 14px; }
 .equiv > * { border-radius: var(--radio); padding: 26px; display: grid; gap: 10px; align-content: space-between; min-height: 180px; }
@@ -54,35 +50,59 @@
 .alianza__pie { text-align: center; margin: 40px auto 0; max-width: 60ch; color: var(--n-350); }
 @media (max-width: 860px) { .alianza { grid-template-columns: 1fr; text-align: center; } .alianza .orbe { width: min(260px, 70vw); margin: 0 auto; order: -1; } .alianza__lado, .alianza__lado--der { justify-items: center; text-align: center; } }
 
-/* Beneficio con pestañas y foto */
-.benef [role="tablist"] { background: var(--paper); border-color: var(--c-borde); }
-.benef [role="tab"] { color: var(--ink-soft); font-family: var(--f-texto); }
-.benef [role="tab"][aria-selected="true"] { background: var(--navy-900); color: #fff; }
-.benef [role="tabpanel"] { padding: 0; border: 0; background: none; display: grid; grid-template-columns: 1.1fr 1fr; gap: 16px; }
-.benef [role="tabpanel"][hidden] { display: none; }
-.benef .foto-card { min-height: 400px; }
-.benef__txt { border-radius: var(--radio); background: var(--paper); padding: clamp(24px, 3vw, 40px); display: grid; gap: 14px; align-content: center; }
-.benef__txt h3 { font: 700 clamp(26px, 3vw, 42px)/1.05 var(--f-titulo); text-transform: uppercase; margin: 0; }
-.benef__txt ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
-.benef__txt li { padding: 12px 16px; border-radius: 12px; background: #fff; font-size: 15px; }
-@media (max-width: 760px) { .benef [role="tabpanel"] { grid-template-columns: 1fr; } .benef .foto-card { min-height: 260px; } }
+/* Beneficio: tarjetas con foto que se expanden (productos reales de ElevenLabs) */
+.prods { display: flex; gap: 12px; height: 480px; }
+.prod { position: relative; flex: 1; min-width: 0; overflow: hidden; border-radius: var(--radio); color: #fff; isolation: isolate; cursor: pointer; transition: flex .8s var(--ease); display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; border: 0; text-align: left; font: inherit; background: var(--navy-900); }
+.prod > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 1.2s var(--ease), filter .8s; filter: saturate(.6); }
+.prod::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(19,19,50,.15), rgba(19,19,50,.92) 75%); }
+.prod[aria-expanded="true"] { flex: 3.2; cursor: default; }
+.prod:not([aria-expanded="true"]) h3 { font-size: clamp(16px, 1.4vw, 20px); overflow-wrap: anywhere; }
+.prod[aria-expanded="true"] > img { transform: scale(1.04); filter: none; }
+.prod__n { font: 700 12px var(--f-texto); letter-spacing: .14em; color: var(--lima); }
+.prod h3 { font: 700 clamp(20px, 2vw, 30px)/1.05 var(--f-titulo); text-transform: uppercase; margin: 6px 0 0; }
+.prod__marca { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; padding: 5px 12px 5px 8px; border-radius: 99px; background: rgba(255,255,255,.12); backdrop-filter: blur(8px); font: 600 12.5px var(--f-texto); width: max-content; max-width: 100%; }
+.prod__marca img { height: 14px; width: auto; }
+.prod__mas { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
+.prod[aria-expanded="true"] .prod__mas { grid-template-rows: 1fr; }
+.prod__mas > div { overflow: hidden; }
+.prod__mas ul { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.prod__mas li { padding: 7px 12px; border-radius: 99px; background: rgba(255,255,255,.14); font-size: 13.5px; }
+.prod__mas .btn { margin-top: 14px; }
+@media (max-width: 860px) { .prods { flex-direction: column; height: auto; } .prod, .prod[aria-expanded="true"] { flex: none; min-height: 300px; } .prod .prod__mas { grid-template-rows: 1fr; } }
 .acomp-linea { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; align-items: center; }
 .acomp-linea b { font: 600 11px var(--f-texto); letter-spacing: .12em; text-transform: uppercase; color: var(--azul); margin-right: 6px; }
 .acomp-linea span { padding: 7px 14px; border-radius: 99px; background: var(--lima); color: var(--navy-900); font-size: 13.5px; }
 
-/* Ejes: acordeón horizontal */
-.ejes-h { display: flex; gap: 12px; min-height: 380px; }
-.eje-h { position: relative; overflow: hidden; flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; padding: 28px; border-radius: var(--radio); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); cursor: pointer; transition: flex .7s var(--ease), background .4s; text-align: left; font: inherit; color: #fff; isolation: isolate; }
-.eje-h[aria-expanded="true"] { flex: 2.6; background: var(--lila); color: var(--navy-900); cursor: default; }
-.eje-h canvas { position: absolute; right: -10%; bottom: -20%; width: 70%; aspect-ratio: 1; z-index: -1; opacity: 0; transition: opacity .6s; }
-.eje-h[aria-expanded="true"] canvas { opacity: .9; }
-.eje-h small { font: 700 12px var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--lila); }
-.eje-h[aria-expanded="true"] small { color: var(--navy-900); }
-.eje-h h3 { font: 700 clamp(22px, 2.2vw, 32px)/1.08 var(--f-titulo); text-transform: uppercase; margin: 0; }
-.eje-h__txt { display: none; max-width: 44ch; font-size: 15.5px; }
-.eje-h[aria-expanded="true"] .eje-h__txt { display: block; animation: entra .6s var(--ease); }
-.eje-h__txt p { margin: 8px 0 0; }
-@media (max-width: 860px) { .ejes-h { flex-direction: column; min-height: 0; } }
+/* Fundamentos: mezclador de voz con 3 canales (uno por eje) */
+.mezcla { display: grid; grid-template-columns: minmax(300px, 1fr) 1.15fr; gap: 16px; align-items: stretch; }
+.consola-mix { border-radius: var(--radio); background: linear-gradient(180deg, #2a2a5c, var(--navy-900)); border: 1px solid rgba(255,255,255,.1); padding: 28px 24px 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; box-shadow: inset 0 1px 0 rgba(255,255,255,.08); }
+.canal { display: grid; justify-items: center; gap: 14px; padding: 14px 6px; border-radius: 16px; transition: background .4s; }
+.canal.is-activo { background: rgba(205,237,201,.08); }
+.canal__n { font: 700 11px var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--lila); }
+.canal.is-activo .canal__n { color: var(--lima); }
+.canal__cuerpo { display: flex; gap: 12px; align-items: stretch; height: 250px; }
+.vu { display: flex; flex-direction: column-reverse; gap: 4px; width: 12px; }
+.vu i { flex: 1; border-radius: 2px; background: rgba(255,255,255,.1); transition: background .15s; }
+.vu i.on { background: var(--lila); }
+.vu i.on.alto { background: var(--lima); }
+.fader { writing-mode: vertical-lr; direction: rtl; -webkit-appearance: none; appearance: none; width: 36px; height: 100%; background: transparent; cursor: grab; margin: 0; }
+.fader::-webkit-slider-runnable-track { width: 6px; border-radius: 3px; background: rgba(255,255,255,.16); }
+.fader::-moz-range-track { width: 6px; border-radius: 3px; background: rgba(255,255,255,.16); }
+.fader::-webkit-slider-thumb { -webkit-appearance: none; width: 36px; height: 22px; margin-left: -15px; border-radius: 6px; background: linear-gradient(180deg, #fff, #c9cde0); border: 0; box-shadow: 0 4px 10px rgba(0,0,0,.4), inset 0 -2px 0 rgba(0,0,0,.15); }
+.fader::-moz-range-thumb { width: 36px; height: 22px; border-radius: 6px; background: linear-gradient(180deg, #fff, #c9cde0); border: 0; box-shadow: 0 4px 10px rgba(0,0,0,.4); }
+.canal.is-activo .fader::-webkit-slider-thumb { background: linear-gradient(180deg, var(--lima), #9fd39a); }
+.canal.is-activo .fader::-moz-range-thumb { background: var(--lima); }
+.fader:focus-visible { outline: 2px solid var(--lima); outline-offset: 4px; border-radius: 8px; }
+.canal__nom { font: 600 13px/1.25 var(--f-titulo); text-align: center; min-height: 2.5em; color: var(--n-350); border: 0; background: none; cursor: pointer; padding: 0; }
+.canal.is-activo .canal__nom { color: #fff; }
+.pantalla { position: relative; overflow: hidden; border-radius: var(--radio); background: var(--lila); color: var(--navy-900); padding: clamp(24px, 3vw, 40px); display: grid; align-content: end; gap: 10px; min-height: 360px; isolation: isolate; }
+.pantalla canvas { position: absolute; right: -8%; top: -12%; width: 78%; aspect-ratio: 1; z-index: -1; }
+.pantalla__cifra { font: 800 clamp(64px, 8vw, 120px)/.9 var(--f-titulo); letter-spacing: -.05em; }
+.pantalla__dato { font: 600 12px var(--f-texto); letter-spacing: .12em; text-transform: uppercase; }
+.pantalla h3 { font: 700 clamp(24px, 2.6vw, 36px)/1.05 var(--f-titulo); text-transform: uppercase; margin: 12px 0 0; }
+.pantalla p { margin: 0; max-width: 46ch; font-size: 15.5px; }
+.pantalla .anima { animation: entra .5s var(--ease); }
+@media (max-width: 900px) { .mezcla { grid-template-columns: 1fr; } .canal__cuerpo { height: 180px; } }
 
 /* Consola de casos con foto */
 .consola { display: grid; grid-template-columns: minmax(240px, 320px) 1fr; border-radius: var(--radio); overflow: hidden; min-height: 460px; }
@@ -100,11 +120,6 @@
 .consola__frase .orbe { display: block; width: 56px; box-shadow: none; }
 @media (max-width: 760px) { .consola { grid-template-columns: 1fr; } .consola__lista[role="tablist"] { grid-auto-flow: column; overflow-x: auto; } .consola__lista [role="tab"] { white-space: nowrap; border-bottom: 0; } .consola__panel[role="tabpanel"] { min-height: 460px; } }
 
-/* ¿Puedo postular? */
-.puedo { display: grid; grid-template-columns: 1fr 1.5fr; gap: 48px; align-items: start; }
-.puedo__lado { position: sticky; top: 150px; display: grid; gap: 20px; }
-.puedo__lado .foto-card { min-height: 260px; }
-@media (max-width: 900px) { .puedo { grid-template-columns: 1fr; } .puedo__lado { position: static; } }
 
 /* Recorrido de 4 pasos */
 .recorrido { display: grid; grid-template-columns: 1fr 1.4fr; gap: 56px; }
@@ -138,6 +153,8 @@
 .cierre p { margin: 0 0 18px; }
 @media (max-width: 900px) { .cierre { grid-template-columns: 1fr; } }
 .faq { max-width: 900px; }
+.ventana--ancha { width: min(860px, calc(100vw - 32px)); }
+.ventana .etiqueta { color: var(--azul); }
 </style>
 </head>
 <body>
@@ -154,13 +171,13 @@
       <img class="escudo" src="../img/minciencia-blanco.png" alt="Gobierno de Chile"><img class="ctci" src="../img/minciencia-ctci-blanco.png" alt="Ministerio CTCI"><span class="x" aria-hidden="true"></span><img class="el" src="../img/elevenlabs-blanco.svg" alt="ElevenLabs">
     </a>
     <nav class="cab__nav" aria-label="Secciones">
-      <a href="#alianza">La alianza</a><a href="#beneficio">Beneficio</a><a href="#casos">Casos</a><a href="#puedo">¿Puedo postular?</a><a href="#pasos">Cómo postular</a><a href="#preguntas">Preguntas</a>
+      <a href="#alianza">La alianza</a><a href="#beneficio">Beneficio</a><a href="#fundamentos">Fundamentos</a><a href="#casos">Casos</a><a href="#pasos">Cómo postular</a><a href="#preguntas">Preguntas</a>
     </nav>
     <button class="btn btn--lima cab__cta" type="button" data-abrir-ficha>Postula <span class="flecha"></span></button>
     <button class="cab__burger" type="button" aria-expanded="false" aria-controls="menu-movil" aria-label="Abrir menú" data-burger><span></span><span></span></button>
   </div>
   <div class="cab__movil" id="menu-movil" hidden data-menu-movil>
-    <a href="#alianza">La alianza</a><a href="#beneficio">Beneficio</a><a href="#casos">Casos</a><a href="#puedo">¿Puedo postular?</a><a href="#pasos">Cómo postular</a><a href="#preguntas">Preguntas</a>
+    <a href="#alianza">La alianza</a><a href="#beneficio">Beneficio</a><a href="#fundamentos">Fundamentos</a><a href="#casos">Casos</a><a href="#pasos">Cómo postular</a><a href="#preguntas">Preguntas</a>
     <button class="btn btn--lima" type="button" data-abrir-ficha>Postula <span class="flecha"></span></button>
   </div>
 </header>
@@ -169,7 +186,6 @@
   <!-- Portada: la onda tiene 100 barras, una por cupo -->
   <section class="onda-portada" id="inicio">
     <canvas data-onda aria-hidden="true"></canvas>
-    <p class="onda-nota" aria-hidden="true">Cada barra es uno de los 100 cupos</p>
     <div class="contenedor">
       <p class="sello-colab" data-aparecer><img class="ctci" src="../img/minciencia-ctci-blanco.png" alt=""><span>×</span><img src="../img/elevenlabs-blanco.svg" alt=""><b>Activa Startup con IA</b></p>
       <h1 class="display" data-lineas><span>Dale voz</span><span class="sangria">a tu <em>startup</em></span></h1>
@@ -177,9 +193,22 @@
         <p class="lead" data-aparecer>100 startups y EBCT chilenas usarán sin costo, por 12 meses, la IA de voz de ElevenLabs en su propio producto.</p>
         <div class="portada__acciones" data-aparecer>
           <button class="btn btn--lima" type="button" data-abrir-ficha>Postula <span class="flecha"></span></button>
-          <a class="btn btn--fantasma" href="#puedo">¿Puedo postular?</a>
+          <a class="btn btn--fantasma" href="#pasos">Cómo postular</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- La alianza -->
+  <section class="tema-oscuro seccion" id="alianza" style="padding-top: calc(var(--seccion) * .7)">
+    <div class="contenedor">
+      <div class="cabeza" style="justify-content:center;text-align:center"><div style="flex:0 1 auto"><p class="etiqueta">La alianza</p><h2 class="display" data-lineas><span>Dos voces,</span><span>una <em>convocatoria</em></span></h2></div></div>
+      <div class="alianza">
+        <div class="alianza__lado" data-aparecer><img src="../img/minciencia-ctci-blanco.png" alt="Ministerio de Ciencia, Tecnología, Conocimiento e Innovación"><h3>Convoca, evalúa y selecciona</h3><ul data-rol-min></ul></div>
+        <div class="orbe" data-orbe="pulso" aria-hidden="true"></div>
+        <div class="alianza__lado alianza__lado--der" data-aparecer><img class="el" src="../img/elevenlabs-blanco.svg" alt="ElevenLabs"><h3>Aporta la tecnología</h3><ul data-rol-el></ul></div>
+      </div>
+      <p class="alianza__pie" data-aparecer>En el marco del Memorando de Entendimiento entre el Ministerio de Ciencia y ElevenLabs.</p>
     </div>
   </section>
 
@@ -200,52 +229,26 @@
   <section class="claro seccion" id="beneficio" style="padding-top: calc(var(--seccion) / 2)">
     <div class="contenedor">
       <div class="cabeza">
-        <div><p class="etiqueta">El beneficio</p><h2 class="h2">Cuatro formas de usar la <span class="acento">voz</span></h2></div>
+        <div><p class="etiqueta">El beneficio</p><h2 class="h2">La plataforma de <span class="acento">ElevenLabs</span></h2></div>
+        <p class="cabeza__lado">Cuatro productos de ElevenLabs incluidos en la licencia, según sus condiciones vigentes. Toca cada uno.</p>
       </div>
-      <div class="benef" data-pestanas>
-        <div role="tablist" aria-label="Funcionalidades">
-          <button role="tab" id="t-sintesis" aria-controls="p-sintesis">Síntesis de voz</button>
-          <button role="tab" id="t-transcripcion" aria-controls="p-transcripcion">Transcripción</button>
-          <button role="tab" id="t-agentes" aria-controls="p-agentes">Agentes de voz</button>
-          <button role="tab" id="t-musica" aria-controls="p-musica">Música</button>
-        </div>
-        <div role="tabpanel" id="p-sintesis" aria-labelledby="t-sintesis"><figure class="foto-card" style="margin:0"><img src="../img/fotos/microfono.jpg" alt="" loading="lazy"><p class="num">01</p><h3>Texto a voz</h3></figure>
-          <div class="benef__txt"><h3>Síntesis de voz</h3><ul><li>Leer en voz alta documentos y sitios.</li><li>Narrar cursos y audiolibros.</li><li>Doblar videos a otros idiomas.</li></ul></div></div>
-        <div role="tabpanel" id="p-transcripcion" aria-labelledby="t-transcripcion"><figure class="foto-card" style="margin:0"><img src="../img/fotos/educacion.jpg" alt="" loading="lazy"><p class="num">02</p><h3>Audio a texto</h3></figure>
-          <div class="benef__txt"><h3>Transcripción</h3><ul><li>Actas de reuniones y consultas.</li><li>Subtítulos para videos.</li><li>Análisis de llamadas.</li></ul></div></div>
-        <div role="tabpanel" id="p-agentes" aria-labelledby="t-agentes"><figure class="foto-card" style="margin:0"><img src="../img/fotos/atencion.jpg" alt="" loading="lazy"><p class="num">03</p><h3>Conversación en tiempo real</h3></figure>
-          <div class="benef__txt"><h3>Agentes de voz</h3><ul><li>Mesas de ayuda sin esperas.</li><li>Seguimiento a pacientes.</li><li>Tutores que responden.</li></ul></div></div>
-        <div role="tabpanel" id="p-musica" aria-labelledby="t-musica"><figure class="foto-card" style="margin:0"><img src="../img/fotos/creativas.jpg" alt="" loading="lazy"><p class="num">04</p><h3>Sonido a medida</h3></figure>
-          <div class="benef__txt"><h3>Música</h3><ul><li>Bandas sonoras para videos y juegos.</li><li>Efectos para apps.</li><li>Identidad sonora de una marca.</li></ul></div></div>
-      </div>
+      <div class="prods" data-prods></div>
       <p class="acomp-linea" data-aparecer><b>Acompañamiento</b><span>Sesión introductoria</span><span>Correo técnico</span><span>Q&amp;A cada trimestre</span></p>
     </div>
   </section>
 
-  <!-- La alianza -->
-  <section class="tema-oscuro seccion" id="alianza">
-    <div class="contenedor">
-      <div class="cabeza" style="justify-content:center;text-align:center"><div style="flex:0 1 auto"><p class="etiqueta">La alianza</p><h2 class="display" data-lineas><span>Dos voces,</span><span>una <em>convocatoria</em></span></h2></div></div>
-      <div class="alianza">
-        <div class="alianza__lado" data-aparecer><img src="../img/minciencia-ctci-blanco.png" alt="Ministerio de Ciencia, Tecnología, Conocimiento e Innovación"><h3>Convoca, evalúa y selecciona</h3><ul data-rol-min></ul></div>
-        <div class="orbe" data-orbe="pulso" aria-hidden="true"></div>
-        <div class="alianza__lado alianza__lado--der" data-aparecer><img class="el" src="../img/elevenlabs-blanco.svg" alt="ElevenLabs"><h3>Aporta la tecnología</h3><ul data-rol-el></ul></div>
-      </div>
-      <p class="alianza__pie" data-aparecer>En el marco del Memorando de Entendimiento entre el Ministerio de Ciencia y ElevenLabs.</p>
-    </div>
-  </section>
+
 
   <!-- Fundamentos -->
-  <section class="tema-oscuro seccion" id="fundamentos" style="padding-top:0">
+  <section class="tema-oscuro seccion" id="fundamentos">
     <div class="contenedor">
       <div class="cabeza">
         <div><p class="etiqueta">Política Nacional de IA</p><h2 class="h2">Tres ejes, un <span class="acento">centro</span></h2></div>
-        <p class="cabeza__lado">Toca cada eje para abrirlo.</p>
+        <p class="cabeza__lado">La convocatoria aporta a los tres ejes del Decreto N° 12 de 2024. Sube cada canal para escucharlo.</p>
       </div>
-      <div class="ejes-h" data-ejes>
-        <button class="eje-h" type="button" aria-expanded="false"><small>Eje 1</small><div><h3>Factores habilitantes</h3><div class="eje-h__txt"><p>Entrega sin costo la capacidad de uso de modelos de frontera a empresas que, en etapa temprana, no podrían costearla.</p></div></div></button>
-        <button class="eje-h" type="button" aria-expanded="true"><canvas data-chladni data-color="#1E1E4C" data-particulas="1600" aria-hidden="true"></canvas><small>Eje 2 · Centro</small><div><h3>Desarrollo y adopción</h3><div class="eje-h__txt"><p>Las empresas integran IA de voz a sus propios productos, con acompañamiento técnico de ElevenLabs, y se comprometen a un resultado medible.</p></div></div></button>
-        <button class="eje-h" type="button" aria-expanded="false"><small>Eje 3</small><div><h3>Gobernanza y ética</h3><div class="eje-h__txt"><p>Sin productos para menores de 18 años, sin clonar voces sin consentimiento y sin suplantar identidades.</p></div></div></button>
+      <div class="mezcla">
+        <div class="consola-mix" data-mix role="group" aria-label="Ejes de la Política Nacional de IA"></div>
+        <div class="pantalla" aria-live="polite"><canvas data-chladni data-fijo data-modo="1" data-color="#1E1E4C" data-particulas="1800" aria-hidden="true"></canvas><div data-pantalla></div></div>
       </div>
     </div>
   </section>
@@ -264,17 +267,7 @@
     </div>
   </section>
 
-  <!-- ¿Puedo postular? -->
-  <section class="suave-bg seccion" id="puedo">
-    <div class="contenedor puedo">
-      <div class="puedo__lado">
-        <div><p class="etiqueta">Requisitos y exclusiones</p><h2 class="display" data-lineas><span>¿Puedo</span><span class="media"><em>postular?</em></span></h2></div>
-        <p class="suave" style="margin:0">11 preguntas de sí o no, según el numeral 4 de las bases. No guardamos tus respuestas.</p>
-        <figure class="foto-card" style="margin:0"><img src="../img/fotos/equipo.jpg" alt="" loading="lazy"><p class="num">Una postulación por empresa</p><h3>Startups y EBCT chilenas</h3></figure>
-      </div>
-      <div data-elegible></div>
-    </div>
-  </section>
+
 
   <!-- Cómo postular -->
   <section class="tema-oscuro seccion" id="pasos">
@@ -288,8 +281,8 @@
         </div>
         <div class="recorrido__pasos">
           <article class="paso" data-paso-rec="Revisa si cumples"><small>Paso 1 · Antes de postular</small><h3>Revisa si cumples</h3>
-            <p>Requisitos, exclusiones y bases completas.</p>
-            <a class="btn btn--fantasma btn--chico" href="#puedo">¿Puedo postular?</a> <a class="btn btn--fantasma btn--chico" href="../bases/Bases_Activa_Startup_con_IA_2026-11-02.docx">Bases</a></article>
+            <p>11 preguntas de sí o no, según el numeral 4 de las bases. En un minuto sabes si tu empresa puede postular.</p>
+            <button class="btn btn--lima btn--chico" type="button" data-abrir="verificar">Verifica si cumples <span class="flecha"></span></button> <a class="btn btn--fantasma btn--chico" href="../bases/Bases_Activa_Startup_con_IA_2026-11-02.docx">Bases</a></article>
           <article class="paso" data-paso-rec="Reúne tus documentos"><small>Paso 2 · Prepara</small><h3>Reúne tus documentos</h3>
             <p>Marca lo que ya tienes. Queda guardado en este navegador.</p>
             <ul class="prep" data-prep>
@@ -313,6 +306,9 @@
     </div>
   </section>
 
+  <dialog class="ventana ventana--ancha" id="verificar" aria-labelledby="verificar-t"><button class="ventana__x" type="button" data-cerrar aria-label="Cerrar">×</button>
+    <div class="ventana__in"><p class="etiqueta">Requisitos y exclusiones</p><h3 id="verificar-t">¿Puedo postular?</h3><div data-elegible></div></div></dialog>
+
   <!-- Cierre con cuenta regresiva -->
   <section class="tema-oscuro" style="padding-bottom: var(--seccion)">
     <div class="contenedor">
@@ -325,27 +321,21 @@
     </div>
   </section>
 
-  <!-- Puntaje -->
-  <section class="suave-bg seccion" id="puntaje">
-    <div class="contenedor">
-      <div class="cabeza">
-        <div><p class="etiqueta">Evaluación</p><h2 class="h2">100 puntos, 7 <span class="acento">criterios</span></h2></div>
-        <p class="cabeza__lado">Solo las propuestas pertinentes pasan al puntaje. Las 100 primeras se verifican.</p>
-      </div>
-      <div data-tabla-criterios></div>
-    </div>
-  </section>
+
 
   <!-- Preguntas -->
-  <section class="claro seccion" id="preguntas">
-    <div class="contenedor faq">
-      <p class="etiqueta">Preguntas frecuentes</p><h2 class="h2">Resolvemos tus <span class="acento">dudas</span></h2>
+  <section class="suave-bg seccion" id="preguntas">
+    <div class="contenedor" style="max-width:920px">
+      <div class="cabeza" style="margin-bottom:28px"><div><p class="etiqueta">Preguntas frecuentes</p><h2 class="h2">Pregúntale a la <span class="acento">convocatoria</span></h2></div></div>
+      <div data-preguntale></div>
+    </div>
+  </section>
+  <dialog class="ventana ventana--ancha" id="todas-faq" aria-labelledby="todas-faq-t"><button class="ventana__x" type="button" data-cerrar aria-label="Cerrar">×</button>
+    <div class="ventana__in faq"><p class="etiqueta">Preguntas frecuentes</p><h3 id="todas-faq-t">Todas las preguntas</h3>
       <label class="faq__buscar"><span class="sr-only">Buscar</span><input type="search" placeholder="Buscar una pregunta…" data-faq-buscar></label>
       <div class="faq__temas" data-faq-temas></div>
       <div class="faq__lista" data-faq></div>
-      <p class="faq__vacio" data-faq-vacio hidden>No encontramos preguntas con ese texto. Consulta en <a href="https://siac.minciencia.gob.cl/web">siac.minciencia.gob.cl</a>.</p>
-    </div>
-  </section>
+      <p class="faq__vacio" data-faq-vacio hidden>No encontramos preguntas con ese texto.</p></div></dialog>
 </main>
 
 <footer class="pie">
@@ -394,22 +384,74 @@
   document.querySelector('[data-rol-min]').innerHTML = ACTIVA.colaboracion.ministerio.map((x) => `<li>${x}</li>`).join('');
   document.querySelector('[data-rol-el]').innerHTML = ACTIVA.colaboracion.elevenlabs.map((x) => `<li>${x}</li>`).join('');
 
-  // Ejes: acordeón horizontal (uno abierto a la vez); el patrón de Chladni acompaña al eje abierto
-  const ejes = [...document.querySelectorAll('[data-ejes] .eje-h')];
-  const cvEje = ejes[1].querySelector('canvas');
-  ejes.forEach((b) => b.addEventListener('click', () => { ejes.forEach((x) => x.setAttribute('aria-expanded', String(x === b))); if (!b.contains(cvEje)) { b.prepend(cvEje); setTimeout(() => dispatchEvent(new Event('resize')), 750); } }));
+  // Beneficio: productos de ElevenLabs que se expanden
+  const PRODS = [
+    ['Síntesis de voz', 'Text to Speech', 'microfono', ['Leer documentos y sitios', 'Narrar cursos y audiolibros', 'Doblar videos'], 'audio/muestra-voz.mp3'],
+    ['Transcripción', 'Speech to Text', 'educacion', ['Actas de reuniones', 'Subtítulos', 'Análisis de llamadas'], ''],
+    ['Agentes de voz', 'ElevenAgents', 'atencion', ['Mesas de ayuda sin esperas', 'Seguimiento a pacientes', 'Tutores que responden'], 'audio/muestra-agente.mp3'],
+    ['Música', 'ElevenMusic', 'creativas', ['Bandas sonoras', 'Efectos para apps', 'Identidad sonora'], 'audio/muestra-musica.mp3'],
+  ];
+  const prods = document.querySelector('[data-prods]');
+  prods.innerHTML = PRODS.map(([t, marca, foto, usos, au], i) => `<article class="prod" role="button" tabindex="0" aria-expanded="${i === 0}" data-aparecer><img src="../img/fotos/${foto}.jpg" alt="" loading="lazy">
+    <span class="prod__n">0${i + 1}</span><h3>${t}</h3><span class="prod__marca"><img src="../img/elevenlabs-simbolo.svg" alt="" style="filter:invert(1)">${marca}</span>
+    <div class="prod__mas"><div><ul>${usos.map((u) => `<li>${u}</li>`).join('')}</ul>${au ? `<button class="btn btn--lima btn--chico" type="button" data-escuchar="" data-audio="../${au}">Escuchar una muestra</button>` : ''}</div></div></article>`).join('');
+  const abrirProd = (p) => prods.querySelectorAll('.prod').forEach((x) => x.setAttribute('aria-expanded', String(x === p)));
+  prods.addEventListener('click', (e) => { const p = e.target.closest('.prod'); if (p && !e.target.closest('[data-audio]')) abrirProd(p); });
+  prods.addEventListener('mouseover', (e) => { const p = e.target.closest('.prod'); if (p && matchMedia('(hover: hover)').matches) abrirProd(p); });
+  prods.addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('prod')) { e.preventDefault(); abrirProd(e.target); } });
+
+  // Fundamentos: mezclador. El canal más alto es el eje que se muestra en la pantalla.
+  const EJES = [
+    { n: 'Eje 1', nom: 'Factores habilitantes', cifra: '44M', dato: 'créditos por empresa, sin costo', txt: 'Baja la barrera de costo para usar IA de frontera cuando la empresa todavía está validando su producto.', modo: 0 },
+    { n: 'Eje 2 · Centro', nom: 'Desarrollo y adopción', cifra: '100', dato: 'empresas integrando IA de voz', txt: 'Las empresas integran la plataforma a su propio producto, con acompañamiento técnico de ElevenLabs, y miden su resultado.', modo: 1 },
+    { n: 'Eje 3', nom: 'Gobernanza y ética', cifra: '0', dato: 'voces clonadas sin consentimiento', txt: 'Uso responsable: sin productos para menores de 18 años, sin clonar voces sin permiso y sin suplantar identidades.', modo: 4 },
+  ];
+  const mix = document.querySelector('[data-mix]'), pantalla = document.querySelector('[data-pantalla]'), cvMix = document.querySelector('.pantalla canvas');
+  const SEG = 14, niveles = [38, 88, 56];
+  mix.innerHTML = EJES.map((e, i) => `<div class="canal" data-c="${i}"><span class="canal__n">${e.n}</span>
+    <div class="canal__cuerpo"><span class="vu" aria-hidden="true">${'<i></i>'.repeat(SEG)}</span>
+      <input class="fader" type="range" min="0" max="100" value="${niveles[i]}" aria-label="${e.nom}" aria-valuetext="${e.nom}"></div>
+    <button class="canal__nom" type="button">${e.nom}</button></div>`).join('');
+  let activo = -1;
+  const pintarMix = () => {
+    const k = niveles.indexOf(Math.max(...niveles));
+    mix.querySelectorAll('.canal').forEach((c, i) => {
+      c.classList.toggle('is-activo', i === k);
+      const on = Math.round(niveles[i] / 100 * SEG);
+      c.querySelectorAll('.vu i').forEach((s, j) => { s.classList.toggle('on', j < on); s.classList.toggle('alto', j >= SEG - 3); });
+    });
+    if (k === activo) return; activo = k;
+    const e = EJES[k];
+    pantalla.innerHTML = `<div class="anima"><div class="pantalla__cifra">${e.cifra}</div><div class="pantalla__dato">${e.dato}</div><h3>${e.nom}</h3><p>${e.txt}</p></div>`;
+    cvMix.cambiarModo?.(e.modo);
+  };
+  mix.addEventListener('input', (e) => { const c = e.target.closest('.canal'); if (!c) return; niveles[Number(c.dataset.c)] = Number(e.target.value); pintarMix(); });
+  // Tocar el nombre sube ese canal al máximo y baja los demás, con un pequeño deslizamiento
+  mix.addEventListener('click', (e) => {
+    const b = e.target.closest('.canal__nom'); if (!b) return;
+    const k = Number(b.closest('.canal').dataset.c), inicio = [...niveles], meta = niveles.map((_, i) => (i === k ? 95 : 30 + i * 8)), t0 = performance.now();
+    const paso = (t) => { const a = reduce ? 1 : Math.min(1, (t - t0) / 500), f = 1 - (1 - a) ** 3;
+      niveles.forEach((_, i) => { niveles[i] = Math.round(inicio[i] + (meta[i] - inicio[i]) * f); mix.querySelectorAll('.fader')[i].value = niveles[i]; });
+      pintarMix(); if (a < 1) requestAnimationFrame(paso); };
+    requestAnimationFrame(paso);
+  });
+  // El canal activo «vibra» un poco, como un vúmetro real
+  setInterval(() => { if (reduce || activo < 0) return; const c = mix.querySelectorAll('.canal')[activo], on = Math.round(niveles[activo] / 100 * SEG) - Math.round(Math.random() * 2);
+    c.querySelectorAll('.vu i').forEach((s, j) => s.classList.toggle('on', j < on)); }, 140);
+  pintarMix();
 
   // Consola de casos con foto
   const lista = document.querySelector('.consola__lista'), panel = document.querySelector('.consola__panel');
   lista.innerHTML = ACTIVA.ambitos.map((a, i) => `<button role="tab" type="button" aria-selected="${i === 0}" data-i="${i}"><span>0${i + 1}</span>${a.nombre}</button>`).join('');
   const mostrar = (i) => {
-    window.speechSynthesis?.cancel();
+    ACTIVA.parar?.();
     const a = ACTIVA.ambitos[i];
     lista.querySelectorAll('[role=tab]').forEach((b, k) => b.setAttribute('aria-selected', String(k === i)));
     panel.innerHTML = `<img src="../img/${a.foto}" alt="">
       <h3>${a.nombre}</h3><p>${a.corto}</p>
       <p class="consola__frase"><span class="orbe" data-orbe="pulso" aria-hidden="true"></span>«${a.frase}»</p>
-      <button class="btn btn--lima btn--chico" type="button" data-escuchar="${esc(a.frase)}" style="justify-self:start">Escuchar el ejemplo</button>`;
+      <button class="btn btn--lima btn--chico" type="button" data-escuchar="${esc(a.frase)}" data-audio="../${a.audio}" style="justify-self:start">Escuchar el ejemplo</button>`;
+    ACTIVA.audios?.(panel);
   };
   lista.addEventListener('click', (e) => { const b = e.target.closest('[data-i]'); if (b) mostrar(Number(b.dataset.i)); });
   lista.addEventListener('keydown', (e) => { const d = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key]; if (!d) return; e.preventDefault(); const bs = [...lista.children], i = (bs.findIndex((b) => b.getAttribute('aria-selected') === 'true') + d + bs.length) % bs.length; mostrar(i); bs[i].focus(); });
@@ -437,8 +479,6 @@
   };
   prep.forEach((x) => x.addEventListener('change', contar)); contar();
 
-  // El módulo de pestañas escribe su pestaña en la URL: se conserva el enlace con que se llegó
-  window.__hashInicial = location.hash;
 })();
 </script>
 <script src="../../../modulos/01-barra-aviso-por-fecha/modulo.js"></script>
@@ -447,9 +487,8 @@
 <script src="../../../modulos/05-aparicion-al-desplazar/modulo.js"></script>
 <script src="../../../modulos/06-cifras-y-dias/modulo.js"></script>
 <script src="../../../modulos/07-cuenta-regresiva/modulo.js"></script>
+<script src="../../../modulos/11-ventana-desde-la-tarjeta/modulo.js"></script>
 <script src="../../../modulos/12-preguntas-frecuentes/modulo.js"></script>
-<script src="../../../modulos/13-pestanas/modulo.js"></script>
-<script>history.replaceState(null, '', location.pathname + location.search + (window.__hashInicial || ''));</script>
 <script src="../comun/graficos.js"></script>
 <script src="../comun/postulacion.js" data-endpoint=""></script>
 </body>

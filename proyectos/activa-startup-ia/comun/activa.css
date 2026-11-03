@@ -295,3 +295,24 @@ h1, h2, h3, h4 { font-family: var(--f-titulo); letter-spacing: -.02em; }
 .fx .btn { font-size: 12px; min-height: 42px; padding: 10px 18px; }
 .fx .btn--linea { color: var(--ink); border-color: var(--n-350); }
 .fx .btn--acento { --b-fondo: var(--azul); }
+
+/* ---------- Pregúntale a la convocatoria (convocatoria.js · [data-preguntale]) ---------- */
+.preg { display: grid; gap: 18px; }
+.preg__form { display: flex; gap: 8px; padding: 8px; border-radius: 999px; background: #fff; border: 1.5px solid var(--n-250); box-shadow: 0 20px 50px rgba(19,19,50,.08); }
+.preg__form:focus-within { border-color: var(--azul); }
+.preg__form input { flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font: 500 16px var(--f-texto); color: var(--ink); padding: 0 16px; }
+.preg__form .btn { --b-fondo: var(--navy-900); --b-texto: #fff; }
+.preg__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.preg__chips button { padding: 9px 14px; border-radius: 999px; border: 1.5px solid var(--n-250); background: #fff; color: var(--ink); font: 500 13.5px/1.3 var(--f-texto); cursor: pointer; text-align: left; transition: border-color .2s, background .2s; }
+.preg__chips button:hover { border-color: var(--azul); background: var(--azul-50); }
+.preg__hilo { display: grid; gap: 10px; }
+.preg__hilo:empty { display: none; }
+.preg__yo { justify-self: end; max-width: 80%; margin: 0; padding: 12px 18px; border-radius: 20px 20px 4px 20px; background: var(--navy-900); color: #fff; font-size: 15px; animation: entra .4s var(--ease); }
+.preg__resp { justify-self: start; max-width: 86%; padding: 18px 20px; border-radius: 20px 20px 20px 4px; background: var(--lima); color: var(--navy-900); animation: entra .5s .1s var(--ease) backwards; }
+.preg__resp b { display: block; font: 600 15px/1.35 var(--f-titulo); margin-bottom: 6px; }
+.preg__resp p { margin: 0; font-size: 15px; line-height: 1.55; }
+.preg__resp a { color: var(--azul-700); }
+.preg__pie { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
+.preg__todas { border: 0; background: none; padding: 0; color: var(--azul); font: 600 13.5px var(--f-texto); text-decoration: underline; cursor: pointer; }
+@keyframes entra { from { opacity: 0; transform: translateY(8px); } }
+@media (max-width: 560px) { .preg__form { border-radius: 20px; flex-direction: column; } .preg__form input { padding: 10px 12px; } .preg__yo, .preg__resp { max-width: 100%; } }

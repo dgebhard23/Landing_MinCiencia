@@ -324,7 +324,7 @@
   // Casos con foto
   document.querySelector('[data-casos]').innerHTML = ACTIVA.ambitos.map((a, i) => `<figure class="foto-card" data-aparecer style="margin:0"><img src="../img/${a.foto}" alt="" loading="lazy">
     <p class="num">${String(i + 1).padStart(2, '0')}</p><h3>${a.nombre}</h3><p>${a.corto}</p>
-    <button class="escuchar" type="button" data-escuchar="${esc(a.frase)}"><i aria-hidden="true"></i>Escuchar un ejemplo</button></figure>`).join('');
+    <button class="escuchar" type="button" data-escuchar="${esc(a.frase)}" data-audio="../${a.audio}"><i aria-hidden="true"></i>Escuchar un ejemplo</button></figure>`).join('');
   // Pasos con estado según la fecha
   const PASOS = [['Revisa si cumples', 'Requisitos, exclusiones y bases.'], ['Postula en línea', 'Formulario en 6 pasos, con tus documentos.'], ['Evaluación', 'Admisibilidad, puntaje y verificación.'], ['Activa tu licencia', 'Resultados el 3 de diciembre.']];
   const E = ACTIVA.etapas.map((e) => e.estado), une = (a, b) => (a === 'live' || b === 'live' ? 'live' : a === 'done' && b === 'done' ? 'done' : a === 'done' ? 'live' : 'next');

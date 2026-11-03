@@ -27,11 +27,11 @@
       { id: 'region', nombre: 'Casa matriz fuera de la Región Metropolitana', max: 10, niveles: [[0, 'Casa matriz en la Región Metropolitana'], [10, 'Casa matriz en otra región']], prueba: 'Carpeta Tributaria Electrónica del SII (domicilio registrado).' },
     ],
     ambitos: [
-      { id: 'accesibilidad', corto: 'Lectura en voz alta e interfaces habladas.', foto: 'fotos/accesibilidad.jpg', nombre: 'Accesibilidad e inclusión', ej: 'Lectura en voz alta de documentos y sitios, interfaces habladas para personas ciegas o con baja visión, comunicación aumentativa para personas que perdieron el habla.', frase: 'Hola. Este documento tiene tres páginas. ¿Quieres que lo lea completo o solo el resumen?' },
-      { id: 'salud', corto: 'Recordatorios y seguimiento a pacientes por voz.', foto: 'fotos/salud.jpg', nombre: 'Salud y cuidados', ej: 'Agentes de voz que recuerdan tratamientos, siguen a pacientes crónicos o confirman horas médicas; transcripción de consultas para la ficha clínica.', frase: 'Buenos días. Le recuerdo que hoy a las ocho le toca su control de presión. ¿Lo pudo registrar?' },
-      { id: 'educacion', corto: 'Tutorías y cursos narrados, para personas adultas.', foto: 'fotos/educacion.jpg', nombre: 'Educación', ej: 'Tutorías por voz, doblaje de cursos y capacitaciones, audiolibros formativos. Solo para personas adultas: se excluyen los productos dirigidos a menores de 18 años.', frase: 'Retomemos la unidad tres. Antes de seguir, ¿me cuentas con tus palabras qué es una tasa de interés?' },
-      { id: 'servicios', corto: 'Agentes que atienden sin tiempos de espera.', foto: 'fotos/atencion.jpg', nombre: 'Servicios y atención automatizada', ej: 'Mesas de ayuda con agentes conversacionales en tiempo real, atención telefónica sin esperas, transcripción y análisis de llamadas.', frase: 'Gracias por llamar. Ya encontré su pedido: llega mañana entre las diez y las dos. ¿Necesita algo más?' },
-      { id: 'creativas', corto: 'Doblaje, narración y sonido para contenidos.', foto: 'fotos/creativas.jpg', nombre: 'Industrias creativas', ej: 'Doblaje multilingüe de series y documentales, narración de podcasts, efectos de sonido y música para videojuegos y producciones audiovisuales.', frase: 'Capítulo uno. En el extremo sur del mundo, donde el viento no se detiene, comienza esta historia.' },
+      { id: 'accesibilidad', audio: 'audio/accesibilidad.mp3', corto: 'Lectura en voz alta e interfaces habladas.', foto: 'fotos/accesibilidad.jpg', nombre: 'Accesibilidad e inclusión', ej: 'Lectura en voz alta de documentos y sitios, interfaces habladas para personas ciegas o con baja visión, comunicación aumentativa para personas que perdieron el habla.', frase: 'Hola. Este documento tiene tres páginas. ¿Quieres que lo lea completo o solo el resumen?' },
+      { id: 'salud', audio: 'audio/salud.mp3', corto: 'Recordatorios y seguimiento a pacientes por voz.', foto: 'fotos/salud.jpg', nombre: 'Salud y cuidados', ej: 'Agentes de voz que recuerdan tratamientos, siguen a pacientes crónicos o confirman horas médicas; transcripción de consultas para la ficha clínica.', frase: 'Buenos días. Le recuerdo que hoy a las ocho le toca su control de presión. ¿Lo pudo registrar?' },
+      { id: 'educacion', audio: 'audio/educacion.mp3', corto: 'Tutorías y cursos narrados, para personas adultas.', foto: 'fotos/educacion.jpg', nombre: 'Educación', ej: 'Tutorías por voz, doblaje de cursos y capacitaciones, audiolibros formativos. Solo para personas adultas: se excluyen los productos dirigidos a menores de 18 años.', frase: 'Retomemos la unidad tres. Antes de seguir, ¿me cuentas con tus palabras qué es una tasa de interés?' },
+      { id: 'servicios', audio: 'audio/servicios.mp3', corto: 'Agentes que atienden sin tiempos de espera.', foto: 'fotos/atencion.jpg', nombre: 'Servicios y atención automatizada', ej: 'Mesas de ayuda con agentes conversacionales en tiempo real, atención telefónica sin esperas, transcripción y análisis de llamadas.', frase: 'Gracias por llamar. Ya encontré su pedido: llega mañana entre las diez y las dos. ¿Necesita algo más?' },
+      { id: 'creativas', audio: 'audio/creativas.mp3', corto: 'Doblaje, narración y sonido para contenidos.', foto: 'fotos/creativas.jpg', nombre: 'Industrias creativas', ej: 'Doblaje multilingüe de series y documentales, narración de podcasts, efectos de sonido y música para videojuegos y producciones audiovisuales.', frase: 'Capítulo uno. En el extremo sur del mundo, donde el viento no se detiene, comienza esta historia.' },
     ],
     // Numeral 1: quién hace qué en la colaboración (Memorando de Entendimiento)
     colaboracion: {
@@ -174,16 +174,58 @@
       ACTIVA.criterios.map((c) => `<tr><td>${c.nombre}</td><td class="pts">${c.max}</td><td>${c.niveles.map(([p, x]) => `<b>${p}</b> · ${x}`).join('<br>')}</td><td>${c.prueba}</td></tr>`).join('')}</tbody></table></div>`;
   });
 
-  // ---------- Escuchar un ejemplo (voz del navegador, solo ilustrativa) [data-escuchar] ----------
+  // ---------- Escuchar un ejemplo [data-audio="ruta.mp3"] ----------
+  // Solo reproduce audios reales generados en ElevenLabs (ver audio/LEEME.md). Si el archivo no existe,
+  // el botón queda oculto: no se usa la voz del navegador para no confundirla con la de ElevenLabs.
+  // Mientras suena, ACTIVA.sonando es true (lo usa el orbe de graficos.js).
+  let audio = null;
+  const existe = {};
+  const probar = (src) => (existe[src] ||= new Promise((ok) => { const a = new Audio(); a.preload = 'metadata'; a.onloadedmetadata = () => ok(true); a.onerror = () => ok(false); a.src = src; }));
+  ACTIVA.audios = (raiz = document) => raiz.querySelectorAll('[data-audio]').forEach((b) => { b.hidden = true; probar(b.dataset.audio).then((ok) => { b.hidden = !ok; }); });
+  const parar = () => { if (audio) { audio.pause(); audio = null; } ACTIVA.sonando = false; document.querySelectorAll('.is-sonando').forEach((x) => x.classList.remove('is-sonando')); };
   document.addEventListener('click', (e) => {
-    const b = e.target.closest('[data-escuchar]'); if (!b) return;
-    if (!('speechSynthesis' in window)) { b.textContent = 'Tu navegador no puede leer en voz alta'; return; }
-    if (speechSynthesis.speaking) { speechSynthesis.cancel(); return; }
-    const u = new SpeechSynthesisUtterance(b.dataset.escuchar);
-    u.lang = 'es-CL'; u.rate = 1;
-    const voz = speechSynthesis.getVoices().find((v) => v.lang === 'es-CL') || speechSynthesis.getVoices().find((v) => v.lang.startsWith('es'));
-    if (voz) u.voice = voz;
-    b.classList.add('is-sonando'); u.onend = u.onerror = () => b.classList.remove('is-sonando');
-    speechSynthesis.speak(u);
+    const b = e.target.closest('[data-audio]'); if (!b) return;
+    if (b.classList.contains('is-sonando')) { parar(); return; }
+    parar();
+    b.classList.add('is-sonando'); ACTIVA.sonando = true;
+    audio = new Audio(b.dataset.audio);
+    audio.onended = audio.onerror = parar;
+    audio.play().catch(parar);
+  });
+  document.addEventListener('DOMContentLoaded', () => ACTIVA.audios());
+  ACTIVA.parar = parar;
+
+  // ---------- Pregúntale a la convocatoria [data-preguntale] ----------
+  // Buscador sobre las mismas preguntas frecuentes (sin IA): ordena por palabras en común y muestra
+  // la mejor respuesta como burbuja, con otras preguntas relacionadas como botones.
+  const norm = (x) => x.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const VACIAS = new Set('el la los las de del y o a en un una que se es por para con mi su sus lo al si no como cual cuales cuando donde puedo puede tengo hay mas'.split(' '));
+  const SINONIMOS = { plata: 'dinero', pagan: 'dinero', gratis: 'dinero', costo: 'dinero', cuesta: 'dinero', empleados: 'trabajadores', personal: 'trabajadores', ninos: 'menores', escolares: 'menores', colegios: 'menores', fecha: 'hasta', plazo: 'hasta', cierre: 'hasta', papeles: 'documentos', requisitos: 'postular', ganadores: 'resultados', seleccionados: 'resultados' };
+  const palabras = (x) => norm(x).split(/[^a-z0-9]+/).filter((w) => w.length > 2 && !VACIAS.has(w)).map((w) => SINONIMOS[w] || w);
+  const raiz = (w) => w.slice(0, 5);
+  const indice = ACTIVA.faq.map(([t, q, r], i) => ({ i, t, q, r, claves: new Set([...palabras(q), ...palabras(q), ...palabras(r)].map(raiz)), enQ: new Set(palabras(q).map(raiz)) }));
+  ACTIVA.buscarFaq = (txt) => {
+    const ws = palabras(txt).map(raiz); if (!ws.length) return [];
+    return indice.map((e) => ({ e, p: ws.reduce((s, w) => s + (e.enQ.has(w) ? 3 : e.claves.has(w) ? 1 : 0), 0) })).filter((x) => x.p > 0).sort((a, b) => b.p - a.p).map((x) => x.e);
+  };
+  document.querySelectorAll('[data-preguntale]').forEach((caja) => {
+    const populares = (caja.dataset.preguntale || '1,4,6,5,11,15').split(',').map(Number);
+    caja.classList.add('preg');
+    caja.innerHTML = `<form class="preg__form" role="search"><label class="sr-only" for="preg-q">Escribe tu pregunta</label>
+      <input id="preg-q" type="search" placeholder="¿Qué quieres saber? Por ejemplo: ¿puedo postular sin trabajadores?" autocomplete="off"><button class="btn btn--lima" type="submit">Preguntar</button></form>
+      <div class="preg__chips" data-chips></div><div class="preg__hilo" aria-live="polite" data-hilo></div>
+      <p class="preg__pie">¿No está tu pregunta? <button class="preg__todas" type="button" data-todas>Ver las ${ACTIVA.faq.length} preguntas</button> o consulta en <a href="${ACTIVA.contacto}" target="_blank" rel="noopener">siac.minciencia.gob.cl</a> hasta el 10 de noviembre.</p>`;
+    const chips = caja.querySelector('[data-chips]'), hilo = caja.querySelector('[data-hilo]'), input = caja.querySelector('input');
+    const ponerChips = (lista) => { chips.innerHTML = lista.map((e) => `<button type="button" data-q="${e.i}">${e.q}</button>`).join(''); };
+    const responder = (pregunta, e, otras) => {
+      hilo.innerHTML = `<p class="preg__yo">${pregunta.replace(/</g, '&lt;')}</p>` + (e
+        ? `<div class="preg__resp"><b>${e.q}</b><p>${e.r}</p></div>`
+        : `<div class="preg__resp"><p>No encontré una respuesta para eso en las preguntas frecuentes. Revisa las bases o consulta en <a href="${ACTIVA.contacto}" target="_blank" rel="noopener">siac.minciencia.gob.cl</a>.</p></div>`);
+      ponerChips(otras.length ? otras : populares.map((k) => indice[k]));
+    };
+    ponerChips(populares.map((k) => indice[k]));
+    caja.querySelector('form').addEventListener('submit', (ev) => { ev.preventDefault(); const q = input.value.trim(); if (!q) return; const r = ACTIVA.buscarFaq(q); responder(q, r[0], r.slice(1, 4)); });
+    chips.addEventListener('click', (ev) => { const b = ev.target.closest('[data-q]'); if (!b) return; const e = indice[Number(b.dataset.q)]; const rel = ACTIVA.buscarFaq(e.q).filter((x) => x.i !== e.i).slice(0, 3); responder(e.q, e, rel); });
+    caja.querySelector('[data-todas]').addEventListener('click', (ev) => { const d = document.getElementById('todas-faq'); if (d) (window.Ventana ? Ventana.abrir(d, ev.currentTarget) : d.showModal()); });
   });
 })();

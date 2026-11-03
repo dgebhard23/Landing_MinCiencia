@@ -26,6 +26,7 @@ comun/
 propuesta-1-institucional/      ← la más cercana a Reglamentos
 propuesta-2-voz/                ← la más expresiva
 propuesta-3-panel/              ← la más útil para quien postula
+audio/                          ← MP3 generados en ElevenLabs para «Escuchar» (ver audio/LEEME.md)
 apps-script/                    ← backend: Sheets + Drive (subcarpeta por postulación) + folio + acuse de recibo
 img/                            ← logos MinCiencia y ElevenLabs, fotos (fotos/) y sus créditos (CREDITOS.md)
 ```
@@ -53,6 +54,8 @@ Es común a las 3 propuestas. Lo que cambió respecto de Lovable está detallado
 Además, guarda un borrador en el navegador (sin los archivos), descarga una copia en Word y entrega un folio al enviar. Sin `data-endpoint` funciona en modo demostración y no envía nada.
 
 ## Pendientes
+
+- **Propuesta elegida: la 2 (La voz).** Faltan los MP3 de ElevenLabs en `audio/`: sin ellos los botones «Escuchar» no aparecen.
 
 - SVG oficial del logo «Ministerio CTCI» desde la página Logos del Figma (hoy es el PNG de la propuesta Lovable).
 - Fotos propias de startups chilenas para reemplazar las de Unsplash.

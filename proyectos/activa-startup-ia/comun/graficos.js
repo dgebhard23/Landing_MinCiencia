@@ -1,6 +1,7 @@
 /* Gráficos generados para Activa Startup con IA, sin imágenes externas.
    - <canvas data-chladni data-color="#97A9FC">: partículas que se ordenan sobre las líneas nodales de una placa
      de Chladni (el motivo gráfico de ElevenLabs) y cambian de modo cada pocos segundos.
+     Con data-fijo no cambia solo; se cambia con canvas.cambiarModo(n).
    - <div class="orbe" data-orbe>: orbe de voz en CSS (ver activa.css · .orbe-css). Con data-orbe="pulso" late.
    - <div class="cuadros" data-cuadros="100" data-on="100" style="--cols:20">: grilla de cuadros que se
      encienden al aparecer (la barra «16 de 16 regiones» del Home MINCTCI).
@@ -37,8 +38,12 @@
       for (const p of P) ctx.fillRect(ox + p[0] * s, oy + p[1] * s, r, r);
     };
     const asentar = () => { for (let i = 0; i < 700; i++) paso(.05); };
+    const fijo = cv.hasAttribute('data-fijo');
+    const sacudir = () => P.forEach((p) => { p[0] += (Math.random() - .5) * .25; p[1] += (Math.random() - .5) * .25; });
+    // Cambiar de figura desde afuera: canvas.cambiarModo(n)
+    cv.cambiarModo = (k) => { if (k === modo) return; modo = k; sacudir(); if (reduce) { asentar(); dibujar(); } };
     const bucle = (t) => {
-      if (t - t0 > 6500) { modo++; t0 = t; P.forEach((p) => { p[0] += (Math.random() - .5) * .25; p[1] += (Math.random() - .5) * .25; }); }
+      if (!fijo && t - t0 > 6500) { modo++; t0 = t; sacudir(); }
       paso(.02); dibujar();
       raf = on ? requestAnimationFrame(bucle) : 0;
     };
@@ -64,6 +69,6 @@
     if (!e.target.closest('[data-escuchar]')) return;
     document.querySelectorAll('[data-orbe="pulso"]').forEach((o) => { o.classList.add('is-hablando'); });
     const fin = () => document.querySelectorAll('[data-orbe="pulso"]').forEach((o) => o.classList.remove('is-hablando'));
-    const t = setInterval(() => { if (!window.speechSynthesis?.speaking) { clearInterval(t); fin(); } }, 400);
+    const t = setInterval(() => { if (!window.ACTIVA?.sonando) { clearInterval(t); fin(); } }, 400);
   });
 })();

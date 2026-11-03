@@ -336,7 +336,7 @@
   // Casos en el carrusel
   document.querySelector('[data-casos]').innerHTML = ACTIVA.ambitos.map((a, i) => `<figure class="carrusel__item"><div class="foto-card"><img src="../img/${a.foto}" alt="" loading="lazy">
     <p class="num">0${i + 1} / 05</p><h3>${a.nombre}</h3><p>${a.corto}</p><blockquote>«${a.frase}»</blockquote>
-    <button class="btn btn--lima btn--chico" type="button" data-escuchar="${esc(a.frase)}">Escuchar</button></div></figure>`).join('');
+    <button class="btn btn--lima btn--chico" type="button" data-escuchar="${esc(a.frase)}" data-audio="../${a.audio}">Escuchar</button></div></figure>`).join('');
   // Mapa de ejes
   const EJES = [
     ['Eje 1 · Factores habilitantes', 'Entrega sin costo la capacidad de uso de la plataforma de ElevenLabs a empresas que, en etapa temprana, no podrían costearla.'],
