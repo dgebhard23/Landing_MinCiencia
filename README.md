@@ -4,6 +4,17 @@ Funcionalidades probadas en las landings y plataformas que hemos construido: la 
 
 **Para ver el catálogo**, abre `index.html` en el navegador. Es una galería con buscador y filtros por categoría. Cada tarjeta lleva a su módulo funcionando.
 
+## Skills de apoyo
+
+En `skills/` están guardadas, con su licencia, las skills externas que se usan para diseñar y escribir estas landings:
+
+- **Diseño UI/UX:** ui-ux-pro-max, impeccable y taste-skill.
+- **Sistemas de diseño de referencia:** awesome-design-md.
+- **Diagramas:** diagram-design.
+- **Escritura:** humanizer y stop-slop.
+
+El índice, con cuándo usar cada una, está en `skills/README.md`.
+
 ## Cómo está organizado
 
 ```
@@ -21,6 +32,7 @@ ejemplos/
   landing-reglamentos-tt/ ← la landing original completa (envío desconectado)
   buzon-ebct/             ← el buzón interactivo original (endpoint e ID de planilla en blanco)
 catalogo.json    ← listado de módulos (nombre, categoría, qué hace, cuándo usarlo, origen)
+skills/          ← 12 skills externas de diseño, diagramas y escritura, ordenadas por especialidad (ver skills/README.md)
 ```
 
 ## Catálogo
