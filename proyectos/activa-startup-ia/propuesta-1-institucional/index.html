@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activa Startup con IA · Convocatoria MinCiencia</title>
+<meta name="description" content="Hasta 100 startups y EBCT chilenas acceden sin costo a la plataforma de IA de voz de ElevenLabs durante 12 meses. Postulaciones hasta el 16 de noviembre de 2026.">
+<meta name="theme-color" content="#071330">
+<!-- Propuesta 1 · Institucional. La más cercana a la landing de Reglamentos TT:
+     portada con haces de luz, cifras, ejes en ventanas que nacen de la tarjeta, hoja de ruta en U y carta Gantt. -->
+<link rel="stylesheet" href="../../../base/tokens.css">
+<link rel="stylesheet" href="../../../base/base.css">
+<link rel="stylesheet" href="../../../modulos/01-barra-aviso-por-fecha/modulo.css">
+<link rel="stylesheet" href="../../../modulos/02-encabezado-inteligente/modulo.css">
+<link rel="stylesheet" href="../../../modulos/03-portada-haces-de-luz/modulo.css">
+<link rel="stylesheet" href="../../../modulos/04-titulos-que-suben/modulo.css">
+<link rel="stylesheet" href="../../../modulos/05-aparicion-al-desplazar/modulo.css">
+<link rel="stylesheet" href="../../../modulos/06-cifras-y-dias/modulo.css">
+<link rel="stylesheet" href="../../../modulos/08-carta-gantt/modulo.css">
+<link rel="stylesheet" href="../../../modulos/09-hoja-de-ruta-en-u/modulo.css">
+<link rel="stylesheet" href="../../../modulos/11-ventana-desde-la-tarjeta/modulo.css">
+<link rel="stylesheet" href="../../../modulos/12-preguntas-frecuentes/modulo.css">
+<link rel="stylesheet" href="../../../modulos/15-formulario-por-pasos/modulo.css">
+<link rel="stylesheet" href="../../../modulos/20-logos-agrupados/modulo.css">
+<link rel="stylesheet" href="../comun/activa.css">
+<style>
+/* Beneficio: funcionalidades en una grilla con número grande */
+.funcs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--c-borde); border: 1px solid var(--c-borde); border-radius: var(--radio); overflow: hidden; }
+.funcs article { background: #fff; padding: 28px 24px 32px; display: grid; gap: 10px; align-content: start; min-height: 240px; }
+.funcs .num { font: 700 13px var(--f-texto); color: var(--red-500); letter-spacing: .1em; }
+.funcs h3 { font-size: 24px; text-transform: uppercase; letter-spacing: -.02em; margin: 0; }
+.funcs p { margin: 0; color: var(--ink-soft); font-size: 15px; }
+@media (max-width: 960px) { .funcs { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .funcs { grid-template-columns: 1fr; } .funcs article { min-height: 0; } }
+.acomp { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+.acomp li { list-style: none; padding: 20px; border-radius: var(--radio-sm); background: var(--navy-900); color: #fff; }
+.acomp b { display: block; font: 600 18px var(--f-titulo); margin-bottom: 4px; }
+.acomp span { color: var(--c-oscuro-suave); font-size: 14.5px; }
+.acomp-wrap { margin: 0; padding: 0; }
+@media (max-width: 760px) { .acomp { grid-template-columns: 1fr; } }
+.nota-letra { font-size: 14px; color: var(--ink-soft); margin-top: 18px; }
+
+/* Fundamentos: tres ejes, el 2 destacado */
+.ejes { display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 18px; align-items: stretch; }
+.eje { display: grid; gap: 14px; align-content: start; padding: 28px; border-radius: var(--radio); background: var(--navy-800); border: 1px solid var(--c-oscuro-borde); color: #fff; }
+.eje--nucleo { background: var(--blue-500); border-color: var(--blue-500); }
+.eje__n { font: 700 13px var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--blue-300); }
+.eje--nucleo .eje__n { color: #fff; }
+.eje h3 { font-size: clamp(24px, 2.2vw, 32px); text-transform: uppercase; letter-spacing: -.03em; margin: 0; }
+.eje p { margin: 0; color: #d6e2f5; }
+.eje .btn { justify-self: start; margin-top: 6px; }
+.eje__sello { justify-self: start; background: var(--red-500); color: #fff; font: 700 11px var(--f-texto); letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border-radius: 99px; }
+@media (max-width: 960px) { .ejes { grid-template-columns: 1fr; } }
+.ventana { color: var(--ink); }
+.ventana ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+.ventana .etiqueta { color: var(--blue-500); }
+
+/* Casos: 5 ámbitos en tarjetas con ejemplo y botón para escuchar */
+.casos { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+.caso { grid-column: span 2; display: grid; gap: 12px; align-content: start; padding: 26px; border-radius: var(--radio); background: #fff; border: 1px solid var(--c-borde); }
+.caso:nth-child(4), .caso:nth-child(5) { grid-column: span 3; }
+.caso .num { font: 700 13px var(--f-texto); color: var(--red-500); letter-spacing: .1em; }
+.caso h3 { font-size: 24px; margin: 0; }
+.caso p { margin: 0; color: var(--ink-soft); font-size: 15px; }
+.escuchar { justify-self: start; display: inline-flex; align-items: center; gap: 10px; border: 0; background: var(--paper); border-radius: 99px; padding: 8px 14px 8px 8px; font: 600 13.5px var(--f-texto); color: var(--ink); cursor: pointer; }
+.escuchar i { width: 28px; height: 28px; border-radius: 50%; background: var(--ink); display: grid; place-items: center; }
+.escuchar i::before { content: ""; border-left: 9px solid #fff; border-top: 6px solid transparent; border-bottom: 6px solid transparent; margin-left: 3px; }
+.escuchar.is-sonando i { background: var(--red-500); }
+.escuchar.is-sonando i::before { border: 0; width: 9px; height: 9px; background: #fff; margin: 0; }
+@media (max-width: 960px) { .casos { grid-template-columns: 1fr 1fr; } .caso, .caso:nth-child(4), .caso:nth-child(5) { grid-column: auto; } }
+@media (max-width: 600px) { .casos { grid-template-columns: 1fr; } }
+
+/* Requisitos */
+.req { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.req h3 { font-size: 22px; text-transform: uppercase; letter-spacing: -.02em; }
+@media (max-width: 860px) { .req { grid-template-columns: 1fr; } }
+.docs { margin-top: 48px; }
+.docs ol { margin: 0; padding: 0; list-style: none; counter-reset: d; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 32px; }
+.docs li { counter-increment: d; display: grid; grid-template-columns: 36px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--c-borde); }
+.docs li::before { content: counter(d, decimal-leading-zero); font: 700 15px var(--f-titulo); color: var(--blue-500); }
+.docs small { display: block; color: var(--ink-soft); }
+@media (max-width: 760px) { .docs ol { grid-template-columns: 1fr; } }
+
+/* Ruta: la hoja de ruta en U sobre fondo oscuro */
+#postula .ruta__via { stroke: var(--navy-950); }
+#postula .parada__pin { border-color: var(--navy-950); }
+#postula .parada__txt { color: #fff; }
+#postula .parada__txt small { color: var(--blue-300); }
+#postula .ruta-panel { color: var(--ink); --c-superficie: #fff; --c-fondo: var(--paper); --c-borde: rgba(10,20,48,.14); }
+#postula .ruta-panel p { color: var(--ink-soft); }
+.postula__cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 40px; padding: 28px; border-radius: var(--radio); background: var(--navy-800); }
+.postula__cta p { margin: 0 auto 0 0; font: 600 20px/1.3 var(--f-titulo); max-width: 40ch; }
+.gantt-caja { margin-top: 72px; }
+.gantt-caja h3 { font-size: 22px; text-transform: uppercase; }
+#postula .gantt { --nom: 240px; }
+@media (max-width: 700px) { #postula .gantt { --nom: 118px; } }
+
+/* Puntaje */
+.desempate { margin-top: 28px; display: grid; gap: 4px; padding: 0; list-style: none; counter-reset: e; }
+.desempate li { counter-increment: e; padding-left: 36px; position: relative; }
+.desempate li::before { content: counter(e); position: absolute; left: 0; top: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font: 700 12px var(--f-texto); }
+
+/* FAQ y quiénes */
+.faq { max-width: none; display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; }
+.faq .faq__lista summary { color: var(--ink); }
+@media (max-width: 900px) { .faq { grid-template-columns: 1fr; } }
+.logos li { min-height: 150px; }
+.logos .marca-socio { color: var(--ink); }
+</style>
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+
+<p class="aviso" data-aviso data-abre="2026-11-03" data-cierra="2026-11-16"
+   data-antes="Postulaciones del {abre} al {cierra} ({faltan})."
+   data-durante="Postulaciones abiertas hasta el {cierra} a las 15:00 ({quedan})."
+   data-despues="Postulaciones cerradas el {cierra}. Resultados el 3 de diciembre."></p>
+
+<header class="cab" data-cab>
+  <div class="contenedor cab__fila">
+    <a class="cab__logo" href="#inicio" aria-label="Activa Startup con IA, inicio"><img src="../img/minciencia-blanco.png" alt="Ministerio de Ciencia, Tecnología, Conocimiento e Innovación"><span class="x" aria-hidden="true">×</span><span class="socio">ElevenLabs</span></a>
+    <nav class="cab__nav" aria-label="Secciones">
+      <a href="#beneficio">Beneficio</a><a href="#fundamentos">Fundamentos</a><a href="#casos">Casos</a><a href="#requisitos">Requisitos</a><a href="#postula">Cómo postular</a><a href="#preguntas">Preguntas</a>
+    </nav>
+    <button class="btn btn--acento cab__cta" type="button" data-abrir-ficha>Postula <span class="btn__puntos" aria-hidden="true"></span></button>
+    <button class="cab__burger" type="button" aria-expanded="false" aria-controls="menu-movil" aria-label="Abrir menú" data-burger><span></span><span></span></button>
+  </div>
+  <div class="cab__movil" id="menu-movil" hidden data-menu-movil>
+    <a href="#beneficio">Beneficio</a><a href="#fundamentos">Fundamentos</a><a href="#casos">Casos</a><a href="#requisitos">Requisitos</a><a href="#postula">Cómo postular</a><a href="#preguntas">Preguntas</a>
+    <button class="btn btn--acento" type="button" data-abrir-ficha>Postula <span class="btn__puntos" aria-hidden="true"></span></button>
+  </div>
+</header>
+
+<main id="contenido">
+  <!-- Portada -->
+  <section class="portada" id="inicio">
+    <canvas class="portada__haces" data-haces aria-hidden="true"></canvas>
+    <div class="portada__fundido" aria-hidden="true"></div>
+    <div class="contenedor portada__in">
+      <div class="portada__top">
+        <p class="etiqueta" data-aparecer>Convocatoria · MinCiencia y ElevenLabs</p>
+        <div data-aparecer>
+          <p class="lead">Hasta 100 startups y EBCT chilenas usarán sin costo la plataforma de IA de voz de ElevenLabs durante 12 meses, para integrarla a su propio producto.</p>
+          <div class="portada__acciones">
+            <button class="btn btn--acento" type="button" data-abrir-ficha>Postula <span class="btn__puntos" aria-hidden="true"></span></button>
+            <a class="btn btn--fantasma" href="#requisitos">Requisitos <span class="btn__puntos" aria-hidden="true"></span></a>
+          </div>
+        </div>
+      </div>
+      <h1 class="display portada__titulo" data-lineas><span>Activa</span><span class="sangria">startup con</span><span><em>IA</em> de voz</span></h1>
+    </div>
+  </section>
+
+  <!-- Cifras -->
+  <section class="tema-oscuro" aria-label="Datos clave" style="padding: 56px 0 var(--seccion)">
+    <div class="contenedor">
+      <ul class="cifras">
+        <li data-aparecer><b data-contar="100">100</b><span>empresas seleccionadas, como máximo</span></li>
+        <li data-aparecer><b data-contar="54000">54.000</b><span>minutos de procesamiento por empresa (44 millones de créditos)</span></li>
+        <li data-aparecer><b data-contar="12">12</b><span>meses de uso desde la activación</span></li>
+        <li data-aparecer><b data-dias-cierre>—</b><span>días para el cierre: lunes 16 de noviembre, 15:00</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Beneficio -->
+  <section class="claro seccion" id="beneficio">
+    <div class="contenedor">
+      <div class="cabeza">
+        <div><p class="etiqueta">El beneficio</p><h2 class="display" data-lineas><span>Una licencia</span><span class="media">para construir</span><span><em>producto</em></span></h2></div>
+        <p class="cabeza__lado" data-aparecer>Cada empresa recibe una licencia de la plataforma ElevenLabs de hasta 44.000.000 créditos, unos 54.000 minutos de procesamiento, para integrar voz a su producto u operación.</p>
+      </div>
+      <div class="funcs">
+        <article data-aparecer><span class="num">01</span><h3>Síntesis de voz</h3><p>Texto convertido en voz natural, en varios idiomas y tonos.</p></article>
+        <article data-aparecer><span class="num">02</span><h3>Transcripción</h3><p>De audio a texto, para registrar, buscar y analizar conversaciones.</p></article>
+        <article data-aparecer><span class="num">03</span><h3>Agentes de voz</h3><p>Asistentes que conversan en tiempo real con clientes y usuarios.</p></article>
+        <article data-aparecer><span class="num">04</span><h3>Música</h3><p>Generación de música y sonido para productos y contenidos.</p></article>
+      </div>
+      <ul class="acomp acomp-wrap">
+        <li data-aparecer><b>Sesión introductoria</b><span>Para toda la cohorte, al comenzar.</span></li>
+        <li data-aparecer><b>Correo técnico dedicado</b><span>Para resolver dudas de integración durante el año.</span></li>
+        <li data-aparecer><b>Preguntas y respuestas trimestrales</b><span>Una sesión cada tres meses con el equipo de ElevenLabs.</span></li>
+      </ul>
+      <p class="nota-letra">Las funcionalidades dependen de la licencia asignada y de los términos de uso de ElevenLabs. El beneficio es intransferible y no se puede canjear por dinero.</p>
+    </div>
+  </section>
+
+  <!-- Fundamentos -->
+  <section class="tema-oscuro grid-bg seccion" id="fundamentos">
+    <div class="contenedor">
+      <div class="cabeza">
+        <div><p class="etiqueta">Fundamentos</p><h2 class="display" data-lineas><span>Política Nacional</span><span class="media">de Inteligencia</span><span><em>Artificial</em></span></h2></div>
+        <p class="cabeza__lado" data-aparecer>La convocatoria se enmarca en la Política Nacional de IA (Decreto N° 12 de 2024) y aporta a sus tres ejes. Su centro es el eje 2: que las empresas chilenas integren IA a sus propios productos.</p>
+      </div>
+      <div class="ejes">
+        <article class="eje tarjeta" data-aparecer><span class="eje__n">Eje 1</span><h3>Factores habilitantes</h3><p>Baja la barrera de costo para usar modelos de IA de frontera en etapas tempranas.</p>
+          <button class="btn btn--fantasma btn--chico" type="button" data-abrir="eje1">Ver más <span class="btn__puntos" aria-hidden="true"></span></button></article>
+        <article class="eje eje--nucleo tarjeta" data-aparecer><span class="eje__sello">Centro de la convocatoria</span><span class="eje__n">Eje 2</span><h3>Desarrollo y adopción</h3><p>Las empresas integran IA de voz a sus productos y servicios, con acompañamiento técnico que transfiere buenas prácticas.</p>
+          <button class="btn btn--fantasma btn--chico" type="button" data-abrir="eje2">Ver más <span class="btn__puntos" aria-hidden="true"></span></button></article>
+        <article class="eje tarjeta" data-aparecer><span class="eje__n">Eje 3</span><h3>Gobernanza y ética</h3><p>Uso responsable: sin productos para menores de edad y sin clonar voces sin consentimiento.</p>
+          <button class="btn btn--fantasma btn--chico" type="button" data-abrir="eje3">Ver más <span class="btn__puntos" aria-hidden="true"></span></button></article>
+      </div>
+    </div>
+  </section>
+  <dialog class="ventana" id="eje1" aria-labelledby="eje1-t"><button class="ventana__x" type="button" data-cerrar aria-label="Cerrar">×</button>
+    <div class="ventana__in"><p class="etiqueta">Eje 1 · Factores habilitantes</p><h3 id="eje1-t">Acceso a modelos de frontera</h3>
+      <p>Usar modelos de IA de voz por API tiene un costo que muchas empresas no pueden asumir mientras validan su producto. La convocatoria entrega sin costo la capacidad de uso de la plataforma para que puedan experimentar e integrar.</p>
+      <ul><li>Hasta 44.000.000 créditos por empresa.</li><li>12 meses para probar, integrar y validar.</li><li>Hasta 100 empresas a la vez.</li></ul></div></dialog>
+  <dialog class="ventana" id="eje2" aria-labelledby="eje2-t"><button class="ventana__x" type="button" data-cerrar aria-label="Cerrar">×</button>
+    <div class="ventana__in"><p class="etiqueta">Eje 2 · Desarrollo y adopción</p><h3 id="eje2-t">De usar IA a construir con IA</h3>
+      <p>Responde a dos objetivos de la Política: fomentar emprendimientos de base científico-tecnológica con IA e incentivar la adopción de IA en la industria. No es una entrega de licencias para uso de oficina ni para reventa.</p>
+      <ul><li>Las empresas usan ElevenLabs como infraestructura sobre la que construyen su propio producto.</li><li>El acompañamiento técnico transfiere buenas prácticas de integración.</li><li>Cada empresa se compromete a un resultado medible, con su indicador.</li></ul></div></dialog>
+  <dialog class="ventana" id="eje3" aria-labelledby="eje3-t"><button class="ventana__x" type="button" data-cerrar aria-label="Cerrar">×</button>
+    <div class="ventana__in"><p class="etiqueta">Eje 3 · Gobernanza y ética</p><h3 id="eje3-t">IA de voz responsable</h3>
+      <p>Las reglas de uso responsable se fijan desde la postulación y se mantienen durante todo el año.</p>
+      <ul><li>Se excluyen los productos dirigidos a menores de 18 años.</li><li>Prohibido clonar voces sin el consentimiento expreso de su titular.</li><li>Prohibido suplantar identidades o generar contenido engañoso.</li><li>Las empresas aceptan los Términos de Servicio y la Política de Uso Prohibido de ElevenLabs.</li></ul></div></dialog>
+
+  <!-- Casos -->
+  <section class="claro seccion" id="casos">
+    <div class="contenedor">
+      <div class="cabeza">
+        <div><p class="etiqueta">Ámbitos prioritarios</p><h2 class="display" data-lineas><span>Donde la voz</span><span class="media">es parte del</span><span><em>producto</em></span></h2></div>
+        <p class="cabeza__lado" data-aparecer>Se da prioridad a las propuestas en que la voz es parte central del producto o de la operación. Pertenecer a uno de estos ámbitos es el primer criterio de desempate.</p>
+      </div>
+      <div class="casos" data-casos></div>
+      <p class="nota-letra">Los ejemplos se leen con la voz de tu navegador, solo como ilustración: no es la tecnología de ElevenLabs.</p>
+    </div>
+  </section>
+
+  <!-- Requisitos -->
+  <section class="claro seccion" id="requisitos" style="padding-top: 0">
+    <div class="contenedor">
+      <div class="cabeza">
+        <div><p class="etiqueta">Requisitos</p><h2 class="display" data-lineas><span>Quién puede</span><span class="media"><em>postular</em></span></h2></div>
+        <p class="cabeza__lado" data-aparecer>Personas jurídicas con fines de lucro constituidas en Chile que cumplan todos estos requisitos. Se admite una postulación por empresa.</p>
+      </div>
+      <div class="req">
+        <div><h3>Requisitos</h3><ul class="lista-check">
+          <li data-aparecer>Ser startup o EBCT<small>Startup: empresa innovadora y escalable. EBCT: basada en conocimiento científico o tecnológico.</small></li>
+          <li data-aparecer>Inicio de actividades de entre 6 meses y 10 años<small>Contados al 16 de noviembre de 2026.</small></li>
+          <li data-aparecer>Hasta 25 trabajadores</li>
+          <li data-aparecer>Una persona responsable de la implementación técnica</li>
+          <li data-aparecer>Un MVP, prototipo funcional o software en operación<small>Donde se integrará ElevenLabs.</small></li>
+          <li data-aparecer>Sin deudas laborales ni previsionales</li>
+        </ul></div>
+        <div><h3>Exclusiones</h3><ul class="lista-check lista-check--no">
+          <li data-aparecer>Productos dirigidos a menores de 18 años<small>Incluidos los educativos.</small></li>
+          <li data-aparecer>Agencias, consultoras o pymes sin desarrollo tecnológico propio</li>
+          <li data-aparecer>Productos que compiten con los de ElevenLabs</li>
+          <li data-aparecer>Clientes enterprise vigentes de ElevenLabs o empresas con un grant previo<small>Los clientes de pago de autoservicio sí pueden postular.</small></li>
+        </ul></div>
+      </div>
+      <div class="docs">
+        <h3 style="font-size:22px;text-transform:uppercase">Documentos que necesitas</h3>
+        <ol>
+          <li data-aparecer><span>Certificado de vigencia de la sociedad<small>Emitido hasta 60 días antes de postular.</small></span></li>
+          <li data-aparecer><span>Carpeta Tributaria Electrónica del SII<small>Generada hasta 30 días antes, en PDF sin modificar.</small></span></li>
+          <li data-aparecer><span>Certificado F30 de la Dirección del Trabajo<small>Vigente.</small></span></li>
+          <li data-aparecer><span>Planilla de cotizaciones del último mes<small>Solo si la empresa tiene trabajadores.</small></span></li>
+          <li data-aparecer><span>Anexo N° 1 firmado<small>El formulario lo genera con tus datos.</small></span></li>
+          <li data-aparecer><span>Presentación o sitio web<small>Presentación en PDF, máximo 10 láminas, si no tienes sitio web.</small></span></li>
+          <li data-aparecer><span>Enlace a la demo o a un video de hasta 2 minutos</span></li>
+          <li data-aparecer><span>Respaldos de puntaje<small>Solo de los criterios que declares.</small></span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo postular: hoja de ruta en U + Gantt -->
+  <section class="tema-oscuro grid-bg seccion" id="postula">
+    <div class="contenedor">
+      <div class="cabeza">
+        <div><p class="etiqueta">Cómo postular</p><h2 class="display" data-lineas><span>Cuatro</span><span class="media">etapas hasta</span><span>tu <em>licencia</em></span></h2></div>
+        <div class="cabeza__lado" data-aparecer><p>Selecciona una parada para ver qué pasa en cada etapa.</p><p style="color:var(--red-400);font-weight:600" data-etapa-actual></p></div>
+      </div>
+      <div class="ruta" data-ruta></div>
+      <div class="ruta-panel" data-ruta-panel aria-live="polite" hidden></div>
+      <div class="postula__cta" data-aparecer>
+        <p data-estado-convocatoria></p>
+        <button class="btn btn--acento" type="button" data-abrir-ficha>Completar la postulación <span class="btn__puntos" aria-hidden="true"></span></button>
+        <a class="btn btn--fantasma" href="../bases/Bases_Activa_Startup_con_IA_2026-11-02.docx">Descargar las bases <span class="btn__puntos" aria-hidden="true"></span></a>
+      </div>
+      <div class="gantt-caja" data-aparecer>
+        <h3>Calendario</h3>
+        <p class="gantt__ahora" data-fase-actual></p>
+        <div class="gantt" data-gantt data-inicio="2026-11-01" data-fin="2026-12-31">
+          <div class="gantt__meses" data-meses></div>
+          <ol class="gantt__filas">
+            <li class="g--personas" data-desde="2026-11-03" data-hasta="2026-11-16"><span class="gantt__nom">Postulación</span><span class="gantt__pista"><span class="gantt__barra"></span></span></li>
+            <li class="g--equipo" data-desde="2026-11-03" data-hasta="2026-11-10"><span class="gantt__nom">Consultas</span><span class="gantt__pista"><span class="gantt__barra"></span></span></li>
+            <li class="g--equipo" data-desde="2026-11-17" data-hasta="2026-11-20"><span class="gantt__nom">Admisibilidad</span><span class="gantt__pista"><span class="gantt__barra"></span></span></li>
+            <li class="g--equipo" data-desde="2026-11-23" data-hasta="2026-12-02"><span class="gantt__nom">Evaluación y verificación</span><span class="gantt__pista"><span class="gantt__barra"></span></span></li>
+            <li class="g--externo" data-desde="2026-11-27" data-hasta="2026-12-02"><span class="gantt__nom">Revisión de ElevenLabs</span><span class="gantt__pista"><span class="gantt__barra"></span></span></li>
+            <li class="g--personas" data-desde="2026-12-03" data-hasta="2026-12-31"><span class="gantt__nom">Resultados y activación</span><span class="gantt__pista"><span class="gantt__barra"></span></span></li>
+          </ol>
+          <span class="gantt__marca gantt__marca--hoy" data-en="hoy"><i>Hoy</i></span>
+          <span class="gantt__marca gantt__marca--hito" data-en="2026-11-16"><i>⚑ 16 nov · cierre 15:00</i></span>
+          <span class="gantt__marca gantt__marca--hito" data-en="2026-12-03"><i>3 dic · resultados</i></span>
+        </div>
+        <ul class="gantt__ley"><li class="g--personas">Etapas de las empresas</li><li class="g--equipo">Ministerio</li><li class="g--externo">ElevenLabs</li></ul>
+      </div>
+    </div>
+  </section>
+  <script type="application/json" id="fases-ruta"></script>
+
+  <!-- Puntaje -->
+  <section class="claro seccion" id="puntaje">
+    <div class="contenedor">
+      <div class="cabeza">
+        <div><p class="etiqueta">Evaluación</p><h2 class="display" data-lineas><span>Cómo se</span><span class="media">asigna el</span><span><em>puntaje</em></span></h2></div>
+        <p class="cabeza__lado" data-aparecer>Las propuestas pertinentes se ordenan con 7 criterios, hasta 100 puntos. Cada criterio vale solo si se acredita con su documento. Las 100 primeras se verifican y ElevenLabs revisa la nómina.</p>
+      </div>
+      <div data-tabla-criterios></div>
+      <h3 style="margin-top:40px;font-size:20px;text-transform:uppercase">Si hay empate</h3>
+      <ol class="desempate">
+        <li>Propuesta en un ámbito prioritario.</li><li>Mayor puntaje en calidad de la propuesta.</li><li>Mayor puntaje en financiamiento público previo.</li><li>Mayor puntaje en liderazgo femenino.</li><li>La postulación enviada primero.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Preguntas -->
+  <section class="claro seccion" id="preguntas" style="padding-top:0">
+    <div class="contenedor faq">
+      <div><p class="etiqueta">Preguntas frecuentes</p><h2 class="display" data-lineas><span>Resolvemos</span><span class="media">tus <em>dudas</em></span></h2>
+        <p class="suave" style="margin-top:20px">¿No encuentras tu respuesta? Haz tu consulta hasta el 10 de noviembre en <a href="https://siac.minciencia.gob.cl/web" target="_blank" rel="noopener">siac.minciencia.gob.cl</a>.</p></div>
+      <div>
+        <label class="faq__buscar"><span class="sr-only">Buscar</span><input type="search" placeholder="Buscar una pregunta…" data-faq-buscar></label>
+        <div class="faq__temas" data-faq-temas></div>
+        <div class="faq__lista" data-faq></div>
+        <p class="faq__vacio" data-faq-vacio hidden>No encontramos preguntas con ese texto. Escríbenos en <a href="https://siac.minciencia.gob.cl/web">siac.minciencia.gob.cl</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiénes -->
+  <section class="claro seccion" id="quienes" style="padding-top:0">
+    <div class="contenedor">
+      <p class="etiqueta">Quiénes</p><h2 class="display" style="font-size:clamp(30px,3.4vw,48px)">Una colaboración público-privada</h2>
+      <div class="logos">
+        <div class="logos__grupo"><h3>Convoca, evalúa y selecciona</h3><ul><li data-logo="../img/minciencia-color.png" data-nombre="Ministerio de Ciencia, Tecnología, Conocimiento e Innovación"><small>Diseña y difunde la convocatoria; revisa admisibilidad, evalúa y selecciona.</small></li></ul></div>
+        <div class="logos__grupo"><h3>Aporta las licencias</h3><ul><li><span class="marca-socio">ElevenLabs</span><small>Habilita las licencias y da el apoyo técnico a la cohorte, en el marco del Memorando de Entendimiento con el Ministerio.</small></li></ul></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor pie__in">
+    <img src="../img/minciencia-blanco.png" alt="Ministerio de Ciencia, Tecnología, Conocimiento e Innovación">
+    <div><p><b style="color:#fff">Activa Startup con IA</b> · Convocatoria 2026</p><p>Consultas: <a href="https://siac.minciencia.gob.cl/web" target="_blank" rel="noopener">siac.minciencia.gob.cl</a></p>
+      <p>Los datos personales se tratan conforme a la Ley N° 19.628 y la Ley N° 21.719. Ver numeral 12 de las bases.</p></div>
+    <a class="btn btn--fantasma btn--chico" href="../bases/Bases_Activa_Startup_con_IA_2026-11-02.docx">Bases</a>
+  </div>
+</footer>
+
+<script src="../comun/convocatoria.js"></script>
+<script>
+  // Tarjetas de casos desde ACTIVA.ambitos
+  document.querySelector('[data-casos]').innerHTML = ACTIVA.ambitos.map((a, i) => `<article class="caso" data-aparecer><span class="num">${String(i + 1).padStart(2, '0')}</span><h3>${a.nombre}</h3><p>${a.ej}</p>
+    <button class="escuchar" type="button" data-escuchar="${a.frase}"><i aria-hidden="true"></i>Escuchar un ejemplo</button></article>`).join('');
+</script>
+<script src="../../../modulos/01-barra-aviso-por-fecha/modulo.js"></script>
+<script src="../../../modulos/02-encabezado-inteligente/modulo.js"></script>
+<script src="../../../modulos/03-portada-haces-de-luz/modulo.js"></script>
+<script src="../../../modulos/04-titulos-que-suben/modulo.js"></script>
+<script src="../../../modulos/05-aparicion-al-desplazar/modulo.js"></script>
+<script src="../../../modulos/06-cifras-y-dias/modulo.js"></script>
+<script src="../../../modulos/08-carta-gantt/modulo.js"></script>
+<script src="../../../modulos/09-hoja-de-ruta-en-u/modulo.js"></script>
+<script src="../../../modulos/11-ventana-desde-la-tarjeta/modulo.js"></script>
+<script src="../../../modulos/12-preguntas-frecuentes/modulo.js"></script>
+<script src="../../../modulos/20-logos-agrupados/modulo.js"></script>
+<script src="../comun/postulacion.js" data-endpoint=""></script>
+</body>
+</html>

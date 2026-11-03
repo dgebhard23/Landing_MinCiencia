@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activa Startup con IA · Convocatoria MinCiencia</title>
+<meta name="description" content="Hasta 100 startups y EBCT chilenas acceden sin costo a la plataforma de IA de voz de ElevenLabs durante 12 meses. Postulaciones hasta el 16 de noviembre de 2026.">
+<meta name="theme-color" content="#071330">
+<!-- Propuesta 3 · Panel. Pensada para quien postula: un panel en vivo con el estado de la convocatoria,
+     los 4 pasos en un stepper con la marca de hoy, la licencia como credencial, un mapa de los ejes y un simulador de puntaje. -->
+<link rel="stylesheet" href="../../../base/tokens.css">
+<link rel="stylesheet" href="../../../base/base.css">
+<link rel="stylesheet" href="../../../modulos/01-barra-aviso-por-fecha/modulo.css">
+<link rel="stylesheet" href="../../../modulos/02-encabezado-inteligente/modulo.css">
+<link rel="stylesheet" href="../../../modulos/03-portada-haces-de-luz/modulo.css">
+<link rel="stylesheet" href="../../../modulos/04-titulos-que-suben/modulo.css">
+<link rel="stylesheet" href="../../../modulos/05-aparicion-al-desplazar/modulo.css">
+<link rel="stylesheet" href="../../../modulos/07-cuenta-regresiva/modulo.css">
+<link rel="stylesheet" href="../../../modulos/10-hitos-hechos-y-proximos/modulo.css">
+<link rel="stylesheet" href="../../../modulos/11-ventana-desde-la-tarjeta/modulo.css">
+<link rel="stylesheet" href="../../../modulos/12-preguntas-frecuentes/modulo.css">
+<link rel="stylesheet" href="../../../modulos/14-carrusel/modulo.css">
+<link rel="stylesheet" href="../../../modulos/15-formulario-por-pasos/modulo.css">
+<link rel="stylesheet" href="../comun/activa.css">
+<style>
+/* Portada partida: título + panel en vivo */
+.portada--panel { min-height: 0; display: block; }
+.portada--panel .portada__in { padding-top: 170px; display: grid; grid-template-columns: 1.25fr minmax(320px, 440px); gap: 48px; align-items: end; }
+.portada--panel .portada__titulo { font-size: clamp(44px, 7vw, 112px); }
+.portada--panel .lead { color: #dbe6f7; margin-top: 28px; }
+@media (max-width: 980px) { .portada--panel .portada__in { grid-template-columns: 1fr; } }
+.panel { position: relative; padding: 26px; border-radius: var(--radio); background: rgba(7, 19, 48, .78); border: 1px solid var(--c-oscuro-borde); backdrop-filter: blur(12px); display: grid; gap: 18px; }
+.panel__cab { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.panel__cab b { font: 600 13px var(--f-texto); letter-spacing: .12em; text-transform: uppercase; color: var(--blue-300); }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 99px; font: 700 12px var(--f-texto); letter-spacing: .06em; text-transform: uppercase; background: var(--red-500); color: #fff; }
+.pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: latido 1.6s infinite; }
+.pill--cerrada { background: #6b7895; } .pill--cerrada::before { animation: none; }
+@keyframes latido { 50% { opacity: .25; } }
+.panel .reloj { margin: 0; gap: 10px; }
+.panel .reloj b { font-size: clamp(34px, 4vw, 48px); }
+.panel .digito { background: rgba(255,255,255,.08); }
+.panel .reloj small { color: var(--c-oscuro-suave); }
+.panel__datos { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--c-oscuro-borde); border-radius: var(--radio-sm); overflow: hidden; }
+.panel__datos div { background: var(--navy-900); padding: 14px; }
+.panel__datos b { display: block; font: 700 26px/1 var(--f-titulo); }
+.panel__datos span { font-size: 13px; color: var(--c-oscuro-suave); }
+.panel .hitos__lista { border-color: var(--c-oscuro-borde); }
+.panel .hitos__lista li { padding: 6px 0 6px 18px; font-size: 14.5px; }
+.panel .hitos__lista li::before { top: 13px; background: var(--navy-900); border-color: var(--c-oscuro-borde); }
+.panel .hitos__lista time { color: var(--c-oscuro-suave); font-size: 11px; }
+.panel .proximo { color: var(--red-400); margin: 0; font-size: 14px; }
+.panel .btn { justify-content: center; }
+
+/* Licencia como credencial */
+.licencia-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.licencia { position: relative; aspect-ratio: 1.6; border-radius: 26px; padding: clamp(22px, 3vw, 36px); color: #fff; overflow: hidden; display: grid; align-content: space-between;
+  background: radial-gradient(120% 90% at 100% 0%, rgba(90,162,230,.55), transparent 55%), radial-gradient(90% 80% at 0% 100%, rgba(215,50,60,.45), transparent 60%), var(--navy-900);
+  box-shadow: 0 40px 80px rgba(7,19,48,.35); transform: rotate(-3deg); transition: transform .8s var(--ease); }
+.licencia:hover { transform: rotate(0) scale(1.02); }
+.licencia::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(115deg, transparent 0 14px, rgba(255,255,255,.035) 14px 15px); pointer-events: none; }
+.licencia__top { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+.licencia__top img { height: 44px; }
+.licencia__num { position: relative; z-index: 1; }
+.licencia__num b { display: block; font: 700 clamp(38px, 5vw, 66px)/1 var(--f-titulo); letter-spacing: -.04em; }
+.licencia__num span { color: #cfdcf2; }
+.licencia__pie { display: flex; justify-content: space-between; gap: 12px; position: relative; z-index: 1; font: 600 12px var(--f-texto); letter-spacing: .12em; text-transform: uppercase; color: #cfdcf2; }
+.incluye { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.incluye li { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--c-borde); }
+.incluye li:first-child { border-top: 1px solid var(--c-borde); }
+.incluye i { width: 44px; height: 44px; border-radius: 12px; background: var(--blue-100); color: var(--blue-500); display: grid; place-items: center; font: 700 15px var(--f-titulo); font-style: normal; }
+.incluye b { display: block; font: 600 18px var(--f-titulo); }
+.incluye span { color: var(--ink-soft); font-size: 15px; }
+@media (max-width: 900px) { .licencia-wrap { grid-template-columns: 1fr; } .licencia { transform: none; } }
+
+/* Mapa de ejes */
+.mapa { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; position: relative; }
+.mapa__nodo { position: relative; text-align: left; padding: 24px; border-radius: var(--radio); border: 1px solid var(--c-oscuro-borde); background: var(--navy-800); color: #fff; cursor: pointer; font: inherit; display: grid; gap: 8px; transition: background .3s, border-color .3s, transform .4s var(--ease); }
+.mapa__nodo:hover { transform: translateY(-3px); }
+.mapa__nodo[aria-pressed="true"] { background: var(--blue-500); border-color: var(--blue-500); }
+.mapa__nodo small { font: 700 12px var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--blue-300); }
+.mapa__nodo[aria-pressed="true"] small { color: #fff; }
+.mapa__nodo h3 { font-size: 22px; text-transform: uppercase; letter-spacing: -.02em; margin: 0; }
+.mapa__nodo::after { content: ""; position: absolute; left: 50%; top: 100%; width: 2px; height: 38px; background: linear-gradient(var(--c-oscuro-borde), var(--blue-400)); }
+.mapa__nodo[aria-pressed="true"]::after { background: linear-gradient(var(--blue-500), var(--red-400)); width: 3px; }
+.mapa__centro { margin-top: 38px; padding: clamp(24px, 3vw, 40px); border-radius: var(--radio); background: #fff; color: var(--ink); display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; }
+.mapa__centro h3 { font-size: clamp(24px, 2.6vw, 36px); text-transform: uppercase; letter-spacing: -.03em; margin: 0 0 8px; }
+.mapa__centro p { margin: 0 0 8px; color: var(--ink-soft); }
+.mapa__sello { width: 92px; height: 92px; border-radius: 50%; background: var(--navy-900); color: #fff; display: grid; place-items: center; text-align: center; font: 700 12px/1.2 var(--f-titulo); text-transform: uppercase; padding: 10px; }
+@media (max-width: 860px) { .mapa { grid-template-columns: 1fr; } .mapa__nodo::after { display: none; } .mapa__centro { grid-template-columns: 1fr; margin-top: 18px; } }
+
+/* Carrusel de casos */
+.carrusel__pista { grid-auto-columns: min(86%, 420px); }
+.caso-c { height: 100%; display: grid; gap: 14px; align-content: start; padding: 28px; border-radius: var(--radio); background: var(--navy-800); border: 1px solid var(--c-oscuro-borde); color: #fff; min-height: 330px; }
+.caso-c .num { font: 700 13px var(--f-texto); color: var(--red-400); letter-spacing: .1em; }
+.caso-c h3 { font-size: 26px; text-transform: uppercase; letter-spacing: -.02em; margin: 0; }
+.caso-c p { margin: 0; color: #d6e2f5; font-size: 15px; }
+.caso-c blockquote { margin: auto 0 0; font: 500 17px/1.4 var(--f-titulo); padding-left: 14px; border-left: 3px solid var(--red-500); }
+.caso-c .btn { justify-self: start; }
+.caso-c .btn.is-sonando { background: #fff; color: var(--ink); }
+.carrusel__flecha { background: #fff; color: var(--ink); }
+.carrusel__puntos button[aria-current="true"] { background: var(--red-500); }
+.carrusel__puntos button { background: rgba(255,255,255,.25); }
+
+/* Stepper de 4 pasos */
+.stepper { --avance: 0; }
+.stepper__linea { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 28px; }
+.stepper__linea::before, .stepper__linea::after { content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 27px; height: 4px; border-radius: 99px; background: var(--c-borde); }
+.stepper__linea::after { right: auto; width: calc(75% * var(--avance)); background: var(--red-500); transition: width 1.2s var(--ease); }
+.stepper__tab { position: relative; z-index: 1; display: grid; justify-items: center; gap: 10px; text-align: center; padding: 0 6px; border: 0; background: none; cursor: pointer; font: inherit; color: var(--ink); }
+.stepper__tab i { width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; font: 700 22px var(--f-titulo); font-style: normal; background: #fff; border: 3px solid var(--c-borde); transition: transform .3s var(--ease), background .3s, border-color .3s, color .3s; }
+.stepper__tab b { font: 600 17px/1.2 var(--f-titulo); }
+.stepper__tab small { color: var(--ink-soft); font-size: 13px; }
+.stepper__tab.is-done i { background: var(--blue-500); border-color: var(--blue-500); color: #fff; }
+.stepper__tab.is-live i { background: var(--red-500); border-color: var(--red-500); color: #fff; box-shadow: 0 0 0 8px var(--red-100); }
+.stepper__tab[aria-selected="true"] i { transform: scale(1.14); border-color: var(--ink); }
+.stepper__panel { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 28px; padding: clamp(24px, 3.5vw, 44px); border-radius: var(--radio); background: #fff; border: 1px solid var(--c-borde); animation: entra .5s var(--ease); }
+.stepper__panel h3 { font-size: clamp(26px, 2.8vw, 40px); text-transform: uppercase; letter-spacing: -.03em; margin: 6px 0 10px; }
+.stepper__panel h4 { font: 600 12px var(--f-texto); letter-spacing: .12em; text-transform: uppercase; color: var(--blue-500); margin: 0 0 10px; }
+.stepper__panel ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: var(--ink-soft); font-size: 15px; }
+.stepper__panel p { margin: 0 0 10px; color: var(--ink-soft); }
+.stepper__nav { display: flex; gap: 8px; margin-top: 14px; }
+@keyframes entra { from { opacity: 0; transform: translateY(8px); } }
+@media (max-width: 860px) {
+  .stepper__panel { grid-template-columns: 1fr; }
+  .stepper__tab b { font-size: 13px; } .stepper__tab small { display: none; } .stepper__tab i { width: 46px; height: 46px; font-size: 18px; }
+  .stepper__linea::before, .stepper__linea::after { top: 21px; }
+}
+
+/* Requisitos compactos */
+.req3 { display: grid; grid-template-columns: 1fr 1fr auto; gap: 28px; align-items: start; }
+.req3 h3 { font-size: 20px; text-transform: uppercase; }
+.req3__cta { padding: 28px; border-radius: var(--radio); background: var(--navy-900); color: #fff; max-width: 300px; display: grid; gap: 14px; }
+.req3__cta p { margin: 0; color: var(--c-oscuro-suave); }
+.req3__cta b { font: 600 22px/1.2 var(--f-titulo); }
+@media (max-width: 1100px) { .req3 { grid-template-columns: 1fr 1fr; } .req3__cta { grid-column: 1 / -1; max-width: none; } }
+@media (max-width: 700px) { .req3 { grid-template-columns: 1fr; } }
+.ventana--ancha { width: min(860px, calc(100vw - 32px)); }
+.ventana .etiqueta { color: var(--blue-500); }
+
+.faq { max-width: 900px; }
+.faq .faq__lista summary { color: var(--ink); }
+</style>
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+
+<p class="aviso" data-aviso data-abre="2026-11-03" data-cierra="2026-11-16"
+   data-antes="Postulaciones del {abre} al {cierra} ({faltan})."
+   data-durante="Postulaciones abiertas hasta el {cierra} a las 15:00 ({quedan})."
+   data-despues="Postulaciones cerradas el {cierra}. Resultados el 3 de diciembre."></p>
+
+<header class="cab" data-cab>
+  <div class="contenedor cab__fila">
+    <a class="cab__logo" href="#inicio" aria-label="Activa Startup con IA, inicio"><img src="../img/minciencia-blanco.png" alt="Ministerio de Ciencia, Tecnología, Conocimiento e Innovación"><span class="x" aria-hidden="true">×</span><span class="socio">ElevenLabs</span></a>
+    <nav class="cab__nav" aria-label="Secciones">
+      <a href="#beneficio">Beneficio</a><a href="#fundamentos">Fundamentos</a><a href="#casos">Casos</a><a href="#pasos">Cómo postular</a><a href="#puntaje">Puntaje</a><a href="#preguntas">Preguntas</a>
+    </nav>
+    <button class="btn btn--acento cab__cta" type="button" data-abrir-ficha>Postula <span class="btn__puntos" aria-hidden="true"></span></button>
+    <button class="cab__burger" type="button" aria-expanded="false" aria-controls="menu-movil" aria-label="Abrir menú" data-burger><span></span><span></span></button>
+  </div>
+  <div class="cab__movil" id="menu-movil" hidden data-menu-movil>
+    <a href="#beneficio">Beneficio</a><a href="#fundamentos">Fundamentos</a><a href="#casos">Casos</a><a href="#pasos">Cómo postular</a><a href="#puntaje">Puntaje</a><a href="#preguntas">Preguntas</a>
+    <button class="btn btn--acento" type="button" data-abrir-ficha>Postula <span class="btn__puntos" aria-hidden="true"></span></button>
+  </div>
+</header>
+
+<main id="contenido">
+  <!-- Portada + panel en vivo -->
+  <section class="portada portada--panel" id="inicio">
+    <canvas class="portada__haces" data-haces aria-hidden="true"></canvas>
+    <div class="portada__fundido" aria-hidden="true"></div>
+    <div class="contenedor portada__in">
+      <div>
+        <p class="etiqueta" data-aparecer>Convocatoria · MinCiencia y ElevenLabs</p>
+        <h1 class="display portada__titulo" data-lineas><span>Activa</span><span class="sangria">startup</span><span>con <em>IA</em></span></h1>
+        <p class="lead" data-aparecer>Hasta 100 startups y EBCT chilenas usarán sin costo, durante 12 meses, la plataforma de IA de voz de ElevenLabs para integrarla a su propio producto.</p>
+      </div>
+      <aside class="panel" aria-label="Estado de la convocatoria" data-aparecer>
+        <div class="panel__cab"><b>Convocatoria 2026</b><span class="pill" data-pill>Abierta</span></div>
+        <div>
+          <p class="suave" style="margin:0 0 6px;font-size:14px">Cierre: lunes 16 de noviembre, 15:00</p>
+          <div class="reloj" data-cuenta="2026-11-16T15:00:00-03:00" role="timer" aria-label="Tiempo para el cierre">
+            <div><b data-u="d"></b><small>días</small></div><div><b data-u="h"></b><small>horas</small></div><div><b data-u="m"></b><small>min</small></div>
+          </div>
+        </div>
+        <div class="panel__datos"><div><b>100</b><span>cupos</span></div><div><b>54.000</b><span>minutos por empresa</span></div></div>
+        <p class="proximo" data-proximo></p>
+        <ol class="hitos__lista" data-hitos>
+          <li data-fecha="2026-11-03"><time></time><span>Apertura</span></li>
+          <li data-fecha="2026-11-10"><time></time><span>Último día de consultas</span></li>
+          <li data-fecha="2026-11-16"><time></time><span>Cierre, 15:00</span></li>
+          <li data-fecha="2026-12-03"><time></time><span>Resultados</span></li>
+        </ol>
+        <ol hidden data-hechos></ol><span hidden data-n-hechos></span>
+        <button class="btn btn--acento" type="button" data-abrir-ficha>Postula <span class="btn__puntos" aria-hidden="true"></span></button>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Beneficio: la licencia -->
+  <section class="claro seccion" id="beneficio">
+    <div class="contenedor licencia-wrap">
+      <div class="licencia" aria-label="Licencia de ElevenLabs: hasta 44 millones de créditos por 12 meses" data-aparecer>
+        <div class="licencia__top"><img src="../img/minciencia-blanco.png" alt=""><span class="marca-socio" style="font-size:22px">ElevenLabs</span></div>
+        <div class="licencia__num"><b>44.000.000</b><span>créditos · unos 54.000 minutos de procesamiento</span></div>
+        <div class="licencia__pie"><span>Activa Startup con IA</span><span>12 meses</span></div>
+      </div>
+      <div>
+        <p class="etiqueta">El beneficio</p>
+        <h2 class="display" data-lineas style="font-size:clamp(36px,4.4vw,64px)"><span>Una licencia</span><span class="media">por <em>empresa</em></span></h2>
+        <ul class="incluye" style="margin-top:28px">
+          <li data-aparecer><i>01</i><div><b>La plataforma completa de voz</b><span>Síntesis de voz, transcripción, agentes conversacionales y generación de música, según la licencia y las condiciones de ElevenLabs.</span></div></li>
+          <li data-aparecer><i>02</i><div><b>12 meses desde la activación</b><span>ElevenLabs habilita la licencia directamente a cada empresa.</span></div></li>
+          <li data-aparecer><i>03</i><div><b>Acompañamiento técnico</b><span>Una sesión introductoria, un correo dedicado y una sesión de preguntas y respuestas cada trimestre.</span></div></li>
+          <li data-aparecer><i>04</i><div><b>Sin costo</b><span>Es intransferible y no se puede canjear por dinero.</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fundamentos: mapa de ejes -->
+  <section class="tema-oscuro grid-bg seccion" id="fundamentos">
+    <div class="contenedor">
+      <div class="cabeza">
+        <div><p class="etiqueta">Fundamentos</p><h2 class="display" data-lineas><span>Cómo aporta</span><span class="media">a la Política</span><span>Nacional de <em>IA</em></span></h2></div>
+        <p class="cabeza__lado" data-aparecer>La Política Nacional de Inteligencia Artificial (Decreto N° 12 de 2024, publicada el 28 de enero de 2025) se organiza en tres ejes. Elige uno para ver cómo aporta la convocatoria.</p>
+      </div>
+      <div class="mapa" data-mapa>
+        <button class="mapa__nodo" type="button" aria-pressed="false" data-eje="0"><small>Eje 1</small><h3>Factores habilitantes</h3></button>
+        <button class="mapa__nodo" type="button" aria-pressed="true" data-eje="1"><small>Eje 2 · centro</small><h3>Desarrollo y adopción</h3></button>
+        <button class="mapa__nodo" type="button" aria-pressed="false" data-eje="2"><small>Eje 3</small><h3>Gobernanza y ética</h3></button>
+      </div>
+      <div class="mapa__centro" aria-live="polite"><div class="mapa__sello">Activa Startup con IA</div><div data-mapa-txt></div></div>
+    </div>
+  </section>
+
+  <!-- Casos: carrusel -->
+  <section class="tema-oscuro seccion" id="casos" style="padding-top:0">
+    <div class="contenedor">
+      <div class="cabeza">
+        <div><p class="etiqueta">Ámbitos prioritarios</p><h2 class="display" data-lineas><span>La voz como</span><span class="media">parte del <em>producto</em></span></h2></div>
+        <p class="cabeza__lado" data-aparecer>Tienen prioridad las propuestas de estos cinco ámbitos, y estar en uno es el primer criterio de desempate. Los ejemplos se leen con la voz de tu navegador, solo como ilustración.</p>
+      </div>
+      <div class="carrusel" data-carrusel data-intervalo="0" aria-roledescription="carrusel" aria-label="Ámbitos prioritarios">
+        <div class="carrusel__pista" data-pista tabindex="0" data-casos></div>
+        <button class="carrusel__flecha carrusel__flecha--ant" type="button" aria-label="Anterior" data-ant>←</button>
+        <button class="carrusel__flecha carrusel__flecha--sig" type="button" aria-label="Siguiente" data-sig>→</button>
+        <div class="carrusel__puntos" data-puntos></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Requisitos -->
+  <section class="claro seccion" id="requisitos">
+    <div class="contenedor">
+      <div class="cabeza">
+        <div><p class="etiqueta">Requisitos</p><h2 class="display" data-lineas><span>Quién puede</span><span class="media"><em>postular</em></span></h2></div>
+        <p class="cabeza__lado" data-aparecer>Personas jurídicas con fines de lucro constituidas en Chile. Se admite una postulación por empresa, y no se admiten dos empresas con los mismos socios mayoritarios o el mismo representante legal.</p>
+      </div>
+      <div class="req3">
+        <div><h3>Debe cumplir</h3><ul class="lista-check">
+          <li>Ser startup o EBCT</li><li>Inicio de actividades de entre 6 meses y 10 años<small>Al 16 de noviembre de 2026.</small></li><li>Hasta 25 trabajadores</li><li>Una persona responsable técnica</li><li>MVP, prototipo o software en operación</li><li>Sin deudas laborales ni previsionales</li>
+        </ul></div>
+        <div><h3>No puede</h3><ul class="lista-check lista-check--no">
+          <li>Tener productos para menores de 18 años<small>Incluidos los educativos.</small></li><li>Ser agencia, consultora o pyme sin desarrollo propio</li><li>Competir con los productos de ElevenLabs</li><li>Ser cliente enterprise de ElevenLabs o tener un grant previo<small>El autoservicio de pago sí puede postular.</small></li>
+        </ul></div>
+        <div class="req3__cta"><b>¿Cumples? Revísalo en un minuto</b><p>11 preguntas de sí o no, según el numeral 4 de las bases.</p>
+          <button class="btn btn--acento btn--chico" type="button" data-abrir="verificar">Verificar <span class="btn__puntos" aria-hidden="true"></span></button></div>
+      </div>
+    </div>
+  </section>
+  <dialog class="ventana ventana--ancha" id="verificar" aria-labelledby="verificar-t"><button class="ventana__x" type="button" data-cerrar aria-label="Cerrar">×</button>
+    <div class="ventana__in"><p class="etiqueta">Requisitos y exclusiones</p><h3 id="verificar-t">¿Puedo postular?</h3><div data-elegible></div></div></dialog>
+
+  <!-- Cómo postular: stepper -->
+  <section class="claro seccion" id="pasos" style="padding-top:0">
+    <div class="contenedor">
+      <div class="cabeza">
+        <div><p class="etiqueta">Cómo postular</p><h2 class="display" data-lineas><span>Cuatro pasos,</span><span class="media">un <em>mes</em></span></h2></div>
+        <div class="cabeza__lado" data-aparecer><p>La línea roja muestra dónde estamos hoy. Selecciona un paso para ver qué haces, qué necesitas y cuándo.</p><p style="color:var(--red-500);font-weight:600" data-etapa-actual></p></div>
+      </div>
+      <div class="stepper" data-stepper>
+        <div class="stepper__linea" role="tablist" aria-label="Pasos"></div>
+        <div data-stepper-panel aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Simulador de puntaje -->
+  <section class="claro seccion" id="puntaje" style="padding-top:0">
+    <div class="contenedor">
+      <div class="cabeza">
+        <div><p class="etiqueta">Evaluación</p><h2 class="display" data-lineas><span>Simula tu</span><span class="media"><em>puntaje</em></span></h2></div>
+        <p class="cabeza__lado" data-aparecer>Solo las propuestas pertinentes (un uso concreto y realizable de la plataforma, vinculado al negocio) pasan al puntaje. Elige el nivel de tu empresa en cada criterio.</p>
+      </div>
+      <div data-simulador></div>
+    </div>
+  </section>
+
+  <!-- Preguntas -->
+  <section class="claro seccion" id="preguntas" style="padding-top:0">
+    <div class="contenedor faq">
+      <p class="etiqueta">Preguntas frecuentes</p><h2 class="display" style="font-size:clamp(32px,4vw,56px)">Resolvemos tus dudas</h2>
+      <label class="faq__buscar"><span class="sr-only">Buscar</span><input type="search" placeholder="Buscar una pregunta…" data-faq-buscar></label>
+      <div class="faq__temas" data-faq-temas></div>
+      <div class="faq__lista" data-faq></div>
+      <p class="faq__vacio" data-faq-vacio hidden>No encontramos preguntas con ese texto. Consulta en <a href="https://siac.minciencia.gob.cl/web">siac.minciencia.gob.cl</a> hasta el 10 de noviembre.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor pie__in">
+    <img src="../img/minciencia-blanco.png" alt="Ministerio de Ciencia, Tecnología, Conocimiento e Innovación">
+    <div><p><b style="color:#fff">Activa Startup con IA</b> · una colaboración entre el Ministerio de Ciencia y ElevenLabs, en el marco de su Memorando de Entendimiento.</p>
+      <p>Consultas: <a href="https://siac.minciencia.gob.cl/web" target="_blank" rel="noopener">siac.minciencia.gob.cl</a> · Datos personales conforme a la Ley N° 19.628 y la Ley N° 21.719.</p></div>
+    <a class="btn btn--fantasma btn--chico" href="../bases/Bases_Activa_Startup_con_IA_2026-11-02.docx">Bases</a>
+  </div>
+</footer>
+
+<script src="../comun/convocatoria.js"></script>
+<script>
+(() => {
+  // Estado del panel
+  const pill = document.querySelector('[data-pill]');
+  if (ACTIVA.cerrada()) { pill.textContent = 'Cerrada'; pill.classList.add('pill--cerrada'); }
+  else if (!ACTIVA.abierta()) { pill.textContent = 'Próximamente'; pill.classList.add('pill--cerrada'); }
+
+  // Casos en el carrusel
+  document.querySelector('[data-casos]').innerHTML = ACTIVA.ambitos.map((a, i) => `<figure class="carrusel__item"><article class="caso-c"><span class="num">${String(i + 1).padStart(2, '0')} / 05</span><h3>${a.nombre}</h3><p>${a.ej}</p>
+    <blockquote>«${a.frase}»</blockquote><button class="btn btn--fantasma btn--chico" type="button" data-escuchar="${a.frase}">Escuchar <span class="btn__puntos" aria-hidden="true"></span></button></article></figure>`).join('');
+
+  // Mapa de ejes
+  const EJES = [
+    ['Eje 1 · Factores habilitantes', 'Baja la barrera de costo para usar modelos de IA de frontera: entrega sin costo la capacidad de uso de la plataforma de ElevenLabs a empresas que, en etapa temprana, no podrían costearla.'],
+    ['Eje 2 · Desarrollo y adopción', 'Es el centro de la convocatoria. Responde a dos objetivos de la Política: fomentar emprendimientos de base científico-tecnológica con IA e incentivar su adopción en la industria. Las empresas integran estos modelos a sus propios productos, con acompañamiento técnico que transfiere buenas prácticas, y se comprometen a un resultado medible.'],
+    ['Eje 3 · Gobernanza y ética', 'Exige uso responsable: excluye productos para menores de 18 años, prohíbe clonar voces sin consentimiento expreso y suplantar identidades, y obliga a cumplir los Términos de Servicio y la Política de Uso Prohibido de ElevenLabs.'],
+  ];
+  const nodos = [...document.querySelectorAll('[data-eje]')], txt = document.querySelector('[data-mapa-txt]');
+  const eje = (i) => { nodos.forEach((n, k) => n.setAttribute('aria-pressed', String(k === i))); txt.innerHTML = `<h3>${EJES[i][0]}</h3><p>${EJES[i][1]}</p>`; };
+  nodos.forEach((n, i) => n.addEventListener('click', () => eje(i))); eje(1);
+
+  // Stepper: qué haces, qué necesitas, cuándo
+  const PASOS = [
+    { nombre: 'Revisa si cumples', cuando: 'Antes de postular', desde: '2026-11-03', hasta: '2026-11-10', haces: ['Lee las bases completas.', 'Revisa los requisitos y las exclusiones.', 'Haz tus consultas en siac.minciencia.gob.cl hasta el martes 10 de noviembre.'], necesitas: ['Las bases de la convocatoria.', 'Saber la fecha de inicio de actividades y el número de trabajadores de tu empresa.'], accion: '<button class="btn btn--linea btn--chico" type="button" data-verificar>¿Puedo postular?</button>' },
+    { nombre: 'Postula en línea', cuando: 'Hasta el 16 de noviembre, 15:00', desde: '2026-11-03', hasta: '2026-11-16', haces: ['Completa el formulario en 6 pasos.', 'Responde las 3 preguntas de la propuesta de uso.', 'Adjunta los documentos y el Anexo N° 1 firmado.'], necesitas: ['Certificado de vigencia (hasta 60 días).', 'Carpeta Tributaria (hasta 30 días).', 'Certificado F30 y, si tienes trabajadores, la planilla de cotizaciones.', 'Enlace a la demo o a un video de hasta 2 minutos.'], accion: '<button class="btn btn--acento btn--chico" type="button" data-abrir-ficha>Abrir el formulario</button>' },
+    { nombre: 'Evaluación', cuando: '17 de noviembre al 2 de diciembre', desde: '2026-11-17', hasta: '2026-12-02', haces: ['Nada: el Ministerio revisa la admisibilidad y evalúa.', 'Si te piden corregir un error formal, tienes 2 días hábiles, por una sola vez.'], necesitas: ['Estar atento al correo del representante legal.'], accion: '<a class="btn btn--linea btn--chico" href="#puntaje">Cómo se evalúa</a>' },
+    { nombre: 'Activa tu licencia', cuando: 'Desde el 3 de diciembre', desde: '2026-12-03', hasta: '2026-12-31', haces: ['Revisa los resultados, que se publican el 3 de diciembre.', 'Si te seleccionan, completa el formulario de activación de ElevenLabs a tiempo (10 días hábiles, según el numeral 3).', 'Participa en la sesión introductoria y en las sesiones trimestrales.'], necesitas: ['El correo corporativo que indicaste para la licencia.'], accion: '' },
+  ];
+  const linea = document.querySelector('.stepper__linea'), pan = document.querySelector('[data-stepper-panel]');
+  PASOS.forEach((p) => { p.estado = ACTIVA.estado(p); });
+  linea.innerHTML = PASOS.map((p, i) => `<button class="stepper__tab is-${p.estado}" role="tab" type="button" aria-selected="false" data-i="${i}"><i>${p.estado === 'done' ? '✓' : i + 1}</i><b>${p.nombre}</b><small>${p.cuando}</small></button>`).join('');
+  // Avance de la línea según hoy, entre la apertura y los resultados
+  const t0 = new Date('2026-11-03T00:00:00-03:00').getTime(), t1 = new Date('2026-12-03T00:00:00-03:00').getTime();
+  requestAnimationFrame(() => document.querySelector('[data-stepper]').style.setProperty('--avance', Math.min(1, Math.max(0, (ACTIVA.ahora() - t0) / (t1 - t0)))));
+  const mostrar = (i, foco) => {
+    linea.querySelectorAll('[role=tab]').forEach((b, k) => b.setAttribute('aria-selected', String(k === i)));
+    const p = PASOS[i], est = { done: 'Realizado', live: 'En curso', next: 'Próximo' }[p.estado];
+    pan.innerHTML = `<div class="stepper__panel" role="tabpanel"><div><span class="estado estado--${{ done: 'hecho', live: 'curso', next: 'proximo' }[p.estado]}">${est}</span><h3>${i + 1}. ${p.nombre}</h3><p>${p.cuando}</p>${p.accion}
+      <div class="stepper__nav"><button class="btn btn--linea btn--chico" type="button" data-mover="-1" ${i ? '' : 'disabled'} aria-label="Paso anterior">←</button><button class="btn btn--linea btn--chico" type="button" data-mover="1" ${i < 3 ? '' : 'disabled'} aria-label="Paso siguiente">→</button></div></div>
+      <div><h4>Qué haces</h4><ul>${p.haces.map((x) => `<li>${x}</li>`).join('')}</ul></div><div><h4>Qué necesitas</h4><ul>${p.necesitas.map((x) => `<li>${x}</li>`).join('')}</ul></div></div>`;
+    pan.querySelectorAll('[data-mover]').forEach((b) => b.addEventListener('click', () => mostrar(i + Number(b.dataset.mover))));
+    pan.querySelector('[data-verificar]')?.addEventListener('click', (e) => Ventana.abrir(document.getElementById('verificar'), e.currentTarget));
+    if (foco) linea.children[i].focus();
+  };
+  linea.addEventListener('click', (e) => { const b = e.target.closest('[data-i]'); if (b) mostrar(Number(b.dataset.i)); });
+  linea.addEventListener('keydown', (e) => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; const i = [...linea.children].indexOf(document.activeElement); if (d && PASOS[i + d]) { e.preventDefault(); mostrar(i + d, true); } });
+  mostrar(Math.max(0, PASOS.findLastIndex((p) => p.estado === 'live')));
+})();
+</script>
+<script src="../../../modulos/01-barra-aviso-por-fecha/modulo.js"></script>
+<script src="../../../modulos/02-encabezado-inteligente/modulo.js"></script>
+<script src="../../../modulos/03-portada-haces-de-luz/modulo.js"></script>
+<script src="../../../modulos/04-titulos-que-suben/modulo.js"></script>
+<script src="../../../modulos/05-aparicion-al-desplazar/modulo.js"></script>
+<script src="../../../modulos/07-cuenta-regresiva/modulo.js"></script>
+<script src="../../../modulos/10-hitos-hechos-y-proximos/modulo.js"></script>
+<script src="../../../modulos/11-ventana-desde-la-tarjeta/modulo.js"></script>
+<script src="../../../modulos/12-preguntas-frecuentes/modulo.js"></script>
+<script src="../../../modulos/14-carrusel/modulo.js"></script>
+<script src="../comun/postulacion.js" data-endpoint=""></script>
+</body>
+</html>

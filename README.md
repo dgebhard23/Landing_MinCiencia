@@ -31,6 +31,8 @@ ejemplos/
   plantilla-landing/      ← landing base que ya combina 9 módulos
   landing-reglamentos-tt/ ← la landing original completa (envío desconectado)
   buzon-ebct/             ← el buzón interactivo original (endpoint e ID de planilla en blanco)
+proyectos/
+  activa-startup-ia/      ← landing de la convocatoria con ElevenLabs: 3 propuestas + formulario según bases
 catalogo.json    ← listado de módulos (nombre, categoría, qué hace, cuándo usarlo, origen)
 skills/          ← 12 skills externas de diseño, diagramas y escritura, ordenadas por especialidad (ver skills/README.md)
 ```
