@@ -99,7 +99,7 @@ Las casillas de Lovable **no equivalen al Anexo N° 1**, que exige una declaraci
 
 Aparecieron al cruzar las bases con la landing. Conviene resolverlos antes de publicar:
 
-1. **Plazo de activación contradictorio.** El numeral 3 dice que hay que completar la activación en **10 días hábiles** y el numeral 10 dice **15 días hábiles**. La landing usa «10 días hábiles» (lo más estricto) y marca el texto como pendiente de confirmar.
+1. **Plazo de activación contradictorio. Resuelto: 10 días hábiles.** El numeral 3 dice **10 días hábiles** y el numeral 10 dice **15**. El equipo confirmó 10, que es lo que usa la landing. Falta corregir el numeral 10 en las bases.
 2. **Nombre de la convocatoria.** El título de las bases dice «ACTIVA STARTUP/EBCT CON IA», y el resto del documento y el Anexo dicen «Activa Startup con IA». La landing usa «Activa Startup con IA».
 3. **Créditos y minutos.** Las bases dicen «44.000.000 créditos (54.000 minutos)». La propuesta de contenidos y Lovable hablan solo de minutos. La landing usa ambos.
 4. **Educación como ámbito prioritario.** Educación es prioritaria, pero se excluyen los productos para menores de 18 años, «incluidos los del ámbito educativo» (Anexo 1, punto 10). La landing lo aclara en el ámbito y en las preguntas frecuentes.

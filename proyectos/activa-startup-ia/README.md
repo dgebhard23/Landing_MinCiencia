@@ -59,11 +59,10 @@ Además, guarda un borrador en el navegador (sin los archivos), descarga una cop
 ## Pendientes
 
 - **Propuesta elegida: la 2 (La voz).** No lleva muestras de audio: los casos muestran el ejemplo de uso como texto.
-- Confirmar el plazo de activación (10 o 15 días hábiles): la página cita el numeral 3 (10 días).
 
 - SVG oficial del logo «Ministerio CTCI» desde la página Logos del Figma (hoy es el PNG de la propuesta Lovable).
 - Fotos propias de startups chilenas para reemplazar las de Unsplash.
-- Plazo de activación: 10 o 15 días hábiles (las bases se contradicen).
+- Corregir el numeral 10 de las bases: dice 15 días hábiles para activar la licencia y el plazo confirmado es 10 (numeral 3), que es el que usa la página.
 - Publicar el Apps Script y pegar la URL en `data-endpoint` de las 3 propuestas.
 - Revisión jurídica de las aceptaciones y del aviso de datos personales.
 - Elegir propuesta (o mezcla) y generar la versión de un solo archivo para publicar.
