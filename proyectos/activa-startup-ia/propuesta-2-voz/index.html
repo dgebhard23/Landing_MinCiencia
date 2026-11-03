@@ -6,6 +6,7 @@
 <title>Activa Startup con IA · MinCiencia y ElevenLabs</title>
 <meta name="description" content="MinCiencia y ElevenLabs entregan sin costo licencias de IA de voz a hasta 100 startups y EBCT chilenas por 12 meses. Postulaciones hasta el 16 de noviembre de 2026.">
 <meta name="theme-color" content="#131332">
+<script>document.documentElement.classList.add('js')</script>
 <!-- Propuesta 2 · La voz. La más expresiva: la voz se vuelve forma.
      Portada con 100 barras de audio (una por cupo), orbe de voz en la alianza, casos que hablan,
      recorrido de 4 pasos (con la verificación de requisitos en el paso 1) y cuenta regresiva. -->
@@ -29,14 +30,31 @@
 .onda-portada canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .onda-portada::after { content: ""; position: absolute; inset: auto 0 0; height: 40%; background: linear-gradient(transparent, var(--navy-975)); pointer-events: none; }
 .onda-portada .contenedor { position: relative; z-index: 1; width: 100%; padding-top: 150px; padding-bottom: clamp(40px, 8vh, 96px); max-width: calc(var(--contenedor) + var(--margen) * 2); }
-.onda-portada h1 { font-size: clamp(50px, 9.4vw, 144px); letter-spacing: -.05em; line-height: .96; }
-/* Cuánto es: equivalencias en mosaico */
-.equiv { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 14px; }
-.equiv > * { border-radius: var(--radio); padding: 26px; display: grid; gap: 10px; align-content: space-between; min-height: 180px; }
-.equiv b { font: 700 clamp(40px, 4.6vw, 70px)/.95 var(--f-titulo); letter-spacing: -.04em; }
-.equiv span { font: 600 11.5px/1.35 var(--f-texto); letter-spacing: .12em; text-transform: uppercase; }
-.equiv .igual { font: 700 26px var(--f-titulo); }
-@media (max-width: 900px) { .equiv { grid-template-columns: 1fr 1fr; } }
+.onda-portada h1 { font-size: clamp(48px, 8.6vw, 128px); letter-spacing: -.04em; line-height: .96; }
+/* Beneficio: credencial de la licencia + equivalencias */
+.licencia-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+.licencia { position: relative; aspect-ratio: 1.6; border-radius: 28px; padding: clamp(22px, 3vw, 36px); color: #fff; overflow: hidden; display: grid; align-content: space-between; isolation: isolate;
+  background: var(--navy-900); box-shadow: 0 40px 80px rgba(19,19,50,.35); transform: rotate(-3deg); transition: transform .8s var(--ease); }
+.licencia:hover { transform: rotate(0) scale(1.02); }
+.licencia canvas { position: absolute; right: -20%; top: -30%; width: 90%; aspect-ratio: 1; z-index: -1; opacity: .9; }
+.licencia::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(80% 90% at 0% 100%, rgba(48,83,249,.55), transparent 60%); }
+.licencia__top { display: flex; align-items: center; gap: 14px; }
+.licencia__top .ctci { height: 40px; } .licencia__top .el { height: 15px; } .licencia__top i { width: 1px; height: 26px; background: rgba(255,255,255,.35); }
+.licencia__num b { display: block; font: 700 clamp(36px, 4.6vw, 62px)/1 var(--f-titulo); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.licencia__num span { color: var(--azul-200); font-size: 14px; }
+.licencia__pie { display: flex; justify-content: space-between; gap: 12px; font: 600 11px var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--lima); }
+.equiv { list-style: none; margin: 28px 0 18px; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--c-borde); }
+.equiv li { padding: 16px 12px 0 0; display: grid; gap: 4px; }
+.equiv li + li { padding-left: 16px; border-left: 1px solid var(--c-borde); }
+.equiv b { font: 700 clamp(30px, 3.2vw, 46px)/1 var(--f-titulo); letter-spacing: -.04em; color: var(--navy-900); font-variant-numeric: tabular-nums; }
+.equiv li:first-child b { color: var(--azul); }
+.equiv span { font: 500 14px/1.35 var(--f-texto); color: var(--ink-soft); }
+@media (max-width: 900px) { .licencia-wrap { grid-template-columns: 1fr; } .licencia { transform: none; } }
+@media (max-width: 420px) { .equiv { grid-template-columns: 1fr; } .equiv li + li { padding-left: 0; border-left: 0; border-top: 1px solid var(--c-borde); padding-top: 12px; } }
+
+.descarga { width: 12px; height: 14px; flex: none; background: linear-gradient(currentColor, currentColor) 50% 0 / 2px 9px no-repeat, linear-gradient(currentColor, currentColor) 50% 100% / 12px 2px no-repeat;
+  -webkit-mask: none; position: relative; }
+.descarga::after { content: ""; position: absolute; left: 50%; top: 4px; width: 7px; height: 7px; border: solid currentColor; border-width: 0 2px 2px 0; transform: translateX(-50%) rotate(45deg); }
 
 /* Alianza: orbe al centro */
 .alianza { display: grid; grid-template-columns: 1fr minmax(240px, 380px) 1fr; gap: clamp(20px, 4vw, 56px); align-items: center; }
@@ -56,10 +74,12 @@
 .prod > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 1.2s var(--ease), filter .8s; filter: saturate(.6); }
 .prod::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(19,19,50,.15), rgba(19,19,50,.92) 75%); }
 .prod[aria-expanded="true"] { flex: 3.2; cursor: default; }
-.prod:not([aria-expanded="true"]) h3 { font-size: clamp(16px, 1.4vw, 20px); overflow-wrap: anywhere; }
+.prod:not([aria-expanded="true"]) { padding: 18px; }
+.prod:not([aria-expanded="true"]) h3 { font-size: clamp(15px, 1.35vw, 20px); overflow-wrap: normal; hyphens: auto; }
 .prod[aria-expanded="true"] > img { transform: scale(1.04); filter: none; }
 .prod__n { font: 700 12px var(--f-texto); letter-spacing: .14em; color: var(--lima); }
 .prod h3 { font: 700 clamp(20px, 2vw, 30px)/1.05 var(--f-titulo); text-transform: uppercase; margin: 6px 0 0; }
+.prod__btn { all: unset; cursor: pointer; } .prod__btn:focus-visible { outline: 3px solid var(--lima); outline-offset: 4px; border-radius: 4px; }
 .prod__marca { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; padding: 5px 12px 5px 8px; border-radius: 99px; background: rgba(255,255,255,.12); backdrop-filter: blur(8px); font: 600 12.5px var(--f-texto); width: max-content; max-width: 100%; }
 .prod__marca img { height: 14px; width: auto; }
 .prod__mas { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
@@ -97,7 +117,7 @@
 .canal.is-activo .canal__nom { color: #fff; }
 .pantalla { position: relative; overflow: hidden; border-radius: var(--radio); background: var(--lila); color: var(--navy-900); padding: clamp(24px, 3vw, 40px); display: grid; align-content: end; gap: 10px; min-height: 360px; isolation: isolate; }
 .pantalla canvas { position: absolute; right: -8%; top: -12%; width: 78%; aspect-ratio: 1; z-index: -1; }
-.pantalla__cifra { font: 800 clamp(64px, 8vw, 120px)/.9 var(--f-titulo); letter-spacing: -.05em; }
+.pantalla__cifra { font: 800 clamp(64px, 8vw, 120px)/.9 var(--f-titulo); letter-spacing: -.04em; }
 .pantalla__dato { font: 600 12px var(--f-texto); letter-spacing: .12em; text-transform: uppercase; }
 .pantalla h3 { font: 700 clamp(24px, 2.6vw, 36px)/1.05 var(--f-titulo); text-transform: uppercase; margin: 12px 0 0; }
 .pantalla p { margin: 0; max-width: 46ch; font-size: 15.5px; }
@@ -117,6 +137,7 @@
 .consola__panel h3 { font: 700 clamp(26px, 3vw, 42px)/1.05 var(--f-titulo); text-transform: uppercase; margin: 0; }
 .consola__panel p { margin: 0; color: #dfe3ee; max-width: 46ch; }
 .consola__frase { display: grid; grid-template-columns: 56px 1fr; gap: 16px; align-items: center; font: 500 clamp(17px, 1.8vw, 23px)/1.35 var(--f-titulo); color: #fff !important; max-width: 40ch !important; }
+.consola__ej { font: 600 11px var(--f-texto) !important; letter-spacing: .14em; text-transform: uppercase; color: var(--lima) !important; margin-bottom: -6px !important; }
 .consola__frase .orbe { display: block; width: 56px; box-shadow: none; }
 @media (max-width: 760px) { .consola { grid-template-columns: 1fr; } .consola__lista[role="tablist"] { grid-auto-flow: column; overflow-x: auto; } .consola__lista [role="tab"] { white-space: nowrap; border-bottom: 0; } .consola__panel[role="tabpanel"] { min-height: 460px; } }
 
@@ -125,13 +146,13 @@
 .recorrido { display: grid; grid-template-columns: 1fr 1.4fr; gap: 56px; }
 .recorrido__fijo { position: sticky; top: 140px; align-self: start; display: grid; gap: 20px; justify-items: start; }
 .recorrido__orbe { position: relative; width: min(300px, 80%); }
-.recorrido__num { position: absolute; inset: 0; display: grid; place-items: center; font: 800 clamp(80px, 9vw, 130px)/1 var(--f-titulo); color: #fff; letter-spacing: -.05em; text-shadow: 0 6px 30px rgba(19,19,50,.5); }
+.recorrido__num { position: absolute; inset: 0; display: grid; place-items: center; font: 800 clamp(80px, 9vw, 130px)/1 var(--f-titulo); color: #fff; letter-spacing: -.04em; text-shadow: 0 6px 30px rgba(19,19,50,.5); }
 .recorrido__barra { width: 100%; max-width: 300px; height: 6px; border-radius: 99px; background: rgba(255,255,255,.12); overflow: hidden; }
 .recorrido__barra i { display: block; height: 100%; width: 25%; background: var(--lima); transition: width .6s var(--ease); }
 .recorrido__nom { font: 700 22px var(--f-titulo); text-transform: uppercase; margin: 0; }
 .recorrido__pasos { display: grid; gap: 20px; }
-.paso { padding: 30px; border-radius: var(--radio); background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); opacity: .5; transition: opacity .5s, border-color .5s, background .5s; }
-.paso.is-activo { opacity: 1; border-color: var(--lila); background: rgba(151,169,252,.1); }
+.paso { padding: 30px; border-radius: var(--radio); background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.1); transition: border-color .5s, background .5s; }
+.paso.is-activo { border-color: var(--lila); background: rgba(151,169,252,.1); }
 .paso small { font: 700 11.5px var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--lila); }
 .paso h3 { font: 700 clamp(24px, 2.4vw, 34px)/1.08 var(--f-titulo); text-transform: uppercase; margin: 8px 0 12px; }
 .paso p { color: var(--n-350); margin: 0 0 14px; }
@@ -141,7 +162,7 @@
 .prep label:has(input:checked) { background: rgba(205,237,201,.16); }
 .prep label:has(input:checked) span { text-decoration: line-through; opacity: .65; }
 .prep__cuenta { font-weight: 600; color: var(--lima); margin-top: 12px; }
-@media (max-width: 900px) { .recorrido { grid-template-columns: 1fr; } .recorrido__fijo { position: static; grid-template-columns: 120px 1fr; align-items: center; } .recorrido__orbe { width: 120px; grid-row: span 2; } .recorrido__num { font-size: 56px; } .paso { opacity: 1; } .prep { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .recorrido { grid-template-columns: 1fr; } .recorrido__fijo { position: static; grid-template-columns: 120px 1fr; align-items: center; } .recorrido__orbe { width: 120px; grid-row: span 2; } .recorrido__num { font-size: 56px; }  .prep { grid-template-columns: 1fr; } }
 
 /* Cuenta regresiva */
 .cierre { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; padding: clamp(28px, 4vw, 56px); border-radius: var(--radio); background: var(--lima); color: var(--navy-900); }
@@ -190,10 +211,11 @@
       <p class="sello-colab" data-aparecer><img class="ctci" src="../img/minciencia-ctci-blanco.png" alt=""><span>×</span><img src="../img/elevenlabs-blanco.svg" alt=""><b>Activa Startup con IA</b></p>
       <h1 class="display" data-lineas><span>Dale voz</span><span class="sangria">a tu <em>startup</em></span></h1>
       <div class="portada__pie">
-        <p class="lead" data-aparecer>100 startups y EBCT chilenas usarán sin costo, por 12 meses, la IA de voz de ElevenLabs en su propio producto.</p>
+        <p class="lead" data-aparecer>Hasta 100 startups y EBCT chilenas usarán sin costo, por 12 meses, la IA de voz de ElevenLabs en su producto. Postula hasta el lunes 16 de noviembre a las 15:00.</p>
         <div class="portada__acciones" data-aparecer>
           <button class="btn btn--lima" type="button" data-abrir-ficha>Postula <span class="flecha"></span></button>
           <a class="btn btn--fantasma" href="#pasos">Cómo postular</a>
+          <a class="btn btn--fantasma btn--bases" href="../bases/Bases_Activa_Startup_con_IA_2026-11-02.pdf" download>Bases del concurso <span class="descarga" aria-hidden="true"></span><span class="sr-only">(PDF, 330 KB)</span></a>
         </div>
       </div>
     </div>
@@ -205,35 +227,40 @@
       <div class="cabeza" style="justify-content:center;text-align:center"><div style="flex:0 1 auto"><p class="etiqueta">La alianza</p><h2 class="display" data-lineas><span>Dos voces,</span><span>una <em>convocatoria</em></span></h2></div></div>
       <div class="alianza">
         <div class="alianza__lado" data-aparecer><img src="../img/minciencia-ctci-blanco.png" alt="Ministerio de Ciencia, Tecnología, Conocimiento e Innovación"><h3>Convoca, evalúa y selecciona</h3><ul data-rol-min></ul></div>
-        <div class="orbe" data-orbe="pulso" aria-hidden="true"></div>
+        <div class="orbe" aria-hidden="true"></div>
         <div class="alianza__lado alianza__lado--der" data-aparecer><img class="el" src="../img/elevenlabs-blanco.svg" alt="ElevenLabs"><h3>Aporta la tecnología</h3><ul data-rol-el></ul></div>
       </div>
-      <p class="alianza__pie" data-aparecer>En el marco del Memorando de Entendimiento entre el Ministerio de Ciencia y ElevenLabs.</p>
-    </div>
-  </section>
-
-  <!-- Cuánto es -->
-  <section class="claro seccion" aria-label="Cuánto es" style="padding-bottom: calc(var(--seccion) / 2)">
-    <div class="contenedor">
-      <div class="cabeza"><h2 class="display" data-lineas><span>54.000 minutos</span><span class="media">son <em>37 días</em> de audio</span></h2></div>
-      <div class="equiv">
-        <div class="bento__navy" data-aparecer><b data-contar="54000">54.000</b><span>Minutos por empresa · 44 millones de créditos</span></div>
-        <div class="bento__lila" data-aparecer><b data-contar="900">900</b><span>Horas</span></div>
-        <div class="bento__lima" data-aparecer><b data-contar="37">37</b><span>Días seguidos de audio</span></div>
-        <div class="bento__blanco" data-aparecer><b data-contar="12">12</b><span>Meses para usarlos</span></div>
-      </div>
+      <p class="alianza__pie" data-aparecer>Esta convocatoria nace del Memorando de Entendimiento que firmaron el Ministerio de Ciencia y ElevenLabs.</p>
     </div>
   </section>
 
   <!-- Beneficio -->
-  <section class="claro seccion" id="beneficio" style="padding-top: calc(var(--seccion) / 2)">
+  <section class="claro seccion" id="beneficio">
     <div class="contenedor">
-      <div class="cabeza">
-        <div><p class="etiqueta">El beneficio</p><h2 class="h2">La plataforma de <span class="acento">ElevenLabs</span></h2></div>
-        <p class="cabeza__lado">Cuatro productos de ElevenLabs incluidos en la licencia, según sus condiciones vigentes. Toca cada uno.</p>
+      <div class="licencia-wrap">
+        <div class="licencia" aria-label="Licencia ElevenLabs de hasta 44 millones de créditos por 12 meses, de MinCiencia y ElevenLabs" data-aparecer>
+          <canvas data-chladni data-color="#97A9FC" data-particulas="1800" aria-hidden="true"></canvas>
+          <div class="licencia__top"><img class="ctci" src="../img/minciencia-ctci-blanco.png" alt=""><i></i><img class="el" src="../img/elevenlabs-blanco.svg" alt=""></div>
+          <div class="licencia__num"><b data-contar="44000000">44.000.000</b><span>créditos por empresa, como máximo</span></div>
+          <div class="licencia__pie"><span>Activa Startup con IA</span><span>12 meses</span></div>
+        </div>
+        <div>
+          <p class="etiqueta">El beneficio</p>
+          <h2 class="display" data-lineas><span>Una licencia</span><span class="media">para tu <em>producto</em></span></h2>
+          <ul class="equiv">
+            <li data-aparecer><b data-contar="54000">54.000</b><span>minutos de procesamiento, como máximo</span></li>
+            <li data-aparecer><b data-contar="900">900</b><span>horas de audio</span></li>
+            <li data-aparecer><b data-contar="37">37</b><span>días seguidos</span></li>
+          </ul>
+          <p class="suave" style="margin:0">Sin costo, intransferible y por 12 meses desde la activación.</p>
+        </div>
+      </div>
+      <div class="cabeza" style="margin-top: clamp(56px, 7vw, 96px)">
+        <h3 class="h2" style="font-size:clamp(24px,2.6vw,36px)">Incluye la plataforma de <span class="acento">ElevenLabs</span></h3>
+        <p class="cabeza__lado">Cuatro productos, según las condiciones vigentes de la licencia. Toca cada uno.</p>
       </div>
       <div class="prods" data-prods></div>
-      <p class="acomp-linea" data-aparecer><b>Acompañamiento</b><span>Sesión introductoria</span><span>Correo técnico</span><span>Q&amp;A cada trimestre</span></p>
+      <p class="acomp-linea" data-aparecer><b>Acompañamiento</b><span>Sesión introductoria</span><span>Correo para consultas técnicas</span><span>Sesión trimestral de preguntas</span></p>
     </div>
   </section>
 
@@ -244,7 +271,7 @@
     <div class="contenedor">
       <div class="cabeza">
         <div><p class="etiqueta">Política Nacional de IA</p><h2 class="h2">Tres ejes, un <span class="acento">centro</span></h2></div>
-        <p class="cabeza__lado">La convocatoria aporta a los tres ejes del Decreto N° 12 de 2024. Sube cada canal para escucharlo.</p>
+        <p class="cabeza__lado">La convocatoria aporta a los tres ejes de la Política Nacional de IA (Decreto N° 12 de 2024). Sube un canal para ver qué aporta en ese eje.</p>
       </div>
       <div class="mezcla">
         <div class="consola-mix" data-mix role="group" aria-label="Ejes de la Política Nacional de IA"></div>
@@ -257,12 +284,12 @@
   <section class="claro seccion" id="casos">
     <div class="contenedor">
       <div class="cabeza">
-        <div><p class="etiqueta">Ámbitos prioritarios</p><h2 class="display" data-lineas><span>Escucha lo que</span><span class="media">puedes <em>construir</em></span></h2></div>
-        <p class="cabeza__lado" data-aparecer>Estar en uno de estos ámbitos es el primer criterio de desempate. Los ejemplos se leen con la voz de tu navegador.</p>
+        <div><p class="etiqueta">Ámbitos prioritarios</p><h2 class="display" data-lineas><span>Lo que puedes</span><span class="media"><em>construir</em> con voz</span></h2></div>
+        <p class="cabeza__lado" data-aparecer>Se da prioridad a estos cinco ámbitos, y estar en uno es el primer criterio de desempate.</p>
       </div>
       <div class="consola" data-aparecer>
         <div class="consola__lista" role="tablist" aria-label="Ámbitos"></div>
-        <div class="consola__panel" role="tabpanel" aria-live="polite"></div>
+        <div class="consola__panel" role="tabpanel" id="amb-panel" aria-labelledby="amb-t0" tabindex="0"></div>
       </div>
     </div>
   </section>
@@ -282,18 +309,18 @@
         <div class="recorrido__pasos">
           <article class="paso" data-paso-rec="Revisa si cumples"><small>Paso 1 · Antes de postular</small><h3>Revisa si cumples</h3>
             <p>11 preguntas de sí o no, según el numeral 4 de las bases. En un minuto sabes si tu empresa puede postular.</p>
-            <button class="btn btn--lima btn--chico" type="button" data-abrir="verificar">Verifica si cumples <span class="flecha"></span></button> <a class="btn btn--fantasma btn--chico" href="../bases/Bases_Activa_Startup_con_IA_2026-11-02.docx">Bases</a></article>
+            <button class="btn btn--lima btn--chico" type="button" data-abrir="verificar">Responder las 11 preguntas <span class="flecha"></span></button> <a class="btn btn--fantasma btn--chico" href="../bases/Bases_Activa_Startup_con_IA_2026-11-02.pdf" download>Bases (PDF)</a></article>
           <article class="paso" data-paso-rec="Reúne tus documentos"><small>Paso 2 · Prepara</small><h3>Reúne tus documentos</h3>
             <p>Marca lo que ya tienes. Queda guardado en este navegador.</p>
             <ul class="prep" data-prep>
               <li><label><input type="checkbox"><span>Certificado de vigencia (hasta 60 días)</span></label></li>
               <li><label><input type="checkbox"><span>Carpeta Tributaria (hasta 30 días)</span></label></li>
               <li><label><input type="checkbox"><span>Certificado F30</span></label></li>
-              <li><label><input type="checkbox"><span>Cotizaciones del último mes</span></label></li>
-              <li><label><input type="checkbox"><span>Demo o video de 2 minutos</span></label></li>
+              <li><label><input type="checkbox"><span>Cotizaciones del último mes (si tienes trabajadores)</span></label></li>
+              <li><label><input type="checkbox"><span>Enlace a demo o video (hasta 2 min)</span></label></li>
               <li><label><input type="checkbox"><span>Sitio web o presentación en PDF</span></label></li>
               <li><label><input type="checkbox"><span>Datos del responsable técnico</span></label></li>
-              <li><label><input type="checkbox"><span>Respaldos de puntaje</span></label></li>
+              <li><label><input type="checkbox"><span>Respaldos de los criterios que declares</span></label></li>
             </ul>
             <p class="prep__cuenta" data-prep-cuenta aria-live="polite"></p></article>
           <article class="paso" data-paso-rec="Postula en línea"><small>Paso 3 · Hasta el 16 de noviembre, 15:00</small><h3>Postula en línea</h3>
@@ -313,7 +340,7 @@
   <section class="tema-oscuro" style="padding-bottom: var(--seccion)">
     <div class="contenedor">
       <div class="cierre" data-aparecer>
-        <div><h2>Cierre de postulaciones</h2><p>Lunes 16 de noviembre de 2026, 15:00.</p><button class="btn" type="button" data-abrir-ficha>Postula ahora <span class="flecha"></span></button></div>
+        <div><h2>Cierre de postulaciones</h2><p>Lunes 16 de noviembre de 2026, 15:00 hora de Chile.</p><button class="btn" type="button" data-abrir-ficha>Postula ahora <span class="flecha"></span></button></div>
         <div class="reloj" data-cuenta="2026-11-16T15:00:00-03:00" role="timer" aria-label="Tiempo para el cierre">
           <div><b data-u="d"></b><small>días</small></div><div><b data-u="h"></b><small>horas</small></div><div><b data-u="m"></b><small>min</small></div><div><b data-u="s"></b><small>seg</small></div>
         </div>
@@ -343,7 +370,7 @@
     <div class="pie__colab">
       <img class="escudo" src="../img/minciencia-blanco.png" alt="Gobierno de Chile"><img class="ctci" src="../img/minciencia-ctci-blanco.png" alt="Ministerio CTCI"><img class="el" src="../img/elevenlabs-blanco.svg" alt="ElevenLabs">
     </div>
-    <p>Activa Startup con IA · Ministerio de Ciencia, Tecnología, Conocimiento e Innovación y ElevenLabs · <a href="../bases/Bases_Activa_Startup_con_IA_2026-11-02.docx">Bases</a> · <a href="https://siac.minciencia.gob.cl/web" target="_blank" rel="noopener">Consultas</a></p>
+    <p>Activa Startup con IA · Ministerio de Ciencia, Tecnología, Conocimiento e Innovación y ElevenLabs · <a href="../bases/Bases_Activa_Startup_con_IA_2026-11-02.pdf" download>Bases del concurso (PDF)</a> · <a href="https://siac.minciencia.gob.cl/web" target="_blank" rel="noopener">Consultas</a></p>
     <p>Los datos personales se tratan conforme a la Ley N° 19.628 y la Ley N° 21.719.</p>
   </div>
 </footer>
@@ -386,37 +413,39 @@
 
   // Beneficio: productos de ElevenLabs que se expanden
   const PRODS = [
-    ['Síntesis de voz', 'Text to Speech', 'microfono', ['Leer documentos y sitios', 'Narrar cursos y audiolibros', 'Doblar videos'], 'audio/muestra-voz.mp3'],
+    ['Síntesis de voz', 'Text to Speech', 'microfono', ['Leer documentos y sitios', 'Narrar cursos y audiolibros', 'Doblar videos'], ''],
     ['Transcripción', 'Speech to Text', 'educacion', ['Actas de reuniones', 'Subtítulos', 'Análisis de llamadas'], ''],
-    ['Agentes de voz', 'ElevenAgents', 'atencion', ['Mesas de ayuda sin esperas', 'Seguimiento a pacientes', 'Tutores que responden'], 'audio/muestra-agente.mp3'],
-    ['Música', 'ElevenMusic', 'creativas', ['Bandas sonoras', 'Efectos para apps', 'Identidad sonora'], 'audio/muestra-musica.mp3'],
+    ['Agentes de voz', 'ElevenAgents', 'atencion', ['Mesas de ayuda sin esperas', 'Seguimiento a pacientes', 'Tutores que responden'], ''],
+    ['Música', 'ElevenMusic', 'creativas', ['Bandas sonoras', 'Efectos para apps', 'Identidad sonora'], ''],
   ];
   const prods = document.querySelector('[data-prods]');
-  prods.innerHTML = PRODS.map(([t, marca, foto, usos, au], i) => `<article class="prod" role="button" tabindex="0" aria-expanded="${i === 0}" data-aparecer><img src="../img/fotos/${foto}.jpg" alt="" loading="lazy">
-    <span class="prod__n">0${i + 1}</span><h3>${t}</h3><span class="prod__marca"><img src="../img/elevenlabs-simbolo.svg" alt="" style="filter:invert(1)">${marca}</span>
-    <div class="prod__mas"><div><ul>${usos.map((u) => `<li>${u}</li>`).join('')}</ul>${au ? `<button class="btn btn--lima btn--chico" type="button" data-escuchar="" data-audio="../${au}">Escuchar una muestra</button>` : ''}</div></div></article>`).join('');
-  const abrirProd = (p) => prods.querySelectorAll('.prod').forEach((x) => x.setAttribute('aria-expanded', String(x === p)));
+  prods.innerHTML = PRODS.map(([t, marca, foto, usos, au], i) => `<article class="prod" aria-expanded="${i === 0}" data-aparecer><img src="../img/fotos/${foto}.jpg" alt="" loading="lazy">
+    <h3><button class="prod__btn" type="button" aria-expanded="${i === 0}" aria-controls="prod-mas-${i}">${t}</button></h3><span class="prod__marca"><img src="../img/elevenlabs-simbolo.svg" alt="" style="filter:invert(1)">${marca}</span>
+    <div class="prod__mas" id="prod-mas-${i}"><div><ul>${usos.map((u) => `<li>${u}</li>`).join('')}</ul></div></div></article>`).join('');
+  const abrirProd = (p) => prods.querySelectorAll('.prod').forEach((x) => { x.setAttribute('aria-expanded', String(x === p)); x.querySelector('.prod__btn').setAttribute('aria-expanded', String(x === p)); });
   prods.addEventListener('click', (e) => { const p = e.target.closest('.prod'); if (p && !e.target.closest('[data-audio]')) abrirProd(p); });
-  prods.addEventListener('mouseover', (e) => { const p = e.target.closest('.prod'); if (p && matchMedia('(hover: hover)').matches) abrirProd(p); });
-  prods.addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('prod')) { e.preventDefault(); abrirProd(e.target); } });
+  let tProd = 0;
+  prods.addEventListener('mouseover', (e) => { const p = e.target.closest('.prod'); clearTimeout(tProd); if (p && matchMedia('(hover: hover)').matches) tProd = setTimeout(() => abrirProd(p), 180); });
+  prods.addEventListener('mouseleave', () => clearTimeout(tProd));
 
   // Fundamentos: mezclador. El canal más alto es el eje que se muestra en la pantalla.
   const EJES = [
-    { n: 'Eje 1', nom: 'Factores habilitantes', cifra: '44M', dato: 'créditos por empresa, sin costo', txt: 'Baja la barrera de costo para usar IA de frontera cuando la empresa todavía está validando su producto.', modo: 0 },
-    { n: 'Eje 2 · Centro', nom: 'Desarrollo y adopción', cifra: '100', dato: 'empresas integrando IA de voz', txt: 'Las empresas integran la plataforma a su propio producto, con acompañamiento técnico de ElevenLabs, y miden su resultado.', modo: 1 },
-    { n: 'Eje 3', nom: 'Gobernanza y ética', cifra: '0', dato: 'voces clonadas sin consentimiento', txt: 'Uso responsable: sin productos para menores de 18 años, sin clonar voces sin permiso y sin suplantar identidades.', modo: 4 },
+    { n: 'Eje 1', nom: 'Factores habilitantes', cifra: '44M', dato: 'hasta 44 millones de créditos por empresa, sin costo', txt: 'Tu empresa usa IA de voz de última generación sin pagar la licencia mientras valida su producto.', modo: 0 },
+    { n: 'Eje 2 · Centro', nom: 'Desarrollo y adopción', cifra: '100', dato: 'hasta 100 empresas integran IA de voz en su producto', txt: 'Las empresas integran la plataforma a su propio producto, con acompañamiento técnico de ElevenLabs, y miden su resultado.', modo: 1 },
+    { n: 'Eje 3', nom: 'Gobernanza y ética', cifra: '18+', dato: 'años: solo productos para personas adultas', txt: 'Uso responsable: sin productos para menores de 18 años, sin clonar voces sin permiso y sin suplantar identidades.', modo: 4 },
   ];
   const mix = document.querySelector('[data-mix]'), pantalla = document.querySelector('[data-pantalla]'), cvMix = document.querySelector('.pantalla canvas');
   const SEG = 14, niveles = [38, 88, 56];
   mix.innerHTML = EJES.map((e, i) => `<div class="canal" data-c="${i}"><span class="canal__n">${e.n}</span>
     <div class="canal__cuerpo"><span class="vu" aria-hidden="true">${'<i></i>'.repeat(SEG)}</span>
-      <input class="fader" type="range" min="0" max="100" value="${niveles[i]}" aria-label="${e.nom}" aria-valuetext="${e.nom}"></div>
+      <input class="fader" type="range" min="0" max="100" value="${niveles[i]}" aria-label="${e.nom}" aria-valuetext="${e.nom}: ${niveles[i]} %"></div>
     <button class="canal__nom" type="button">${e.nom}</button></div>`).join('');
   let activo = -1;
   const pintarMix = () => {
     const k = niveles.indexOf(Math.max(...niveles));
     mix.querySelectorAll('.canal').forEach((c, i) => {
       c.classList.toggle('is-activo', i === k);
+      c.querySelector('.fader').setAttribute('aria-valuetext', `${EJES[i].nom}: ${niveles[i]} %${i === k ? ', en pantalla' : ''}`);
       const on = Math.round(niveles[i] / 100 * SEG);
       c.querySelectorAll('.vu i').forEach((s, j) => { s.classList.toggle('on', j < on); s.classList.toggle('alto', j >= SEG - 3); });
     });
@@ -436,25 +465,27 @@
     requestAnimationFrame(paso);
   });
   // El canal activo «vibra» un poco, como un vúmetro real
-  setInterval(() => { if (reduce || activo < 0) return; const c = mix.querySelectorAll('.canal')[activo], on = Math.round(niveles[activo] / 100 * SEG) - Math.round(Math.random() * 2);
+  let mixVisible = false;
+  new IntersectionObserver(([e]) => { mixVisible = e.isIntersecting; }).observe(mix);
+  setInterval(() => { if (reduce || activo < 0 || !mixVisible) return; const c = mix.querySelectorAll('.canal')[activo], on = Math.round(niveles[activo] / 100 * SEG) - Math.round(Math.random() * 2);
     c.querySelectorAll('.vu i').forEach((s, j) => s.classList.toggle('on', j < on)); }, 140);
   pintarMix();
 
   // Consola de casos con foto
   const lista = document.querySelector('.consola__lista'), panel = document.querySelector('.consola__panel');
-  lista.innerHTML = ACTIVA.ambitos.map((a, i) => `<button role="tab" type="button" aria-selected="${i === 0}" data-i="${i}"><span>0${i + 1}</span>${a.nombre}</button>`).join('');
+  lista.innerHTML = ACTIVA.ambitos.map((a, i) => `<button role="tab" type="button" id="amb-t${i}" aria-controls="amb-panel" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}" data-i="${i}">${a.nombre}</button>`).join('');
   const mostrar = (i) => {
     ACTIVA.parar?.();
     const a = ACTIVA.ambitos[i];
-    lista.querySelectorAll('[role=tab]').forEach((b, k) => b.setAttribute('aria-selected', String(k === i)));
+    lista.querySelectorAll('[role=tab]').forEach((b, k) => { b.setAttribute('aria-selected', String(k === i)); b.tabIndex = k === i ? 0 : -1; });
+    panel.setAttribute('aria-labelledby', `amb-t${i}`);
     panel.innerHTML = `<img src="../img/${a.foto}" alt="">
       <h3>${a.nombre}</h3><p>${a.corto}</p>
-      <p class="consola__frase"><span class="orbe" data-orbe="pulso" aria-hidden="true"></span>«${a.frase}»</p>
-      <button class="btn btn--lima btn--chico" type="button" data-escuchar="${esc(a.frase)}" data-audio="../${a.audio}" style="justify-self:start">Escuchar el ejemplo</button>`;
-    ACTIVA.audios?.(panel);
+      <p class="consola__ej">Ejemplo de uso</p>
+      <p class="consola__frase"><span class="orbe" aria-hidden="true"></span>«${a.frase}»</p>`;
   };
   lista.addEventListener('click', (e) => { const b = e.target.closest('[data-i]'); if (b) mostrar(Number(b.dataset.i)); });
-  lista.addEventListener('keydown', (e) => { const d = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key]; if (!d) return; e.preventDefault(); const bs = [...lista.children], i = (bs.findIndex((b) => b.getAttribute('aria-selected') === 'true') + d + bs.length) % bs.length; mostrar(i); bs[i].focus(); });
+  lista.addEventListener('keydown', (e) => { const bs = [...lista.children], act = bs.findIndex((b) => b.getAttribute('aria-selected') === 'true'); const d = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1, Home: -act, End: bs.length - 1 - act }[e.key]; if (d === undefined) return; e.preventDefault(); const i = (act + d + bs.length) % bs.length; mostrar(i); bs[i].focus(); });
   mostrar(0);
 
   // Recorrido: el número sigue al paso que está en pantalla

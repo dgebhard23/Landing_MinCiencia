@@ -40,17 +40,17 @@
     },
     // Numeral 4: requisitos y exclusiones, como preguntas de sí o no. «ok» es la respuesta que cumple.
     elegibilidad: [
-      { p: '¿Es una persona jurídica con fines de lucro constituida en Chile?', ok: 'si' },
-      { p: '¿Es startup o EBCT?', d: 'Startup: empresa innovadora con modelo escalable. EBCT: producto o servicio basado en conocimiento científico o tecnológico.', ok: 'si' },
-      { p: '¿Su inicio de actividades ante el SII tiene entre 6 meses y 10 años al 16 de noviembre de 2026?', ok: 'si' },
-      { p: '¿Tiene 25 trabajadores o menos?', ok: 'si' },
-      { p: '¿Tiene un MVP, prototipo funcional o software en operación donde integrar ElevenLabs?', ok: 'si' },
-      { p: '¿Cuenta con al menos una persona responsable de la implementación técnica?', ok: 'si' },
-      { p: '¿Está al día en obligaciones laborales y previsionales?', d: 'Se acredita con el certificado F30.', ok: 'si' },
-      { p: '¿Su producto o proyecto está dirigido a menores de 18 años?', d: 'Incluye productos educativos para escolares.', ok: 'no' },
-      { p: '¿Es agencia, consultora o pyme sin desarrollo tecnológico propio?', ok: 'no' },
-      { p: '¿Desarrolla productos que compiten con los de ElevenLabs?', ok: 'no' },
-      { p: '¿Es cliente enterprise vigente de ElevenLabs o recibió antes un grant de ElevenLabs?', d: 'Los clientes de pago de autoservicio sí pueden postular.', ok: 'no' },
+      { p: '¿Tu empresa es una persona jurídica con fines de lucro constituida en Chile?', ok: 'si' },
+      { p: '¿Tu empresa es startup o EBCT?', d: 'Startup: empresa innovadora con modelo escalable. EBCT: producto o servicio basado en conocimiento científico o tecnológico.', ok: 'si' },
+      { p: '¿El inicio de actividades de tu empresa ante el SII tiene entre 6 meses y 10 años al 16 de noviembre de 2026?', ok: 'si' },
+      { p: '¿Tu empresa tiene 25 trabajadores o menos?', ok: 'si' },
+      { p: '¿Tienes un MVP, prototipo funcional o software en operación donde integrar ElevenLabs?', ok: 'si' },
+      { p: '¿Tienes al menos una persona responsable de la implementación técnica?', ok: 'si' },
+      { p: '¿Tu empresa está al día en obligaciones laborales y previsionales?', d: 'Se acredita con el certificado F30.', ok: 'si' },
+      { p: '¿Tu producto está dirigido a menores de 18 años?', d: 'Incluye productos educativos para escolares.', ok: 'no' },
+      { p: '¿Tu empresa es agencia, consultora o pyme sin desarrollo tecnológico propio?', ok: 'no' },
+      { p: '¿Desarrollas productos que compiten con los de ElevenLabs?', ok: 'no' },
+      { p: '¿Eres cliente enterprise vigente de ElevenLabs o recibiste antes un grant de ElevenLabs?', d: 'Los clientes de pago de autoservicio sí pueden postular.', ok: 'no' },
     ],
     // Preguntas frecuentes: [tema, pregunta, respuesta]. Todo sale de las bases.
     faq: [
@@ -68,9 +68,10 @@
       ['postulación', '¿Puedo cambiar mi postulación después de enviarla?', 'No. Una vez enviada no se puede modificar. Solo se aceptan las aclaraciones formales que pida el Ministerio. El formulario guarda un borrador en tu navegador para que no tengas que enviarla apurado.'],
       ['postulación', '¿Hasta cuándo puedo postular?', 'Hasta el lunes 16 de noviembre de 2026 a las 15:00, hora de Chile. Las consultas se reciben hasta el martes 10 de noviembre en siac.minciencia.gob.cl.'],
       ['evaluación', '¿Cómo se evalúan las postulaciones?', 'En tres pasos. Primero, el Ministerio califica la propuesta como pertinente o no pertinente: es pertinente si describe un uso concreto y realizable de la plataforma, vinculado al negocio de la empresa. Después, las pertinentes se ordenan por puntaje según 7 criterios, con un máximo de 100 puntos. Por último, las 100 primeras se verifican con sus documentos y ElevenLabs revisa la nómina con su propio análisis de fraude.'],
+      ['evaluación', '¿Qué da puntaje?', 'Siete criterios, con un máximo de 100 puntos: producto en el mercado o piloto con clientes (20), financiamiento público previo (20), equipo técnico propio (15), ventas del último año tributario (15), calidad de la propuesta (10), liderazgo femenino (10) y casa matriz fuera de la Región Metropolitana (10). Cada criterio vale solo si lo acreditas con su documento. El detalle está en el numeral 8 de las bases.'],
       ['evaluación', '¿Cómo se resuelven los empates?', 'En este orden: propuesta en un ámbito prioritario, mayor puntaje en calidad de la propuesta, mayor puntaje en financiamiento público previo, mayor puntaje en liderazgo femenino y, por último, la postulación enviada primero.'],
       ['resultados', '¿Cuándo se conocen los resultados?', 'El 3 de diciembre de 2026. Se publican en el sitio web y se avisa por correo a cada empresa.'],
-      ['resultados', 'Si me seleccionan, ¿qué tengo que hacer?', 'Completar el formulario de activación de ElevenLabs y las gestiones a tu cargo dentro del plazo que fijan las bases desde la notificación (10 días hábiles según el numeral 3; plazo por confirmar). Si no lo haces, puedes perder el cupo. Después, debes usar la licencia según tu propuesta, participar en las sesiones de acompañamiento y, si se te pide, colaborar en una actividad de difusión.'],
+      ['resultados', 'Si me seleccionan, ¿qué tengo que hacer?', 'Completar el formulario de activación de ElevenLabs y las gestiones a tu cargo dentro de 10 días hábiles desde la notificación (numeral 3 de las bases). Si no lo haces, puedes perder el cupo. Después, debes usar la licencia según tu propuesta, participar en las sesiones de acompañamiento y, si se te pide, colaborar en una actividad de difusión.'],
       ['datos', '¿Qué pasa con mis datos?', 'El Ministerio los usa para gestionar la convocatoria. Para habilitar la licencia puede comunicar a ElevenLabs solo los datos necesarios: razón social, RUT, nombre, cargo y correo de las personas responsables, y la condición de seleccionada. El tratamiento se ajusta a la Ley N° 19.628 y a la Ley N° 21.719.'],
     ],
   };
@@ -129,7 +130,7 @@
       res.classList.toggle('is-mal', malas.length > 0);
       res.innerHTML = malas.length ? `<b>Con estas respuestas no cumples los requisitos.</b> Revisa: ${malas.map((q) => q.p.replace(/^¿|\?$/g, '').toLowerCase()).join('; ')}.`
         : n < ACTIVA.elegibilidad.length ? `Responde las ${ACTIVA.elegibilidad.length} preguntas. Llevas ${n}.`
-        : `<b>Cumples los requisitos para postular.</b> Ahora reúne los documentos y completa el formulario. <button class="btn btn--acento btn--chico" type="button" data-abrir-ficha>Postular <span class="btn__puntos" aria-hidden="true"></span></button>`;
+        : `<b>Cumples los requisitos para postular.</b> Ahora reúne los documentos y completa el formulario. <button class="btn btn--acento btn--chico" type="button" data-abrir-ficha>Postular <span class="flecha"></span></button>`;
     };
     caja.addEventListener('click', (e) => {
       const b = e.target.closest('[data-r]'); if (!b) return;

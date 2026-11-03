@@ -52,11 +52,11 @@
         { v: 'EBCT', l: 'EBCT', d: 'Empresa cuyo producto o servicio se basa en conocimiento científico o tecnológico.' }] },
       { fila: [
         { n: 'region', l: 'Región de la casa matriz', t: 'select', req: true, opts: REGIONES, ayuda: 'Una casa matriz fuera de la Región Metropolitana suma 10 puntos.' },
-        { n: 'trabajadores', l: 'Número de trabajadores', t: 'number', req: true, min: 0, max: 25, ayuda: 'Máximo 25. Si no tiene trabajadores contratados, escribe 0.' },
+        { n: 'trabajadores', l: 'Número de trabajadores', t: 'number', req: true, min: 0, max: 25, ayuda: 'Máximo 25. Si no tienes trabajadores contratados, escribe 0.' },
       ] },
       { n: 'direccion', l: 'Domicilio de la casa matriz', t: 'text', req: true, ph: 'Calle, número y comuna' },
       { fila: [
-        { n: 'web', l: 'Sitio web', t: 'url', valida: vUrl, ph: 'https://', ayuda: 'Si no tiene sitio web, deberá adjuntar una presentación en PDF.' },
+        { n: 'web', l: 'Sitio web', t: 'url', valida: vUrl, ph: 'https://', ayuda: 'Si no tienes sitio web, tendrás que adjuntar una presentación en PDF.' },
         { n: 'correo_licencia', l: 'Correo corporativo para la licencia', t: 'email', req: true, ayuda: 'ElevenLabs asociará la licencia a este correo.' },
       ] },
       { n: 'ambito', l: 'Ámbito de aplicación de la propuesta', t: 'select', req: true, opts: [...A.ambitos.map((a) => a.nombre), 'Otro'], ayuda: 'Los 5 primeros son prioritarios y se usan para desempatar.' },
@@ -104,7 +104,7 @@
       { n: 'p2', l: '¿Qué harán con ElevenLabs y cómo lo integrarán a su producto u operación?', t: 'textarea', req: true, max: 1000, ayuda: 'Qué funcionalidad usarán y cómo se conecta con su producto: API, flujo, tipo de usuarios.' },
       { n: 'p3', l: '¿Qué resultado esperan y con qué indicador se medirán?', t: 'textarea', req: true, max: 1000, ayuda: 'Ej.: «bajar de 6 a 2 minutos el tiempo de espera en la línea de atención, medido con el registro de llamadas, a los 6 meses».' },
       { n: 'funciones', l: 'Funcionalidades de ElevenLabs que usarán', t: 'checks', opts: ['Síntesis de voz', 'Transcripción', 'Agentes conversacionales de voz', 'Generación de música'] },
-      { n: 'demo', l: 'Enlace a la demostración del producto o a un video de hasta 2 minutos', t: 'url', req: true, valida: vUrl, ph: 'https://', ayuda: 'Acredita que tiene un MVP, prototipo funcional o software en operación.' },
+      { n: 'demo', l: 'Enlace a la demostración del producto o a un video de hasta 2 minutos', t: 'url', req: true, valida: vUrl, ph: 'https://', ayuda: 'Acredita que tienes un MVP, prototipo funcional o software en operación.' },
     ] },
     { titulo: 'Documentos', sec: 'E · Documentos obligatorios', campos: [
       { n: 'intro_docs', t: 'html', html: `<p class="fx__ayuda">Solo PDF, hasta ${MAX_MB} MB cada uno y ${TOTAL_MB} MB en total. Los archivos no quedan en el borrador: si cierras la página, tendrás que adjuntarlos de nuevo.</p>` },
@@ -153,7 +153,7 @@
     <form novalidate>
       <div class="fx__cab"><p class="etiqueta">Postulación · ${A.nombre}</p><h3 id="pf-titulo">Formulario de postulación</h3>
         <ol class="fx__pasos">${PASOS.map((p) => `<li>${p.titulo}</li>`).join('')}</ol><p class="fx__cuenta" data-cuenta-paso></p></div>
-      <div class="fx__cuerpo">${PASOS.map((p, i) => `<fieldset data-paso ${i ? 'hidden' : ''}><legend class="fx__sec" tabindex="-1">${p.sec}</legend>
+      <div class="fx__cuerpo"><p class="fx__ayuda" style="margin-bottom:12px">Los campos con * son obligatorios.</p>${PASOS.map((p, i) => `<fieldset data-paso ${i ? 'hidden' : ''}><legend class="fx__sec" tabindex="-1">${p.sec}</legend>
         ${p.puntaje ? '<div class="fx__puntaje" aria-live="polite"><span>Puntaje declarado</span><b data-pts-total>0</b><span>de 90 · más hasta 10 por calidad, que asigna el Ministerio</span></div>' : ''}
         ${p.campos.map(campo).join('')}</fieldset>`).join('')}
         <input class="fx__trampa" name="sitio_web_hp" tabindex="-1" autocomplete="off" aria-hidden="true"></div>
@@ -255,8 +255,10 @@
   try { const b = JSON.parse(localStorage.getItem(CLAVE) || 'null'); if (b) { restaurar(b); nota.textContent = 'Recuperamos tu borrador guardado en este navegador.'; } } catch { /* sin borrador */ }
 
   // ---------- Validación ----------
-  const limpiar = (c) => { if (!c) return; c.classList.remove('is-invalido'); c.querySelector('.fx__err')?.remove(); };
-  const marcar = (c, msg) => { c.classList.add('is-invalido'); c.insertAdjacentHTML('beforeend', `<p class="fx__err">${msg}</p>`); };
+  const limpiar = (c) => { if (!c) return; c.classList.remove('is-invalido'); const e = c.querySelector('.fx__err'); if (e) { c.querySelectorAll('[aria-describedby]').forEach((el) => { const r = el.getAttribute('aria-describedby').split(' ').filter((x) => x !== e.id).join(' '); r ? el.setAttribute('aria-describedby', r) : el.removeAttribute('aria-describedby'); }); e.remove(); }
+    c.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid')); };
+  const marcar = (c, msg) => { c.classList.add('is-invalido'); const eid = `e-${c.dataset.campo}`; c.insertAdjacentHTML('beforeend', `<p class="fx__err" id="${eid}">${msg}</p>`);
+    c.querySelectorAll('input, select, textarea').forEach((el) => { el.setAttribute('aria-invalid', 'true'); el.setAttribute('aria-describedby', [el.getAttribute('aria-describedby'), eid].filter(Boolean).join(' ')); }); };
   const problema = (c, v) => {
     if (c.t === 'html' || !visible(c, v)) return '';
     const req = typeof c.req === 'function' ? c.req(v) : c.req, x = v[c.n];

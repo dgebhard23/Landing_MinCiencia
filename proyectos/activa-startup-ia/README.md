@@ -4,7 +4,9 @@ Convocatoria del Ministerio de Ciencia y ElevenLabs: hasta 100 startups y EBCT c
 
 Este directorio reemplaza la propuesta hecha en Lovable (https://tomorrow-workshop-compass.lovable.app/). Toma la estructura y el movimiento de la landing de Reglamentos TT y los módulos del repositorio. Los colores, la tipografía (Poppins) y el logo vienen del design system MINCTCI 2026 (Figma), y los logos de ElevenLabs, de su kit oficial (https://elevenlabs.io/brand).
 
-**Para verlo:** abre `index.html`, que compara las 3 propuestas y enlaza a cada una. Sirve abrirlo directo desde el disco o con un servidor local:
+**Versión final:** `final/activa-startup-ia.html`. Es la propuesta 2 en un solo archivo, con estilos, scripts, imágenes y las bases en PDF incluidos, para publicar o enviar. Se rearma con `python armar_final.py` después de cada cambio.
+
+**Para ver las propuestas:** abre `index.html`, que compara las 3 propuestas y enlaza a cada una. Sirve abrirlo directo desde el disco o con un servidor local:
 
 ```
 python -m http.server 8791
@@ -15,7 +17,8 @@ Después entra a http://127.0.0.1:8791/proyectos/activa-startup-ia/
 ## Contenido
 
 ```
-bases/                          ← bases del 2-11-2026 (Word original + texto en Markdown)
+bases/                          ← bases del 2-11-2026 (Word original, PDF para descargar y texto en Markdown)
+final/                          ← versión final en un solo archivo (la arma armar_final.py)
 revision-formulario.md          ← formulario Lovable vs. bases, y puntos de las bases para revisar
 comun/
   convocatoria.js               ← TODOS los datos: fechas, etapas, criterios, ámbitos, requisitos y FAQ
@@ -55,7 +58,8 @@ Además, guarda un borrador en el navegador (sin los archivos), descarga una cop
 
 ## Pendientes
 
-- **Propuesta elegida: la 2 (La voz).** Faltan los MP3 de ElevenLabs en `audio/`: sin ellos los botones «Escuchar» no aparecen.
+- **Propuesta elegida: la 2 (La voz).** No lleva muestras de audio: los casos muestran el ejemplo de uso como texto.
+- Confirmar el plazo de activación (10 o 15 días hábiles): la página cita el numeral 3 (10 días).
 
 - SVG oficial del logo «Ministerio CTCI» desde la página Logos del Figma (hoy es el PNG de la propuesta Lovable).
 - Fotos propias de startups chilenas para reemplazar las de Unsplash.

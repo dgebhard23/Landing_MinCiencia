@@ -44,6 +44,10 @@ body { background: var(--navy-975); color: #fff; font: 400 16px/1.6 var(--f-text
 section[tabindex="-1"]:focus { outline: none; }
 :focus-visible { outline: 3px solid var(--lila); outline-offset: 3px; }
 
+html:not(.js) [data-aparecer] { opacity: 1; transform: none; }
+html:not(.js) [data-lineas] > span > i { transform: none; }
+.fx__archivo:has(input:focus-visible) label.btn { outline: 3px solid var(--lila); outline-offset: 3px; }
+
 /* ---------- Tipografía (Poppins, títulos en mayúscula como en el Home MINCTCI) ---------- */
 h1, h2, h3, h4 { font-family: var(--f-titulo); letter-spacing: -.02em; }
 .display { font: 700 clamp(38px, 5.2vw, 76px)/1.02 var(--f-titulo); text-transform: uppercase; letter-spacing: -.035em; margin: 0; }
