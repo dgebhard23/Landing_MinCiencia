@@ -1,0 +1,11 @@
+/* Hitos: completados y próximos — usa las variables de base/tokens.css */
+.hitos { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 24px; }
+@media (max-width: 760px) { .hitos { grid-template-columns: 1fr; } }
+.hitos__lista { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--c-borde); }
+.hitos__lista li { position: relative; padding: 10px 0 10px 22px; }
+.hitos__lista li::before { content: ""; position: absolute; left: -7px; top: 18px; width: 12px; height: 12px; border-radius: 50%; background: var(--c-superficie); border: 2px solid var(--c-borde); }
+[data-hechos] li::before { background: var(--c-primario); border-color: var(--c-primario); }
+.hitos__lista li.is-proximo::before { background: var(--c-acento); border-color: var(--c-acento); box-shadow: 0 0 0 5px var(--c-acento-suave); }
+.hitos__lista time { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--c-texto-suave); }
+.hitos__mas { color: var(--c-texto-suave); font-size: 14px; padding-left: 22px; }
+.proximo { font-weight: 600; color: var(--c-acento); }

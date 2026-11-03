@@ -1,0 +1,28 @@
+/* Hoja de ruta interactiva en forma de U — usa las variables de base/tokens.css */
+.ruta { position: relative; width: 100%; margin-top: 32px; }
+.ruta svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.ruta__borde { fill: none; stroke: var(--c-primario-suave); stroke-width: 46; stroke-linecap: round; }
+.ruta__via { fill: none; stroke: var(--c-oscuro-fondo); stroke-width: 34; stroke-linecap: round; }
+.ruta__hecho { fill: none; stroke: var(--c-primario); stroke-width: 34; stroke-linecap: round; transition: stroke-dashoffset 2s var(--ease); }
+.ruta__trazo { fill: none; stroke: rgba(255,255,255,.7); stroke-width: 2.5; stroke-dasharray: 14 12; }
+.parada { position: absolute; transform: translate(-50%, -50%); }
+.parada__pin { width: 54px; height: 54px; border-radius: 50%; border: 4px solid var(--c-oscuro-fondo); background: var(--c-superficie); color: var(--c-texto);
+  font: 700 22px var(--f-titulo); cursor: pointer; transition: transform .25s var(--ease), box-shadow .25s; }
+.parada.is-done .parada__pin { background: var(--c-primario); color: #fff; }
+.parada.is-live .parada__pin { background: var(--c-acento); color: #fff; box-shadow: 0 0 0 8px color-mix(in srgb, var(--c-acento) 25%, transparent); }
+.parada.is-sel .parada__pin { transform: scale(1.18); box-shadow: 0 0 0 6px var(--c-primario-suave); }
+.parada__txt { position: absolute; left: 50%; transform: translateX(-50%); width: 170px; text-align: center; font: 600 15px/1.25 var(--f-titulo); }
+.parada__txt small { display: block; font: 600 11px var(--f-texto); letter-spacing: .08em; text-transform: uppercase; color: var(--c-primario); margin-bottom: 2px; }
+.parada__txt em { display: inline-block; font: 700 10px var(--f-texto); font-style: normal; text-transform: uppercase; letter-spacing: .08em; background: var(--c-acento); color: #fff; border-radius: 99px; padding: 2px 8px; margin-bottom: 4px; }
+.parada__txt--arriba { bottom: 64px; } .parada__txt--abajo { top: 64px; }
+.parada__txt--der { left: 64px; top: 50%; transform: translateY(-50%); text-align: left; width: 210px; }
+.ruta-panel { display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: start; background: var(--c-superficie); border: 1px solid var(--c-borde); border-left: 5px solid var(--c-primario); border-radius: var(--radio); padding: 24px; box-shadow: var(--sombra); margin-top: 16px; }
+.ruta-panel.is-live { border-left-color: var(--c-acento); }
+.ruta-panel--dentro { position: absolute; left: 22%; right: 22%; top: 34%; margin: 0; }
+.ruta-panel__n { width: 64px; height: 64px; border-radius: 14px; display: grid; place-items: center; font: 700 30px var(--f-titulo); background: var(--c-primario-suave); color: var(--c-primario); }
+.ruta-panel h3 { font-size: 26px; margin: 6px 0; }
+.ruta-panel p { margin: 0; color: var(--c-texto-suave); }
+.ruta-panel__meta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; }
+.ruta-panel__nav { display: flex; gap: 6px; } .ruta-panel__nav button { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--c-borde); background: var(--c-fondo); cursor: pointer; font-size: 18px; }
+.ruta-panel__nav button:disabled { opacity: .35; cursor: default; }
+@media (max-width: 640px) { .ruta-panel { grid-template-columns: 1fr; } .ruta-panel__n { width: 48px; height: 48px; font-size: 22px; } }

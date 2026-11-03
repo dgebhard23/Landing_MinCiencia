@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zona de adjuntos (arrastrar y soltar)</title>
+<link rel="stylesheet" href="../../base/tokens.css">
+<link rel="stylesheet" href="../../base/base.css">
+<link rel="stylesheet" href="modulo.css">
+
+</head>
+<body>
+<header class="demo-cab"><a href="../../index.html">← Catálogo de funcionalidades</a><h1>Zona de adjuntos (arrastrar y soltar)</h1><p>Caja para subir archivos con clic, teclado o arrastrando. Valida tipo, tamaño por archivo y tope total; muestra la lista con peso y botón para quitar; entrega los archivos en base64 listos para mandar a Apps Script.</p></header>
+<section class="seccion"><div class="contenedor" style="max-width:760px">
+  <p class="etiqueta">Adjuntos</p><h2>Sube tus documentos</h2>
+  <div class="adj" data-adjuntos data-tipos=".pdf,.docx,.xlsx,.png,.jpg" data-max-mb="10" data-total-mb="20" data-max="5">
+    <input type="file" multiple hidden data-adj-input>
+    <div class="adj__zona" tabindex="0" role="button" data-adj-zona>
+      <b>Arrastra aquí tus archivos</b><span>o haz clic para elegirlos · PDF, Word, Excel o imagen · hasta 10 MB cada uno, 20 MB en total</span>
+    </div>
+    <ul class="adj__lista" data-adj-lista></ul>
+    <p class="adj__err" data-adj-err></p>
+  </div>
+  <button class="btn btn--linea" type="button" data-ver>Ver lo que se enviaría</button>
+  <pre class="adj__pre" data-pre hidden></pre>
+</div></section>
+<script src="modulo.js"></script>
+<script>
+document.querySelector('[data-ver]').addEventListener('click', async () => {
+  const pre = document.querySelector('[data-pre]'), datos = await Adjuntos.base64(document.querySelector('[data-adjuntos]'));
+  pre.hidden = false; pre.textContent = JSON.stringify(datos.map((d) => ({ ...d, datos: d.datos.slice(0, 60) + '…' })), null, 2) || '[]';
+});
+</script>
+</body>
+</html>

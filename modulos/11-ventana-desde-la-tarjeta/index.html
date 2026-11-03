@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ventana de detalle que nace desde la tarjeta</title>
+<link rel="stylesheet" href="../../base/tokens.css">
+<link rel="stylesheet" href="../../base/base.css">
+<link rel="stylesheet" href="modulo.css">
+
+</head>
+<body>
+<header class="demo-cab"><a href="../../index.html">← Catálogo de funcionalidades</a><h1>Ventana de detalle que nace desde la tarjeta</h1><p>Al hacer clic en una tarjeta, se abre una ventana (&lt;dialog&gt;) que crece desde la posición de la tarjeta, con su contenido entrando en cascada. Se cierra con la ×, la tecla Esc o clic fuera, con animación de salida. Accesible por defecto.</p></header>
+<section class="seccion"><div class="contenedor">
+  <p class="etiqueta">Tarjetas compactas</p><h2>Cuatro instrumentos</h2>
+  <div class="tarjetas">
+    <article class="tarjeta tarjeta--clic"><span class="num">N° 1</span><h3>Instrumento 1</h3><p class="suave">Resumen breve de una línea.</p>
+      <button class="btn btn--linea" type="button" data-abrir="det1">Ver detalle</button></article><article class="tarjeta tarjeta--clic"><span class="num">N° 2</span><h3>Instrumento 2</h3><p class="suave">Resumen breve de una línea.</p>
+      <button class="btn btn--linea" type="button" data-abrir="det2">Ver detalle</button></article><article class="tarjeta tarjeta--clic"><span class="num">N° 3</span><h3>Instrumento 3</h3><p class="suave">Resumen breve de una línea.</p>
+      <button class="btn btn--linea" type="button" data-abrir="det3">Ver detalle</button></article><article class="tarjeta tarjeta--clic"><span class="num">N° 4</span><h3>Instrumento 4</h3><p class="suave">Resumen breve de una línea.</p>
+      <button class="btn btn--linea" type="button" data-abrir="det4">Ver detalle</button></article>
+  </div>
+</div></section>
+<dialog class="ventana" id="det1" aria-labelledby="det1-t"><button class="ventana__x" type="button" data-cerrar aria-label="Cerrar">×</button>
+  <div class="ventana__in"><p class="etiqueta">Instrumento N° 1</p><h3 id="det1-t">Lo que encarga la ley</h3>
+  <p>Texto explicativo del detalle. Puede incluir listas, enlaces y botones.</p>
+  <ul><li>Pregunta guía uno</li><li>Pregunta guía dos</li><li>Pregunta guía tres</li></ul>
+  <a class="btn btn--acento" href="#">Participa</a></div></dialog><dialog class="ventana" id="det2" aria-labelledby="det2-t"><button class="ventana__x" type="button" data-cerrar aria-label="Cerrar">×</button>
+  <div class="ventana__in"><p class="etiqueta">Instrumento N° 2</p><h3 id="det2-t">Lo que encarga la ley</h3>
+  <p>Texto explicativo del detalle. Puede incluir listas, enlaces y botones.</p>
+  <ul><li>Pregunta guía uno</li><li>Pregunta guía dos</li><li>Pregunta guía tres</li></ul>
+  <a class="btn btn--acento" href="#">Participa</a></div></dialog><dialog class="ventana" id="det3" aria-labelledby="det3-t"><button class="ventana__x" type="button" data-cerrar aria-label="Cerrar">×</button>
+  <div class="ventana__in"><p class="etiqueta">Instrumento N° 3</p><h3 id="det3-t">Lo que encarga la ley</h3>
+  <p>Texto explicativo del detalle. Puede incluir listas, enlaces y botones.</p>
+  <ul><li>Pregunta guía uno</li><li>Pregunta guía dos</li><li>Pregunta guía tres</li></ul>
+  <a class="btn btn--acento" href="#">Participa</a></div></dialog><dialog class="ventana" id="det4" aria-labelledby="det4-t"><button class="ventana__x" type="button" data-cerrar aria-label="Cerrar">×</button>
+  <div class="ventana__in"><p class="etiqueta">Instrumento N° 4</p><h3 id="det4-t">Lo que encarga la ley</h3>
+  <p>Texto explicativo del detalle. Puede incluir listas, enlaces y botones.</p>
+  <ul><li>Pregunta guía uno</li><li>Pregunta guía dos</li><li>Pregunta guía tres</li></ul>
+  <a class="btn btn--acento" href="#">Participa</a></div></dialog>
+<script src="modulo.js"></script>
+
+</body>
+</html>

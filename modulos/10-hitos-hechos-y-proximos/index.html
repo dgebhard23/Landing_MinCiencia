@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hitos: completados y próximos</title>
+<link rel="stylesheet" href="../../base/tokens.css">
+<link rel="stylesheet" href="../../base/base.css">
+<link rel="stylesheet" href="modulo.css">
+
+</head>
+<body>
+<header class="demo-cab"><a href="../../index.html">← Catálogo de funcionalidades</a><h1>Hitos: completados y próximos</h1><p>Una sola lista de hitos con fecha se reparte sola en dos columnas: «Completado» (del más reciente al más antiguo) y «Lo que viene» (los próximos seis, con el resto resumido). Marca el próximo hito y cuántos días faltan.</p></header>
+<section class="seccion"><div class="contenedor">
+  <p class="etiqueta">Avance</p><h2>Hitos del proceso</h2>
+  <p class="proximo" data-proximo></p>
+  <div class="hitos">
+    <div><h3>Completado <span data-n-hechos></span></h3><ol class="hitos__lista" data-hechos></ol></div>
+    <div><h3>Lo que viene</h3><ol class="hitos__lista" data-hitos>
+      <li data-fecha="2026-10-12"><time></time><span>Inicio del proceso</span></li>
+      <li data-fecha="2026-10-27"><time></time><span>Publicación de la página</span></li>
+      <li data-fecha="2026-11-02"><time></time><span>Primeras mesas técnicas</span></li>
+      <li data-fecha="2026-12-11"><time></time><span>Cierre de fichas</span></li>
+      <li data-fecha="2027-01-08"><time></time><span>Fin de la sistematización</span></li>
+      <li data-fecha="2027-03-22"><time></time><span>Apertura de la consulta pública</span></li>
+      <li data-fecha="2027-04-20"><time></time><span>Cierre de la consulta pública</span></li>
+      <li data-fecha="2027-06-18"><time></time><span>Ingreso a Contraloría</span></li>
+      <li data-fecha="2027-08-31"><time></time><span>Plazo legal</span></li>
+    </ol></div>
+  </div>
+</div></section>
+<script src="modulo.js"></script>
+
+</body>
+</html>

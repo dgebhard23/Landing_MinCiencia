@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gráficos que toman los colores de la marca</title>
+<link rel="stylesheet" href="../../base/tokens.css">
+<link rel="stylesheet" href="../../base/base.css">
+<link rel="stylesheet" href="modulo.css">
+
+</head>
+<body>
+<header class="demo-cab"><a href="../../index.html">← Catálogo de funcionalidades</a><h1>Gráficos que toman los colores de la marca</h1><p>Barras, dona y líneas con Chart.js, configurados para leer la paleta desde los tokens (--serie-1 … --serie-6), con formato chileno de números y dibujados solo cuando su pestaña o sección se ve.</p></header>
+<section class="seccion"><div class="contenedor">
+  <p class="etiqueta">Indicadores</p><h2>Gráficos</h2>
+  <div class="graficos">
+    <figure class="tarjeta"><figcaption>Empresas por región</figcaption><canvas data-grafico="barras"
+      data-etiquetas='["RM","Valparaíso","Biobío","Araucanía","Antofagasta","Otras"]' data-valores='[[212,58,51,33,27,96]]' data-series='["Empresas"]'></canvas></figure>
+    <figure class="tarjeta"><figcaption>Estado de ventas</figcaption><canvas data-grafico="dona"
+      data-etiquetas='["Con ventas","Sin ventas"]' data-valores='[[383,94]]'></canvas></figure>
+    <figure class="tarjeta ancho"><figcaption>Postulaciones por año</figcaption><canvas data-grafico="lineas"
+      data-etiquetas='["2021","2022","2023","2024","2025"]' data-valores='[[40,62,85,120,151],[12,20,31,44,58]]' data-series='["Postuladas","Adjudicadas"]'></canvas></figure>
+  </div>
+</div></section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="modulo.js"></script>
+
+</body>
+</html>

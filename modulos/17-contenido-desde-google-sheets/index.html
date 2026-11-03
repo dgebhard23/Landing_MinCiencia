@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contenido editable desde Google Sheets</title>
+<link rel="stylesheet" href="../../base/tokens.css">
+<link rel="stylesheet" href="../../base/base.css">
+<link rel="stylesheet" href="modulo.css">
+
+</head>
+<body>
+<header class="demo-cab"><a href="../../index.html">← Catálogo de funcionalidades</a><h1>Contenido editable desde Google Sheets</h1><p>La página lee una hoja de Google Sheets publicada como CSV y arma tarjetas con filtros por categoría (con contadores), buscador y paginación. Así cualquiera del equipo actualiza la landing editando la planilla, sin tocar código. Se refresca cada 5 minutos y convierte enlaces de Google Drive en imágenes.</p></header>
+<section class="seccion"><div class="contenedor">
+  <p class="etiqueta">Oferta</p><h2>Instrumentos disponibles</h2>
+  <p class="suave">En esta demo los datos vienen de un CSV de ejemplo incrustado. Para usar tu planilla: Archivo → Compartir → Publicar en la web → CSV, y pega el enlace en <code>data-csv</code>.</p>
+  <div class="hoja" data-hoja data-csv="" data-por-pagina="6"
+       data-col-categoria="Categoría" data-col-titulo="Título" data-col-texto="Descripción" data-col-enlace="Enlace" data-col-imagen="Imagen">
+    <input class="hoja__buscar" type="search" placeholder="Buscar…" data-hoja-buscar>
+    <div class="hoja__filtros" data-hoja-filtros></div>
+    <p class="hoja__estado" data-hoja-estado>Cargando…</p>
+    <div class="hoja__grilla" data-hoja-grilla></div>
+    <nav class="hoja__pag" data-hoja-pag aria-label="Páginas"></nav>
+  </div>
+</div></section>
+<script type="text/csv" id="csv-ejemplo">Categoría,Título,Descripción,Enlace,Imagen
+Fondos,Fondo de innovación,Financiamiento para validar tecnologías en etapa temprana.,https://example.org,
+Fondos,Capital semilla,Apoyo para empresas de base científico-tecnológica.,https://example.org,
+Trámites,Patente de invención,Cómo proteger tu invención ante INAPI.,https://example.org,
+Trámites,Registro sanitario,Pasos y plazos para obtener el registro.,https://example.org,
+Acompañamiento,Mentorías,Expertos que acompañan tu proceso de transferencia.,https://example.org,
+Acompañamiento,Red de oficinas,Oficinas de transferencia en todo el país.,https://example.org,
+Fondos,Escalamiento,Recursos para pasar de piloto a mercado.,https://example.org,
+Trámites,Exportación de servicios,Beneficios tributarios y requisitos.,https://example.org,</script>
+<script src="modulo.js"></script>
+
+</body>
+</html>

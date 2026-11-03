@@ -1,0 +1,14 @@
+/* Preguntas frecuentes con buscador y filtros — usa las variables de base/tokens.css */
+.faq { max-width: 860px; }
+.faq__buscar input { width: 100%; font: inherit; padding: 14px 18px; border-radius: 999px; border: 1.5px solid var(--c-borde); background: var(--c-superficie); margin: 16px 0; }
+.faq__temas { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.faq__temas button { font: 500 14px var(--f-texto); padding: 7px 14px; border-radius: 999px; border: 1px solid var(--c-borde); background: var(--c-superficie); cursor: pointer; }
+.faq__temas button[aria-pressed="true"] { background: var(--c-primario); color: #fff; border-color: var(--c-primario); }
+.faq__temas b { font-weight: 600; opacity: .7; margin-left: 4px; }
+.faq__lista details { border-bottom: 1px solid var(--c-borde); }
+.faq__lista summary { list-style: none; cursor: pointer; padding: 20px 44px 20px 0; position: relative; font: 600 18px/1.35 var(--f-titulo); }
+.faq__lista summary::-webkit-details-marker { display: none; }
+.faq__lista summary::after { content: "+"; position: absolute; right: 6px; top: 14px; font-size: 26px; color: var(--c-primario); transition: transform .3s var(--ease); }
+.faq__lista details[open] summary::after { transform: rotate(45deg); }
+.faq__lista details p { margin: 0 0 20px; color: var(--c-texto-suave); }
+.faq__lista mark { background: var(--c-acento-suave); color: inherit; border-radius: 3px; }

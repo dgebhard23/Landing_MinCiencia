@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tabla filtrable, ordenable y exportable</title>
+<link rel="stylesheet" href="../../base/tokens.css">
+<link rel="stylesheet" href="../../base/base.css">
+<link rel="stylesheet" href="modulo.css">
+
+</head>
+<body>
+<header class="demo-cab"><a href="../../index.html">← Catálogo de funcionalidades</a><h1>Tabla filtrable, ordenable y exportable</h1><p>Tabla que se ordena al hacer clic en el encabezado, se filtra con un buscador y selectores, muestra el total filtrado y exporta lo visible a CSV (abre en Excel con tildes correctas). En celular cada fila se convierte en tarjeta.</p></header>
+<section class="seccion"><div class="contenedor">
+  <p class="etiqueta">Seguimiento</p><h2>Tabla de registros</h2>
+  <div class="tabla" data-tabla>
+    <div class="tabla__barra">
+      <input type="search" placeholder="Buscar…" data-tabla-buscar>
+      <select data-tabla-filtro="2"><option value="">Todos los estados</option><option>Enviado</option><option>En revisión</option><option>Borrador</option></select>
+      <button class="btn btn--linea" type="button" data-tabla-csv>Descargar CSV</button>
+    </div>
+    <p class="suave" data-tabla-total></p>
+    <table><thead><tr><th>Región</th><th>Tipo</th><th>Estado</th><th data-tipo="num">Aportes</th></tr></thead>
+    <tbody><tr><td data-l='Región'>Valparaíso</td><td data-l='Tipo'>Universidad</td><td data-l='Estado'>Enviado</td><td data-l='Aportes'>12</td></tr><tr><td data-l='Región'>Biobío</td><td data-l='Tipo'>Empresa</td><td data-l='Estado'>En revisión</td><td data-l='Aportes'>4</td></tr><tr><td data-l='Región'>Metropolitana</td><td data-l='Tipo'>Servicio público</td><td data-l='Estado'>Enviado</td><td data-l='Aportes'>7</td></tr><tr><td data-l='Región'>Araucanía</td><td data-l='Tipo'>Empresa</td><td data-l='Estado'>Borrador</td><td data-l='Aportes'>2</td></tr><tr><td data-l='Región'>Metropolitana</td><td data-l='Tipo'>Universidad</td><td data-l='Estado'>En revisión</td><td data-l='Aportes'>15</td></tr><tr><td data-l='Región'>Antofagasta</td><td data-l='Tipo'>Centro</td><td data-l='Estado'>Enviado</td><td data-l='Aportes'>9</td></tr><tr><td data-l='Región'>Los Lagos</td><td data-l='Tipo'>Empresa</td><td data-l='Estado'>Enviado</td><td data-l='Aportes'>3</td></tr><tr><td data-l='Región'>Coquimbo</td><td data-l='Tipo'>Universidad</td><td data-l='Estado'>Borrador</td><td data-l='Aportes'>6</td></tr></tbody>
+    <tfoot><tr><td colspan="3">Total visible</td><td data-tabla-suma></td></tr></tfoot></table>
+  </div>
+</div></section>
+<script src="modulo.js"></script>
+
+</body>
+</html>

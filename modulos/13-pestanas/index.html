@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pestañas accesibles</title>
+<link rel="stylesheet" href="../../base/tokens.css">
+<link rel="stylesheet" href="../../base/base.css">
+<link rel="stylesheet" href="modulo.css">
+
+</head>
+<body>
+<header class="demo-cab"><a href="../../index.html">← Catálogo de funcionalidades</a><h1>Pestañas accesibles</h1><p>Pestañas con roles ARIA, navegación con flechas del teclado, y aviso al contenido cuando se muestra (útil para dibujar gráficos solo cuando se ven). Recuerda la pestaña elegida en la URL (#pestana).</p></header>
+<section class="seccion"><div class="contenedor">
+  <p class="etiqueta">Datos por perfil</p><h2>Pestañas</h2>
+  <div class="pestanas" data-pestanas>
+    <div role="tablist" aria-label="Perfiles">
+      <button role="tab" id="t-eco" aria-controls="p-eco">Ecosistema</button>
+      <button role="tab" id="t-tra" aria-controls="p-tra">Trayectoria</button>
+      <button role="tab" id="t-sta" aria-controls="p-sta">Startup Ciencia</button>
+    </div>
+    <div role="tabpanel" id="p-eco" aria-labelledby="t-eco"><h3>Ecosistema</h3><p class="suave">Contenido del primer panel.</p></div>
+    <div role="tabpanel" id="p-tra" aria-labelledby="t-tra"><h3>Trayectoria</h3><p class="suave">Contenido del segundo panel.</p></div>
+    <div role="tabpanel" id="p-sta" aria-labelledby="t-sta"><h3>Startup Ciencia</h3><p class="suave">Contenido del tercer panel.</p></div>
+  </div>
+  <p class="suave" data-log></p>
+</div></section>
+<script src="modulo.js"></script>
+<script>
+document.addEventListener('pestana:mostrar', (e) => { document.querySelector('[data-log]').textContent = `Evento recibido: se mostró «${e.target.querySelector('h3').textContent}» (aquí puedes dibujar un gráfico).`; });
+</script>
+</body>
+</html>

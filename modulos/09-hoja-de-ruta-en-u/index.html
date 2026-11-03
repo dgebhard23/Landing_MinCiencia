@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hoja de ruta interactiva en forma de U</title>
+<link rel="stylesheet" href="../../base/tokens.css">
+<link rel="stylesheet" href="../../base/base.css">
+<link rel="stylesheet" href="modulo.css">
+
+</head>
+<body>
+<header class="demo-cab"><a href="../../index.html">← Catálogo de funcionalidades</a><h1>Hoja de ruta interactiva en forma de U</h1><p>Un camino dibujado en SVG con paradas numeradas. En escritorio forma una U (ida arriba, vuelta abajo) y el detalle de la parada elegida aparece dentro de la curva; en celular el camino baja en zigzag. El tramo recorrido se dibuja hasta la fase en curso. Navegable con teclado y con flechas anterior/siguiente.</p></header>
+<section class="seccion"><div class="contenedor">
+  <p class="etiqueta">Fase por fase</p><h2>Qué pasa en cada fase</h2>
+  <p class="suave">Selecciona una parada para ver el detalle. Las fases salen del bloque JSON de esta página: edítalo para tu proceso.</p>
+  <div class="ruta" data-ruta></div>
+  <div class="ruta-panel" data-ruta-panel hidden></div>
+</div></section>
+<script type="application/json" id="fases-ruta">[
+    { "n": "0", "nombre": "Arranque y encuadre", "texto": "Calendario, metodología y alcance de cada pieza.", "fechas": "12/10 – 06/11", "estado": "done", "participa": false },
+    { "n": "1", "nombre": "Escucha", "texto": "Fichas, mesas técnicas y entrevistas.", "fechas": "02/11 – 11/12", "estado": "live", "participa": true },
+    { "n": "2", "nombre": "Sistematización", "texto": "Ordenamos y analizamos todos los aportes.", "fechas": "09/11 – 08/01", "estado": "next", "participa": false },
+    { "n": "3", "nombre": "Redacción", "texto": "Primeros textos completos.", "fechas": "11/01 – 26/02", "estado": "next", "participa": false },
+    { "n": "4", "nombre": "Revisión jurídica", "texto": "Revisión de forma y fondo.", "fechas": "01/03 – 19/03", "estado": "next", "participa": false },
+    { "n": "5", "nombre": "Consulta pública", "texto": "Comentarios artículo por artículo.", "fechas": "22/03 – 20/04", "estado": "next", "participa": true },
+    { "n": "6", "nombre": "Texto definitivo", "texto": "Se responden las observaciones.", "fechas": "22/04 – 20/05", "estado": "next", "participa": false },
+    { "n": "7", "nombre": "Firmas", "texto": "Visaciones y firmas de los ministerios.", "fechas": "24/05 – 18/06", "estado": "next", "participa": false },
+    { "n": "8", "nombre": "Toma de razón", "texto": "Contraloría y Diario Oficial.", "fechas": "21/06 – 31/08", "estado": "next", "participa": false }
+]</script>
+<script src="modulo.js"></script>
+
+</body>
+</html>

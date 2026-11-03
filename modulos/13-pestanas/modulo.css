@@ -1,0 +1,6 @@
+/* Pestañas accesibles — usa las variables de base/tokens.css */
+[role="tablist"] { display: inline-flex; gap: 4px; padding: 5px; border-radius: 999px; background: var(--c-superficie); border: 1px solid var(--c-borde); flex-wrap: wrap; }
+[role="tab"] { font: 600 15px var(--f-texto); border: 0; background: transparent; padding: 10px 18px; border-radius: 999px; cursor: pointer; color: var(--c-texto-suave); }
+[role="tab"][aria-selected="true"] { background: var(--c-primario); color: #fff; }
+[role="tabpanel"] { margin-top: 20px; background: var(--c-superficie); border: 1px solid var(--c-borde); border-radius: var(--radio); padding: 28px; animation: entra .45s var(--ease); }
+@keyframes entra { from { opacity: 0; transform: translateY(8px); } }

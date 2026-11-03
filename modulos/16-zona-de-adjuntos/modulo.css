@@ -1,0 +1,9 @@
+/* Zona de adjuntos (arrastrar y soltar) — usa las variables de base/tokens.css */
+.adj__zona { display: grid; gap: 6px; place-items: center; text-align: center; padding: 40px 20px; border: 2px dashed var(--c-borde); border-radius: var(--radio); background: var(--c-superficie); cursor: pointer; transition: border-color .2s, background .2s; }
+.adj__zona span { color: var(--c-texto-suave); font-size: 14px; }
+.adj__zona.is-encima { border-color: var(--c-primario); background: var(--c-primario-suave); }
+.adj__lista { list-style: none; padding: 0; margin: 12px 0; display: grid; gap: 8px; }
+.adj__lista li { display: flex; justify-content: space-between; gap: 12px; align-items: center; background: var(--c-superficie); border: 1px solid var(--c-borde); border-radius: var(--radio-sm); padding: 10px 14px; font-size: 14px; }
+.adj__lista button { background: none; border: 0; color: var(--c-acento); font-weight: 600; cursor: pointer; }
+.adj__err { color: var(--c-acento); font-weight: 600; min-height: 1.4em; }
+.adj__pre { background: var(--c-oscuro-fondo); color: var(--c-oscuro-texto); padding: 16px; border-radius: var(--radio-sm); font-size: 12px; overflow: auto; }

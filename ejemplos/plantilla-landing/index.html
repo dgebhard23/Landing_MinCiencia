@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[Nombre del proceso] · Plantilla de landing</title>
+<!-- Plantilla armada con módulos del repositorio. Para cambiar la identidad visual edita base/tokens.css.
+     Para publicarla como un solo archivo, copia el contenido de cada modulo.css y modulo.js dentro de <style> y <script>. -->
+<link rel="stylesheet" href="../../base/tokens.css">
+<link rel="stylesheet" href="../../base/base.css">
+<link rel="stylesheet" href="../../modulos/01-barra-aviso-por-fecha/modulo.css">
+<link rel="stylesheet" href="../../modulos/02-encabezado-inteligente/modulo.css">
+<link rel="stylesheet" href="../../modulos/03-portada-haces-de-luz/modulo.css">
+<link rel="stylesheet" href="../../modulos/06-cifras-y-dias/modulo.css">
+<link rel="stylesheet" href="../../modulos/08-carta-gantt/modulo.css">
+<link rel="stylesheet" href="../../modulos/09-hoja-de-ruta-en-u/modulo.css">
+<link rel="stylesheet" href="../../modulos/15-formulario-por-pasos/modulo.css">
+<link rel="stylesheet" href="../../modulos/20-logos-agrupados/modulo.css">
+<link rel="stylesheet" href="../../modulos/21-copiar-y-compartir/modulo.css">
+<style>
+.cab { top: 40px; } .cab.is-oculto { transform: translateY(calc(-100% - 40px)); }
+.portada__titulo { font-size: clamp(38px, 7vw, 96px); }
+.pie { padding: 48px 0; } .pie__in { display: grid; gap: 8px; } .pie p { margin: 0; }
+</style>
+</head>
+<body>
+<p class="aviso" data-aviso
+   data-abre="2026-10-27" data-cierra="2026-12-11"
+   data-antes="Recibimos postulaciones del {abre} al {cierra} ({faltan})."
+   data-durante="Postulaciones abiertas hasta el {cierra} ({quedan})."
+   data-despues="Postulaciones cerradas el {cierra}. Gracias por participar."></p>
+
+<header class="cab" data-cab>
+  <div class="contenedor cab__fila">
+    <a class="cab__logo" href="#inicio">[Logo]</a>
+    <nav class="cab__nav" aria-label="Secciones">
+      <a href="#ruta">La ruta</a><a href="#fases">Fases</a><a href="#quienes">Quiénes</a>
+    </nav>
+    <a class="btn btn--acento cab__cta" href="#participa">Participa</a>
+    <button class="cab__burger" type="button" aria-expanded="false" aria-controls="menu-movil" aria-label="Abrir menú" data-burger><span></span><span></span></button>
+  </div>
+  <div class="cab__movil" id="menu-movil" hidden data-menu-movil>
+    <a href="#ruta">La ruta</a><a href="#fases">Fases</a><a href="#quienes">Quiénes</a>
+    <a class="btn btn--acento" href="#participa">Participa</a>
+  </div>
+</header>
+
+<main id="contenido">
+<section class="portada tema-oscuro" id="inicio">
+  <canvas class="portada__haces" data-haces aria-hidden="true"></canvas>
+  <div class="portada__fundido" aria-hidden="true"></div>
+  <div class="contenedor portada__in">
+    <p class="etiqueta">Ley N° 00.000</p>
+    <h1 class="portada__titulo"><span>Un título grande</span><span class="sangria">en líneas</span><span>con una palabra <em>destacada</em></span></h1>
+  </div>
+</section>
+<section class="tema-oscuro seccion" id="datos"><div class="contenedor">
+  <p class="etiqueta">Datos clave</p>
+  <ul class="cifras">
+    <li><b data-contar="4">4</b><span>reglamentos en elaboración</span></li>
+    <li><b data-contar="9">9</b><span>fases entre octubre y agosto</span></li>
+    <li><b data-dias-hasta="2027-08-31">—</b><span>días para el plazo legal (31 de agosto de 2027)</span></li>
+    <li><b data-contar="477" data-sufijo="">477</b><span>empresas encuestadas</span></li>
+  </ul>
+</div></section>
+<section class="seccion tema-oscuro" id="ruta"><div class="contenedor">
+  <p class="etiqueta">La ruta</p><h2>Carta Gantt</h2>
+  <p class="gantt__ahora" data-fase-actual></p>
+  <div class="gantt" data-gantt data-inicio="2026-10-01" data-fin="2027-08-31">
+    <div class="gantt__meses" data-meses></div>
+    <ol class="gantt__filas"><li class="g--equipo" data-desde="2026-10-12" data-hasta="2026-11-06" data-estado="done"><span class="gantt__nom">0 Arranque y encuadre</span><span class="gantt__pista"><span class="gantt__barra"></span></span></li><li class="g--personas" data-desde="2026-11-02" data-hasta="2026-12-11" data-estado="live"><span class="gantt__nom">1 Escucha</span><span class="gantt__pista"><span class="gantt__barra"></span></span></li><li class="g--equipo" data-desde="2026-11-09" data-hasta="2027-01-08" data-estado="next"><span class="gantt__nom">2 Sistematización</span><span class="gantt__pista"><span class="gantt__barra"></span></span></li><li class="g--equipo" data-desde="2027-01-11" data-hasta="2027-02-26" data-estado="next"><span class="gantt__nom">3 Redacción</span><span class="gantt__pista"><span class="gantt__barra"></span></span></li><li class="g--legal" data-desde="2027-03-01" data-hasta="2027-03-19" data-estado="next"><span class="gantt__nom">4 Revisión jurídica</span><span class="gantt__pista"><span class="gantt__barra"></span></span></li><li class="g--personas" data-desde="2027-03-22" data-hasta="2027-04-20" data-estado="next"><span class="gantt__nom">5 Consulta pública</span><span class="gantt__pista"><span class="gantt__barra"></span></span></li><li class="g--equipo" data-desde="2027-04-22" data-hasta="2027-05-20" data-estado="next"><span class="gantt__nom">6 Texto definitivo</span><span class="gantt__pista"><span class="gantt__barra"></span></span></li><li class="g--legal" data-desde="2027-05-24" data-hasta="2027-06-18" data-estado="next"><span class="gantt__nom">7 Firmas</span><span class="gantt__pista"><span class="gantt__barra"></span></span></li><li class="g--externo" data-desde="2027-06-21" data-hasta="2027-08-31" data-estado="next"><span class="gantt__nom">8 Toma de razón</span><span class="gantt__pista"><span class="gantt__barra"></span></span></li></ol>
+    <span class="gantt__marca gantt__marca--hoy" data-en="hoy"><i>Hoy</i></span>
+    <span class="gantt__marca gantt__marca--hito" data-en="2027-06-18"><i>⚑ 18 jun</i></span>
+  </div>
+  <ul class="gantt__ley"><li class="g--equipo">Equipo</li><li class="g--personas">Participación</li><li class="g--legal">Jurídica</li><li class="g--externo">Trámite externo</li></ul>
+</div></section>
+<section class="seccion" id="fases"><div class="contenedor">
+  <p class="etiqueta">Fase por fase</p><h2>Qué pasa en cada fase</h2>
+  <p class="suave">Selecciona una parada para ver el detalle de cada fase.</p>
+  <div class="ruta" data-ruta></div>
+  <div class="ruta-panel" data-ruta-panel hidden></div>
+</div></section>
+<script type="application/json" id="fases-ruta">[
+    { "n": "0", "nombre": "Arranque y encuadre", "texto": "Calendario, metodología y alcance de cada pieza.", "fechas": "12/10 – 06/11", "estado": "done", "participa": false },
+    { "n": "1", "nombre": "Escucha", "texto": "Fichas, mesas técnicas y entrevistas.", "fechas": "02/11 – 11/12", "estado": "live", "participa": true },
+    { "n": "2", "nombre": "Sistematización", "texto": "Ordenamos y analizamos todos los aportes.", "fechas": "09/11 – 08/01", "estado": "next", "participa": false },
+    { "n": "3", "nombre": "Redacción", "texto": "Primeros textos completos.", "fechas": "11/01 – 26/02", "estado": "next", "participa": false },
+    { "n": "4", "nombre": "Revisión jurídica", "texto": "Revisión de forma y fondo.", "fechas": "01/03 – 19/03", "estado": "next", "participa": false },
+    { "n": "5", "nombre": "Consulta pública", "texto": "Comentarios artículo por artículo.", "fechas": "22/03 – 20/04", "estado": "next", "participa": true },
+    { "n": "6", "nombre": "Texto definitivo", "texto": "Se responden las observaciones.", "fechas": "22/04 – 20/05", "estado": "next", "participa": false },
+    { "n": "7", "nombre": "Firmas", "texto": "Visaciones y firmas de los ministerios.", "fechas": "24/05 – 18/06", "estado": "next", "participa": false },
+    { "n": "8", "nombre": "Toma de razón", "texto": "Contraloría y Diario Oficial.", "fechas": "21/06 – 31/08", "estado": "next", "participa": false }
+]</script>
+<section class="seccion tema-oscuro" id="participa"><div class="contenedor">
+  <p class="etiqueta">Participa</p><h2>Completa la ficha</h2>
+  <p class="suave">[Texto breve que invita a participar: quién puede, hasta cuándo y cuánto toma.]</p>
+  <button class="btn btn--acento" type="button" data-abrir-ficha>Completar la ficha</button>
+</div></section>
+
+<dialog class="fx" id="ficha" aria-labelledby="fx-t">
+  <button class="fx__x" type="button" data-cerrar aria-label="Cerrar">×</button>
+  <form data-ficha data-endpoint="" data-correo="contacto@ejemplo.cl" data-clave="ficha-demo" novalidate>
+    <div class="fx__cab">
+      <p class="etiqueta">Participación</p>
+      <h3 id="fx-t">Ficha de aportes</h3>
+      <ol class="fx__pasos"><li>Tus datos</li><li>Tema</li><li>Tu aporte</li><li>Enviar</li></ol>
+      <p class="fx__cuenta" data-cuenta-paso></p>
+    </div>
+    <div class="fx__cuerpo">
+      <!-- Paso 1 -->
+      <fieldset data-paso><legend class="fx__sec" tabindex="-1">A · Tus datos</legend>
+        <div class="fx__campo"><label for="f-inst">Institución u organización *</label><input id="f-inst" name="institucion" required></div>
+        <div class="fx__campo"><label for="f-actor">Tipo de actor *</label>
+          <select id="f-actor" name="actor" required><option value="">Elige una opción</option><option>Universidad</option><option>Empresa</option><option>Servicio público</option><option>Persona natural</option><option>Otro</option></select>
+          <input name="actor_otro" placeholder="¿Cuál?" hidden data-si="actor=Otro"></div>
+        <div class="fx__fila2">
+          <div class="fx__campo"><label for="f-nom">Nombre de contacto *</label><input id="f-nom" name="contacto" required autocomplete="name"></div>
+          <div class="fx__campo"><label for="f-mail">Correo *</label><input id="f-mail" name="correo" type="email" required autocomplete="email"></div>
+        </div>
+        <input class="fx__trampa" name="sitio_web" tabindex="-1" autocomplete="off" aria-hidden="true">
+      </fieldset>
+      <!-- Paso 2 -->
+      <fieldset data-paso hidden><legend class="fx__sec" tabindex="-1">B · Tema</legend>
+        <div class="fx__campo"><p class="fx__lab">¿Sobre qué tema es tu aporte? *</p>
+          <div class="fx__opciones">
+            <label class="fx__op"><input type="radio" name="tema" value="1" required><span><b>Tema 1</b> Descripción breve</span></label>
+            <label class="fx__op"><input type="radio" name="tema" value="2"><span><b>Tema 2</b> Descripción breve</span></label>
+            <label class="fx__op"><input type="radio" name="tema" value="3"><span><b>Tema 3</b> Descripción breve</span></label>
+          </div></div>
+        <div class="fx__guia" data-guia="1" hidden><b>Preguntas guía del tema 1:</b> ¿qué debería resolver? ¿para quién?</div>
+        <div class="fx__guia" data-guia="2" hidden><b>Preguntas guía del tema 2:</b> ¿qué criterios y plazos propones?</div>
+        <div class="fx__guia" data-guia="3" hidden><b>Preguntas guía del tema 3:</b> ¿qué riesgos ves?</div>
+      </fieldset>
+      <!-- Paso 3 -->
+      <fieldset data-paso hidden><legend class="fx__sec" tabindex="-1">C · Tu aporte</legend>
+        <div class="fx__campo"><label for="f-prob">¿Qué problema debería resolverse? *</label>
+          <textarea id="f-prob" name="problema" rows="4" required data-max-palabras="200"></textarea><small data-palabras-de="f-prob"></small></div>
+        <p class="fx__lab">Propuestas concretas</p>
+        <div data-filas></div>
+        <button class="btn btn--linea" type="button" data-agregar-fila>+ Agregar propuesta</button>
+        <template data-fila-tpl><div class="fx__filax"><p class="fx__filax-n"></p>
+          <input name="prop_materia" placeholder="Materia"><textarea name="prop_texto" rows="2" placeholder="Propuesta concreta"></textarea>
+          <button class="fx__link" type="button" data-quitar-fila>Quitar</button></div></template>
+      </fieldset>
+      <!-- Paso 4 -->
+      <fieldset data-paso hidden><legend class="fx__sec" tabindex="-1">D · Revisa y envía</legend>
+        <div class="fx__resumen" data-resumen></div>
+        <div class="fx__campo"><label class="fx__check"><input type="checkbox" name="acepto" required> Acepto el aviso de uso de datos personales *</label></div>
+        <p class="fx__error" data-error-envio hidden>No pudimos enviar la ficha. Revisa tu conexión e inténtalo otra vez, o descarga la copia y envíala por correo.</p>
+      </fieldset>
+    </div>
+    <div class="fx__pie">
+      <p class="fx__nota" data-nota-borrador></p>
+      <div class="fx__botones">
+        <button class="btn btn--linea" type="button" data-atras>Atrás</button>
+        <button class="btn" type="button" data-siguiente>Siguiente</button>
+        <button class="btn btn--linea" type="button" data-descargar hidden>Descargar copia (Word)</button>
+        <button class="btn btn--acento" type="submit" data-enviar hidden><span>Enviar</span></button>
+      </div>
+    </div>
+  </form>
+  <div class="fx__listo" data-listo hidden>
+    <h3 tabindex="-1" data-listo-titulo></h3><p data-listo-texto></p>
+    <p><a class="btn btn--acento" data-correo-enlace hidden>Escribir el correo</a>
+       <button class="btn btn--linea" type="button" data-descargar>Descargar copia (Word)</button>
+       <button class="btn btn--linea" type="button" data-otra hidden>Enviar otra ficha</button></p>
+  </div>
+</dialog>
+<section class="seccion" id="quienes"><div class="contenedor">
+  <p class="etiqueta">Quiénes</p><h2>Quiénes construyen esto</h2>
+  <div class="logos">
+    <div class="logos__grupo"><h3>Lidera</h3><ul><li data-logo="" data-nombre="Ministerio A"><small>Coordinación general</small></li></ul></div>
+    <div class="logos__grupo"><h3>Cofirman</h3><ul><li data-logo="" data-nombre="Ministerio B"></li><li data-logo="" data-nombre="Ministerio C"></li></ul></div>
+    <div class="logos__grupo logos__grupo--ancho"><h3>Colaboran</h3><ul>
+      <li data-logo="" data-nombre="Servicio 1"><small>Depende del Ministerio A</small></li><li data-logo="" data-nombre="Servicio 2"><small>Depende del Ministerio B</small></li>
+      <li data-logo="" data-nombre="Servicio 3"><small>Depende del Ministerio B</small></li><li data-logo="" data-nombre="Organismo autónomo"><small>Órgano con el que se coordina</small></li></ul></div>
+  </div>
+</div></section>
+</main>
+<footer class="pie tema-oscuro"><div class="contenedor pie__in">
+  <b>[Logo]</b><p>[Nombre de la institución] · <a href="mailto:contacto@ejemplo.cl">contacto@ejemplo.cl</a></p>
+  <p class="suave">Tus datos se usan solo para este proceso, según la Ley N° 19.628.</p>
+  <button class="btn btn--linea" type="button" data-compartir data-titulo="[Nombre del proceso]">Compartir</button>
+</div></footer>
+<div class="redes contenedor" data-redes hidden></div>
+<div class="aviso-flotante" role="status" aria-live="polite" data-aviso-flotante></div>
+<script src="../../modulos/01-barra-aviso-por-fecha/modulo.js"></script>
+<script src="../../modulos/02-encabezado-inteligente/modulo.js"></script>
+<script src="../../modulos/03-portada-haces-de-luz/modulo.js"></script>
+<script src="../../modulos/06-cifras-y-dias/modulo.js"></script>
+<script src="../../modulos/08-carta-gantt/modulo.js"></script>
+<script src="../../modulos/09-hoja-de-ruta-en-u/modulo.js"></script>
+<script src="../../modulos/15-formulario-por-pasos/modulo.js"></script>
+<script src="../../modulos/20-logos-agrupados/modulo.js"></script>
+<script src="../../modulos/21-copiar-y-compartir/modulo.js"></script>
+</body>
+</html>

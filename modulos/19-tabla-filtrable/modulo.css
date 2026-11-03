@@ -1,0 +1,15 @@
+/* Tabla filtrable, ordenable y exportable — usa las variables de base/tokens.css */
+.tabla__barra { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 8px; }
+.tabla__barra input, .tabla__barra select { font: inherit; padding: 10px 14px; border-radius: var(--radio-sm); border: 1.5px solid var(--c-borde); background: var(--c-superficie); }
+.tabla__barra input { flex: 1; min-width: 200px; }
+.tabla table { width: 100%; border-collapse: collapse; background: var(--c-superficie); border-radius: var(--radio); overflow: hidden; box-shadow: 0 0 0 1px var(--c-borde); }
+.tabla th, .tabla td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--c-borde); font-size: 15px; }
+.tabla th { cursor: pointer; user-select: none; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--c-texto-suave); white-space: nowrap; }
+.tabla th[aria-sort]::after { content: " ↕"; opacity: .4; }
+.tabla th[aria-sort="ascending"]::after { content: " ↑"; opacity: 1; } .tabla th[aria-sort="descending"]::after { content: " ↓"; opacity: 1; }
+.tabla tfoot td { font-weight: 700; }
+.tabla tbody tr:hover { background: var(--c-fondo); }
+@media (max-width: 640px) {
+  .tabla thead { display: none; } .tabla tr { display: grid; padding: 10px 0; border-bottom: 1px solid var(--c-borde); }
+  .tabla td { border: 0; padding: 4px 16px; } .tabla tbody td::before { content: attr(data-l) ": "; font-weight: 600; color: var(--c-texto-suave); }
+}

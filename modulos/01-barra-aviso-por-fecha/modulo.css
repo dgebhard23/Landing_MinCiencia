@@ -1,0 +1,4 @@
+/* Barra de aviso según la fecha — usa las variables de base/tokens.css */
+.aviso { position: sticky; top: 0; z-index: 50; margin: 0; padding: 10px var(--margen);
+  background: var(--c-acento); color: #fff; text-align: center; font: 600 14px/1.4 var(--f-texto); }
+.aviso[hidden] { display: none; }

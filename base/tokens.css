@@ -1,0 +1,49 @@
+/* ==========================================================================
+   TOKENS — el único lugar donde se define la identidad visual.
+   Todos los módulos leen estas variables. Para una landing nueva, cambia
+   SOLO este archivo (paleta, tipografías, radios) y todo se adapta.
+   La paleta de aquí es neutra a propósito: es un punto de partida.
+   ========================================================================== */
+:root {
+  /* Paleta base */
+  --c-fondo: #f5f6f8;          /* fondo general claro */
+  --c-superficie: #ffffff;     /* tarjetas, ventanas */
+  --c-texto: #16181d;          /* texto principal */
+  --c-texto-suave: #5b616e;    /* texto secundario */
+  --c-borde: rgba(22, 24, 29, .12);
+
+  --c-primario: #2f5bd3;       /* acción principal, enlaces, estados activos */
+  --c-primario-suave: #e6ecfb;
+  --c-acento: #e0484f;         /* llamados a la acción, alertas, «en curso» */
+  --c-acento-suave: #fde8e9;
+  --c-exito: #1f9d6a;
+  --c-aviso: #c98a12;
+
+  /* Bloques oscuros (.tema-oscuro) */
+  --c-oscuro-fondo: #0d1018;
+  --c-oscuro-superficie: #171b26;
+  --c-oscuro-texto: #f1f3f7;
+  --c-oscuro-suave: #a3abbd;
+  --c-oscuro-borde: rgba(241, 243, 247, .14);
+
+  /* Gráficos y haces de luz: se leen desde JS */
+  --serie-1: #2f5bd3;
+  --serie-2: #e0484f;
+  --serie-3: #1f9d6a;
+  --serie-4: #c98a12;
+  --serie-5: #7a5af0;
+  --serie-6: #5b616e;
+
+  /* Tipografía */
+  --f-titulo: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-texto: Inter, "Helvetica Neue", Arial, sans-serif;
+
+  /* Medidas */
+  --contenedor: 1200px;
+  --margen: clamp(16px, 4vw, 56px);
+  --seccion: clamp(64px, 9vw, 128px);
+  --radio: 18px;
+  --radio-sm: 10px;
+  --sombra: 0 10px 30px rgba(16, 24, 40, .08);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}

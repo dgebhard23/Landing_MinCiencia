@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formulario por pasos (ficha en línea)</title>
+<link rel="stylesheet" href="../../base/tokens.css">
+<link rel="stylesheet" href="../../base/base.css">
+<link rel="stylesheet" href="modulo.css">
+
+</head>
+<body>
+<header class="demo-cab"><a href="../../index.html">← Catálogo de funcionalidades</a><h1>Formulario por pasos (ficha en línea)</h1><p>El formulario completo de la ficha de Reglamentos, generalizado: ventana con pasos numerados y barra de avance; validación por paso con mensajes que se borran al corregir; campos condicionales; filas que se agregan y quitan; contador de palabras; borrador automático en el navegador; resumen final con «Editar» por sección; descarga de una copia en Word; envío a Google Apps Script (Sheets + Drive + aviso por correo) o, sin endpoint, modo de respaldo por correo; campo trampa anti-spam; y «enviar otra» conservando los datos de contacto.</p></header>
+<section class="seccion"><div class="contenedor">
+  <p class="etiqueta">Participa</p><h2>Completa la ficha</h2>
+  <p class="suave">El botón abre el formulario. También se abre con <code>#ficha</code> en la URL.</p>
+  <button class="btn btn--acento" type="button" data-abrir-ficha>Completar la ficha</button>
+</div></section>
+
+<dialog class="fx" id="ficha" aria-labelledby="fx-t">
+  <button class="fx__x" type="button" data-cerrar aria-label="Cerrar">×</button>
+  <form data-ficha data-endpoint="" data-correo="contacto@ejemplo.cl" data-clave="ficha-demo" novalidate>
+    <div class="fx__cab">
+      <p class="etiqueta">Participación</p>
+      <h3 id="fx-t">Ficha de aportes</h3>
+      <ol class="fx__pasos"><li>Tus datos</li><li>Tema</li><li>Tu aporte</li><li>Enviar</li></ol>
+      <p class="fx__cuenta" data-cuenta-paso></p>
+    </div>
+    <div class="fx__cuerpo">
+      <!-- Paso 1 -->
+      <fieldset data-paso><legend class="fx__sec" tabindex="-1">A · Tus datos</legend>
+        <div class="fx__campo"><label for="f-inst">Institución u organización *</label><input id="f-inst" name="institucion" required></div>
+        <div class="fx__campo"><label for="f-actor">Tipo de actor *</label>
+          <select id="f-actor" name="actor" required><option value="">Elige una opción</option><option>Universidad</option><option>Empresa</option><option>Servicio público</option><option>Persona natural</option><option>Otro</option></select>
+          <input name="actor_otro" placeholder="¿Cuál?" hidden data-si="actor=Otro"></div>
+        <div class="fx__fila2">
+          <div class="fx__campo"><label for="f-nom">Nombre de contacto *</label><input id="f-nom" name="contacto" required autocomplete="name"></div>
+          <div class="fx__campo"><label for="f-mail">Correo *</label><input id="f-mail" name="correo" type="email" required autocomplete="email"></div>
+        </div>
+        <input class="fx__trampa" name="sitio_web" tabindex="-1" autocomplete="off" aria-hidden="true">
+      </fieldset>
+      <!-- Paso 2 -->
+      <fieldset data-paso hidden><legend class="fx__sec" tabindex="-1">B · Tema</legend>
+        <div class="fx__campo"><p class="fx__lab">¿Sobre qué tema es tu aporte? *</p>
+          <div class="fx__opciones">
+            <label class="fx__op"><input type="radio" name="tema" value="1" required><span><b>Tema 1</b> Descripción breve</span></label>
+            <label class="fx__op"><input type="radio" name="tema" value="2"><span><b>Tema 2</b> Descripción breve</span></label>
+            <label class="fx__op"><input type="radio" name="tema" value="3"><span><b>Tema 3</b> Descripción breve</span></label>
+          </div></div>
+        <div class="fx__guia" data-guia="1" hidden><b>Preguntas guía del tema 1:</b> ¿qué debería resolver? ¿para quién?</div>
+        <div class="fx__guia" data-guia="2" hidden><b>Preguntas guía del tema 2:</b> ¿qué criterios y plazos propones?</div>
+        <div class="fx__guia" data-guia="3" hidden><b>Preguntas guía del tema 3:</b> ¿qué riesgos ves?</div>
+      </fieldset>
+      <!-- Paso 3 -->
+      <fieldset data-paso hidden><legend class="fx__sec" tabindex="-1">C · Tu aporte</legend>
+        <div class="fx__campo"><label for="f-prob">¿Qué problema debería resolverse? *</label>
+          <textarea id="f-prob" name="problema" rows="4" required data-max-palabras="200"></textarea><small data-palabras-de="f-prob"></small></div>
+        <p class="fx__lab">Propuestas concretas</p>
+        <div data-filas></div>
+        <button class="btn btn--linea" type="button" data-agregar-fila>+ Agregar propuesta</button>
+        <template data-fila-tpl><div class="fx__filax"><p class="fx__filax-n"></p>
+          <input name="prop_materia" placeholder="Materia"><textarea name="prop_texto" rows="2" placeholder="Propuesta concreta"></textarea>
+          <button class="fx__link" type="button" data-quitar-fila>Quitar</button></div></template>
+      </fieldset>
+      <!-- Paso 4 -->
+      <fieldset data-paso hidden><legend class="fx__sec" tabindex="-1">D · Revisa y envía</legend>
+        <div class="fx__resumen" data-resumen></div>
+        <div class="fx__campo"><label class="fx__check"><input type="checkbox" name="acepto" required> Acepto el aviso de uso de datos personales *</label></div>
+        <p class="fx__error" data-error-envio hidden>No pudimos enviar la ficha. Revisa tu conexión e inténtalo otra vez, o descarga la copia y envíala por correo.</p>
+      </fieldset>
+    </div>
+    <div class="fx__pie">
+      <p class="fx__nota" data-nota-borrador></p>
+      <div class="fx__botones">
+        <button class="btn btn--linea" type="button" data-atras>Atrás</button>
+        <button class="btn" type="button" data-siguiente>Siguiente</button>
+        <button class="btn btn--linea" type="button" data-descargar hidden>Descargar copia (Word)</button>
+        <button class="btn btn--acento" type="submit" data-enviar hidden><span>Enviar</span></button>
+      </div>
+    </div>
+  </form>
+  <div class="fx__listo" data-listo hidden>
+    <h3 tabindex="-1" data-listo-titulo></h3><p data-listo-texto></p>
+    <p><a class="btn btn--acento" data-correo-enlace hidden>Escribir el correo</a>
+       <button class="btn btn--linea" type="button" data-descargar>Descargar copia (Word)</button>
+       <button class="btn btn--linea" type="button" data-otra hidden>Enviar otra ficha</button></p>
+  </div>
+</dialog>
+<script src="modulo.js"></script>
+
+</body>
+</html>

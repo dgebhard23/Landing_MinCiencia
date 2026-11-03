@@ -1,0 +1,6 @@
+/* Copiar, compartir y avisos breves — usa las variables de base/tokens.css */
+.folio { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; } .folio span { color: var(--c-texto-suave); }
+.folio b { font: 700 22px var(--f-titulo); letter-spacing: .04em; margin-right: auto; }
+.redes { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.aviso-flotante { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 140%); background: var(--c-oscuro-fondo); color: #fff; padding: 12px 20px; border-radius: 999px; font-weight: 600; transition: transform .35s var(--ease); z-index: 99; }
+.aviso-flotante.is-visible { transform: translate(-50%, 0); }

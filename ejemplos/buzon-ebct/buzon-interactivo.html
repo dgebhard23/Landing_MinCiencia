@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buzón de Desafíos Regulatorios para Startups Científicas (EBCT) — MinCiencia (demo local)</title>
+    <!-- ════════════════════════════════════════════════════════════════════
+         ESTILOS SOLO PARA ESTA DEMO LOCAL — NO COPIAR AL CMS
+         (el CMS ya tiene su propio <body>; estos estilos lo romperían)
+         ════════════════════════════════════════════════════════════════════ -->
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background: linear-gradient(160deg, #0f0f3d 0%, #1a1a8a 60%, #2424b2 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; margin: 0; }
+        .demo-hero { text-align: center; color: #fff; padding: 40px 20px; max-width: 640px; }
+        .demo-hero h1 { font-weight: 800; font-size: 1.6rem; margin-bottom: 14px; }
+        .demo-hero p { color: rgba(255,255,255,0.75); font-size: 0.95rem; line-height: 1.7; margin-bottom: 28px; }
+        .demo-hero .demo-btn { display: inline-flex; align-items: center; gap: 10px; background: #33cc99; color: #06281d; font-weight: 700; font-size: 1rem; padding: 15px 34px; border: none; border-radius: 10px; cursor: pointer; box-shadow: 0 8px 24px rgba(51,204,153,0.35); transition: transform .2s, background .2s; }
+        .demo-hero .demo-btn:hover { background: #2aa87e; transform: translateY(-2px); }
+        .demo-nota { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-top: 18px; }
+    </style>
+</head>
+<body>
+
+    <div class="demo-hero">
+        <h1><i class="fas fa-inbox mr-2"></i> Buzón de Desafíos Regulatorios para Startups Científicas</h1>
+        <p style="color:rgba(255,255,255,0.65);font-size:0.85rem;margin:-6px 0 18px;letter-spacing:.4px;">Empresas de Base Científico-Tecnológica (EBCT)</p>
+        <p>Demo local del buzón interactivo (versión 2.0). En el sitio real, el buzón se abre desde el
+           botón flotante que aparece abajo a la derecha. Copia al CMS únicamente el bloque marcado
+           como <strong>SNIPPET CMS</strong> en el código fuente de este archivo.</p>
+        <button type="button" class="demo-btn" data-toggle="modal" data-target="#modalBuzonEBCT">
+            <i class="fas fa-pen-to-square"></i> Abrir buzón interactivo
+        </button>
+        <p class="demo-nota">Sin URL de Apps Script configurada, el envío se simula (modo demo).</p>
+    </div>
+
+<!-- ╔══════════════════════════════════════════════════════════════════════╗
+     ║   INICIO SNIPPET CMS · BUZÓN EBCT v2.0                                ║
+     ║   Copiar desde aquí hasta «FIN SNIPPET CMS».                          ║
+     ║   Reemplaza al snippet anterior home-1-buzon (incluye FAB + modal).   ║
+     ╚══════════════════════════════════════════════════════════════════════╝ -->
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script>(function(){
+    function addCSS(h){var l=document.createElement('link');l.rel='stylesheet';l.href=h;document.head.appendChild(l);}
+    function addJS(s,cb){var t=document.createElement('script');t.src=s;if(cb)t.onload=cb;document.head.appendChild(t);}
+    var bs=Array.from(document.querySelectorAll('link[rel=stylesheet]')).some(function(l){return l.href&&l.href.indexOf('bootstrap')>-1;});
+    if(!bs)addCSS('https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css');
+    function bsjs(){if(typeof jQuery!=='undefined'&&typeof jQuery.fn.modal==='undefined')addJS('https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js');}
+    if(typeof jQuery==='undefined')addJS('https://code.jquery.com/jquery-3.5.1.slim.min.js',bsjs);else bsjs();
+})();</script>
+
+<style>
+/* ── Buzón EBCT v2 · estilos con prefijo bze- (no interfieren con el CMS) ── */
+#buzonEBCT-root{--bze-azul:#2424b2;--bze-azul-osc:#1a1a8a;--bze-verde:#33cc99;--bze-verde-osc:#2aa87e;--bze-tinta:#1e293b;--bze-gris:#f4f6f9;--bze-borde:#dfe3ee;--bze-texto:#475569;}
+.bze-fab{position:fixed;bottom:28px;right:28px;background:#2424b2;color:#fff;border:none;border-radius:50px;padding:13px 22px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.82rem;display:flex;align-items:center;gap:9px;box-shadow:0 6px 20px rgba(36,36,178,0.4);cursor:pointer;z-index:1040;transition:background .2s,transform .2s,box-shadow .2s;}
+.bze-fab:hover{background:#1a1a8a;transform:translateY(-3px);box-shadow:0 10px 28px rgba(36,36,178,0.5);}
+.bze-fab i{font-size:1rem;}
+@media(max-width:575px){.bze-fab .bze-fab-label{display:none;}.bze-fab{border-radius:50%;width:52px;height:52px;padding:0;justify-content:center;}}
+
+#modalBuzonEBCT{font-family:'Montserrat',sans-serif;}
+#modalBuzonEBCT .bze-content{border:none;border-radius:14px;overflow:hidden;box-shadow:0 15px 40px rgba(15,15,61,0.3);}
+#modalBuzonEBCT .bze-header{background:#0f0f3d;color:#fff;padding:16px 22px;border:none;display:flex;justify-content:space-between;align-items:center;}
+#modalBuzonEBCT .bze-header .modal-title{font-weight:700;font-size:1rem;}
+#modalBuzonEBCT .bze-header .modal-title i{color:#33cc99;}
+#modalBuzonEBCT .bze-header .close{color:#fff;opacity:.7;font-size:1.5rem;text-shadow:none;}
+#modalBuzonEBCT .bze-header .close:hover{opacity:1;}
+
+#modalBuzonEBCT .bze-progress{background:#e2e8f0;height:6px;width:100%;}
+#modalBuzonEBCT .bze-progress-fill{height:100%;background:#33cc99;width:14%;transition:width .4s ease-in-out;}
+#modalBuzonEBCT .bze-progress-meta{display:flex;justify-content:space-between;align-items:center;padding:8px 26px 0;font-size:0.76rem;font-weight:600;color:#64748b;}
+
+#modalBuzonEBCT .bze-step{display:none;padding:22px 28px 26px;max-height:62vh;overflow-y:auto;}
+#modalBuzonEBCT .bze-step.active{display:block;animation:bzeFadeIn .35s ease forwards;}
+@keyframes bzeFadeIn{from{opacity:0;transform:translateX(16px);}to{opacity:1;transform:translateX(0);}}
+#modalBuzonEBCT .bze-step::-webkit-scrollbar{width:8px;}
+#modalBuzonEBCT .bze-step::-webkit-scrollbar-track{background:#f1f5f9;}
+#modalBuzonEBCT .bze-step::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px;}
+
+#modalBuzonEBCT .bze-step-title{font-size:1.15rem;font-weight:800;color:var(--bze-tinta,#1e293b);margin-bottom:4px;outline:none;}
+#modalBuzonEBCT .bze-step-sub{font-size:0.82rem;color:#64748b;margin-bottom:18px;}
+#modalBuzonEBCT .bze-label{font-weight:700;font-size:0.88rem;color:#1e293b;margin-bottom:6px;display:block;}
+#modalBuzonEBCT .bze-hint{font-size:0.76rem;color:#64748b;margin-top:4px;display:block;}
+#modalBuzonEBCT .bze-req{color:#d23b4e;font-weight:800;}
+
+#modalBuzonEBCT .bze-input,#modalBuzonEBCT .bze-select,#modalBuzonEBCT .bze-textarea{width:100%;border:1.5px solid #dfe3ee;border-radius:8px;padding:10px 13px;font-size:0.92rem;font-family:'Montserrat',sans-serif;color:#1e293b;background:#fff;transition:border-color .2s,box-shadow .2s;}
+#modalBuzonEBCT .bze-input:focus,#modalBuzonEBCT .bze-select:focus,#modalBuzonEBCT .bze-textarea:focus{border-color:#2424b2;outline:none;box-shadow:0 0 0 3px rgba(36,36,178,0.15);}
+#modalBuzonEBCT .bze-input.bze-invalid,#modalBuzonEBCT .bze-select.bze-invalid,#modalBuzonEBCT .bze-textarea.bze-invalid{border-color:#d23b4e;}
+#modalBuzonEBCT .bze-error-msg{font-size:0.76rem;color:#d23b4e;font-weight:600;margin-top:4px;display:none;}
+#modalBuzonEBCT .bze-counter{font-size:0.72rem;color:#94a3b8;text-align:right;margin-top:3px;}
+
+#modalBuzonEBCT .bze-alert{display:none;background:#fdf0f2;border:1px solid #f3c2ca;border-left:4px solid #d23b4e;color:#8c2030;border-radius:8px;padding:10px 14px;font-size:0.82rem;font-weight:600;margin-bottom:16px;}
+#modalBuzonEBCT .bze-notice{background:#effaf5;border:1px solid #bfe9d9;border-left:4px solid #33cc99;color:#1d6b51;border-radius:8px;padding:10px 14px;font-size:0.8rem;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+#modalBuzonEBCT .bze-notice button{background:none;border:none;color:#1d6b51;font-weight:700;font-size:0.76rem;cursor:pointer;text-decoration:underline;white-space:nowrap;}
+
+#modalBuzonEBCT .bze-card{border:1.5px solid #dfe3ee;border-radius:8px;padding:10px 14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;background:#fff;cursor:pointer;transition:border-color .15s,background .15s;font-size:0.86rem;color:#334155;}
+#modalBuzonEBCT .bze-card:hover{border-color:#9aa2e8;}
+#modalBuzonEBCT .bze-card.bze-checked{border-color:#2424b2;background:#f3f4ff;}
+#modalBuzonEBCT .bze-card input{margin-top:3px;transform:scale(1.15);accent-color:#2424b2;flex-shrink:0;}
+#modalBuzonEBCT .bze-card:focus-within{box-shadow:0 0 0 3px rgba(36,36,178,0.18);}
+
+#modalBuzonEBCT .bze-legal{background:#f4f6f9;border-left:4px solid #2424b2;border-radius:0 8px 8px 0;padding:0;font-size:0.8rem;color:#475569;margin-bottom:12px;}
+#modalBuzonEBCT .bze-legal summary{padding:12px 15px;font-weight:700;color:#1e293b;cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;}
+#modalBuzonEBCT .bze-legal summary::-webkit-details-marker{display:none;}
+#modalBuzonEBCT .bze-legal summary i{color:#2424b2;transition:transform .2s;font-size:0.75rem;}
+#modalBuzonEBCT .bze-legal[open] summary i{transform:rotate(90deg);}
+#modalBuzonEBCT .bze-legal .bze-legal-body{padding:0 15px 14px;line-height:1.65;}
+#modalBuzonEBCT .bze-legal ul{padding-left:18px;margin:8px 0 0;}
+
+#modalBuzonEBCT .bze-upload{border:2px dashed #9aa2e8;border-radius:10px;padding:26px 18px;text-align:center;background:#fafbff;cursor:pointer;transition:border-color .2s,background .2s;}
+#modalBuzonEBCT .bze-upload:hover,#modalBuzonEBCT .bze-upload.bze-drag{border-color:#2424b2;background:#f3f4ff;}
+#modalBuzonEBCT .bze-upload i{font-size:2.2rem;color:#2424b2;margin-bottom:10px;}
+#modalBuzonEBCT .bze-file{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f4f6f9;border:1px solid #dfe3ee;border-radius:8px;padding:8px 12px;margin-top:8px;font-size:0.8rem;font-weight:600;color:#334155;}
+#modalBuzonEBCT .bze-file button{background:none;border:none;color:#d23b4e;cursor:pointer;font-size:0.9rem;padding:2px 6px;}
+
+#modalBuzonEBCT .bze-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:22px;padding-top:16px;border-top:1px solid #e8ebf3;}
+#modalBuzonEBCT .bze-btn{font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.88rem;padding:11px 24px;border-radius:9px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .2s,transform .15s;}
+#modalBuzonEBCT .bze-btn-primario{background:#2424b2;color:#fff;box-shadow:0 4px 14px rgba(36,36,178,0.25);}
+#modalBuzonEBCT .bze-btn-primario:hover{background:#1a1a8a;transform:translateY(-1px);}
+#modalBuzonEBCT .bze-btn-primario:disabled{background:#9aa2e8;cursor:not-allowed;transform:none;}
+#modalBuzonEBCT .bze-btn-suave{background:#eef0f6;color:#475569;}
+#modalBuzonEBCT .bze-btn-suave:hover{background:#e2e5ef;}
+#modalBuzonEBCT .bze-btn-enlace{background:none;border:none;color:#2424b2;font-weight:700;font-size:0.8rem;cursor:pointer;text-decoration:underline;padding:4px 8px;}
+
+#modalBuzonEBCT .bze-review-bloque{border:1px solid #e8ebf3;border-radius:10px;margin-bottom:12px;overflow:hidden;}
+#modalBuzonEBCT .bze-review-head{background:#f4f6f9;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:0.8rem;color:#1e293b;text-transform:uppercase;letter-spacing:.4px;}
+#modalBuzonEBCT .bze-review-body{padding:10px 14px;font-size:0.83rem;color:#475569;}
+#modalBuzonEBCT .bze-review-body .bze-rev-fila{display:flex;gap:8px;padding:3px 0;}
+#modalBuzonEBCT .bze-review-body .bze-rev-fila b{color:#1e293b;min-width:160px;font-weight:700;}
+
+#modalBuzonEBCT .bze-exito{text-align:center;padding:28px 26px;}
+#modalBuzonEBCT .bze-exito .bze-exito-icono{width:84px;height:84px;border-radius:50%;background:#effaf5;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+#modalBuzonEBCT .bze-exito .bze-exito-icono i{font-size:2.6rem;color:#33cc99;}
+#modalBuzonEBCT .bze-folio{background:#0f0f3d;color:#fff;border-radius:12px;padding:16px 20px;display:inline-flex;align-items:center;gap:14px;margin:14px 0 6px;}
+#modalBuzonEBCT .bze-folio span{font-size:1.35rem;font-weight:800;letter-spacing:1.5px;color:#33cc99;}
+#modalBuzonEBCT .bze-folio button{background:rgba(255,255,255,0.12);border:none;color:#fff;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:0.78rem;font-weight:700;}
+#modalBuzonEBCT .bze-folio button:hover{background:rgba(255,255,255,0.22);}
+#modalBuzonEBCT .bze-pasos-sigue{text-align:left;max-width:430px;margin:18px auto 0;padding:0;list-style:none;counter-reset:bzepaso;}
+#modalBuzonEBCT .bze-pasos-sigue li{counter-increment:bzepaso;position:relative;padding:0 0 14px 44px;font-size:0.82rem;color:#475569;line-height:1.55;}
+#modalBuzonEBCT .bze-pasos-sigue li::before{content:counter(bzepaso);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:#f3f4ff;border:2px solid #2424b2;color:#2424b2;font-weight:800;font-size:0.8rem;display:flex;align-items:center;justify-content:center;}
+#modalBuzonEBCT .bze-pasos-sigue li b{color:#1e293b;}
+
+#modalBuzonEBCT .bze-oculto{display:none!important;}
+#modalBuzonEBCT .bze-honeypot{position:absolute!important;left:-9999px!important;opacity:0;height:0;overflow:hidden;}
+@media(max-width:575px){#modalBuzonEBCT .bze-step{padding:18px 16px 22px;max-height:68vh;}#modalBuzonEBCT .bze-footer{flex-wrap:wrap;}#modalBuzonEBCT .bze-btn{flex:1;justify-content:center;}}
+</style>
+
+<div id="buzonEBCT-root">
+
+    <!-- ── Botón flotante (FAB) ── -->
+    <button type="button" class="bze-fab" data-toggle="modal" data-target="#modalBuzonEBCT" aria-haspopup="dialog">
+        <i class="fas fa-inbox" aria-hidden="true"></i>
+        <span class="bze-fab-label">Buzón de obstáculos</span>
+    </button>
+
+    <!-- ── MODAL BUZÓN ── -->
+    <div class="modal fade" id="modalBuzonEBCT" tabindex="-1" role="dialog" aria-modal="true"
+         aria-labelledby="bzeTituloModal" data-backdrop="static">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content bze-content">
+
+                <div class="modal-header bze-header">
+                    <h5 class="modal-title" id="bzeTituloModal">
+                        <i class="fas fa-inbox mr-2" aria-hidden="true"></i>Buzón de Desafíos Regulatorios para Startups Científicas
+                        <small style="display:block;font-size:0.66rem;font-weight:500;opacity:.75;letter-spacing:.3px;margin-top:2px;">Empresas de Base Científico-Tecnológica (EBCT)</small>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar buzón (tu avance queda guardado en este navegador)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="bze-progress" aria-hidden="true"><div class="bze-progress-fill" id="bzeProgreso"></div></div>
+                <div class="bze-progress-meta">
+                    <span id="bzeProgresoEtiqueta" aria-live="polite">Paso 1 de 7 · Bienvenida</span>
+                    <span id="bzeProgresoPct">14%</span>
+                </div>
+
+                <form id="bzeForm" novalidate autocomplete="on">
+                    <!-- honeypot anti-spam: los humanos no ven este campo -->
+                    <div class="bze-honeypot" aria-hidden="true">
+                        <label>No completar este campo<input type="text" name="_sitio_referencia" tabindex="-1" autocomplete="off"></label>
+                    </div>
+
+                    <!-- ══ PASO 1 · BIENVENIDA Y CONSENTIMIENTO ══ -->
+                    <section class="bze-step active" id="bzePaso1" role="group" aria-labelledby="bzeT1">
+                        <h4 class="bze-step-title" id="bzeT1" tabindex="-1">Bienvenida</h4>
+                        <p class="bze-step-sub">Completar este reporte toma entre 5 y 8 minutos. Tu avance se guarda automáticamente en este navegador.</p>
+                        <div class="bze-notice bze-oculto" id="bzeAvisoBorrador">
+                            <span><i class="fas fa-history mr-1" aria-hidden="true"></i> Recuperamos el borrador que dejaste a medias.</span>
+                            <button type="button" id="bzeDescartarBorrador">Empezar de cero</button>
+                        </div>
+
+                        <p style="font-size:0.84rem;color:#475569;line-height:1.7;">
+                            Este formulario está dirigido a <strong>startups científicas —empresas de base científico-tecnológica (EBCT)—</strong>, con el objetivo de
+                            recopilar desafíos y problemas que afectan su iniciación, operación, desarrollo o crecimiento, en relación con
+                            distintos marcos regulatorios e institucionales. La información que entregues permitirá visibilizar las
+                            principales barreras que enfrentan las EBCTs y aportará a la mejora del ecosistema en que se desarrollan.
+                            Todos los antecedentes entregados serán tratados con <strong>carácter confidencial</strong> y utilizados
+                            exclusivamente para fines de gestión y articulación regulatoria.
+                        </p>
+
+                        <details class="bze-legal">
+                            <summary><i class="fas fa-chevron-right" aria-hidden="true"></i> Aviso importante y exención de responsabilidad</summary>
+                            <div class="bze-legal-body">
+                                El presente formulario no constituye un canal oficial del Gobierno de Chile para la resolución de trámites o
+                                reclamos administrativos. Su propósito es recopilar y sistematizar experiencias reales de empresas de base
+                                científico-tecnológica (EBCTs) en materia de importación y exportación de insumos, tecnologías o servicios,
+                                apoyando el trabajo de análisis y coordinación interinstitucional, liderado por el Ministerio de
+                                Ciencia, Tecnología, Conocimiento e Innovación.
+                                <ul>
+                                    <li>La Mesa Interinstitucional de Comercio Exterior de EBCTs actúa como una instancia de reflexión, articulación
+                                        y mejora de procesos, pero no como autoridad regulatoria ni canal de resolución de controversias.</li>
+                                    <li>Las respuestas, orientaciones o conclusiones derivadas de este formulario no sustituyen los procedimientos
+                                        oficiales ni las decisiones vinculantes de organismos competentes (por ejemplo, SAG, ISP, Aduanas, SII u otros).</li>
+                                    <li>El contenido recopilado podrá ser utilizado de manera anonimizada y agregada para la elaboración de
+                                        informes, diagnósticos o recomendaciones de política pública.</li>
+                                </ul>
+                            </div>
+                        </details>
+                        <details class="bze-legal">
+                            <summary><i class="fas fa-chevron-right" aria-hidden="true"></i> Protección de datos personales</summary>
+                            <div class="bze-legal-body">
+                                Los datos ingresados serán tratados conforme a la Ley N° 19.628 sobre Protección de la Vida Privada, y utilizados
+                                exclusivamente para fines de gestión y análisis del ecosistema de innovación y comercio exterior de EBCTs.
+                            </div>
+                        </details>
+
+                        <div class="bze-alert" role="alert" data-bze-alert></div>
+
+                        <h5 class="bze-label mt-4" style="font-size:0.95rem;">Autorización y consentimiento <span class="bze-req" aria-hidden="true">*</span></h5>
+                        <p class="bze-hint mb-2">Debes aceptar las tres declaraciones para continuar.</p>
+                        <label class="bze-card"><input type="checkbox" name="consentimientos" value="veracidad" required>
+                            <span>Declaro que la información entregada es veraz y corresponde a la situación actual de la empresa.</span></label>
+                        <label class="bze-card"><input type="checkbox" name="consentimientos" value="caracter_informativo" required>
+                            <span>Acepto que este formulario tiene carácter informativo y no constituye una vía formal de resolución de trámites o controversias.</span></label>
+                        <label class="bze-card"><input type="checkbox" name="consentimientos" value="comparticion_mesa" required>
+                            <span>Autorizo al Ministerio de Ciencia, Tecnología, Conocimiento e Innovación a compartir esta información con
+                            instituciones públicas participantes de la mesa interinstitucional, exclusivamente para análisis y fines de mejora
+                            del ecosistema regulatorio.</span></label>
+
+                        <div class="bze-footer" style="justify-content:flex-end;">
+                            <button type="button" class="bze-btn bze-btn-primario" data-bze-ir="2">Comenzar <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+                        </div>
+                    </section>
+
+                    <!-- ══ PASO 2 · IDENTIFICACIÓN ══ -->
+                    <section class="bze-step" id="bzePaso2" role="group" aria-labelledby="bzeT2">
+                        <h4 class="bze-step-title" id="bzeT2" tabindex="-1">Identificación de la empresa</h4>
+                        <p class="bze-step-sub">Necesitamos un contacto para enviar el comprobante con tu número de folio y hacer seguimiento del caso. Esta información es confidencial. A partir del paso siguiente, tu avance se guardará de forma segura, aunque no completes el envío. Si no envías el caso, se elimina a los 30 días.</p>
+                        <div class="bze-alert" role="alert" data-bze-alert></div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-7">
+                                <label class="bze-label" for="bzeEmpresa">Nombre o razón social de la empresa <span class="bze-req">*</span></label>
+                                <input type="text" class="bze-input" id="bzeEmpresa" name="empresa" maxlength="160" placeholder="Ej: BioAndes SpA" autocomplete="organization">
+                                <span class="bze-error-msg" id="bzeEmpresaError"></span>
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label class="bze-label" for="bzeRut">RUT de la empresa <span class="bze-hint" style="display:inline;">(opcional)</span></label>
+                                <input type="text" class="bze-input" id="bzeRut" name="rut" maxlength="12" placeholder="76.123.456-7" inputmode="text">
+                                <span class="bze-error-msg" id="bzeRutError"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="bze-label" for="bzeContacto">Nombre de la persona de contacto <span class="bze-req">*</span></label>
+                                <input type="text" class="bze-input" id="bzeContacto" name="nombreContacto" maxlength="120" autocomplete="name">
+                                <span class="bze-error-msg" id="bzeContactoError"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="bze-label" for="bzeEmail">Correo electrónico de contacto <span class="bze-req">*</span></label>
+                                <input type="email" class="bze-input" id="bzeEmail" name="email" maxlength="160" placeholder="nombre@empresa.cl" autocomplete="email">
+                                <span class="bze-error-msg" id="bzeEmailError"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="bze-label" for="bzeTelefono">Teléfono <span class="bze-hint" style="display:inline;">(opcional)</span></label>
+                                <input type="tel" class="bze-input" id="bzeTelefono" name="telefono" maxlength="20" placeholder="+56 9 1234 5678" autocomplete="tel">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="bze-label" for="bzeRegion">Región <span class="bze-hint" style="display:inline;">(opcional)</span></label>
+                                <select class="bze-select" id="bzeRegion" name="region">
+                                    <option value="">Seleccione…</option>
+                                    <option>Arica y Parinacota</option><option>Tarapacá</option><option>Antofagasta</option>
+                                    <option>Atacama</option><option>Coquimbo</option><option>Valparaíso</option>
+                                    <option>Metropolitana de Santiago</option><option>O'Higgins</option><option>Maule</option>
+                                    <option>Ñuble</option><option>Biobío</option><option>La Araucanía</option>
+                                    <option>Los Ríos</option><option>Los Lagos</option><option>Aysén</option><option>Magallanes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="bze-footer">
+                            <button type="button" class="bze-btn bze-btn-suave" data-bze-ir="1"><i class="fas fa-arrow-left" aria-hidden="true"></i> Volver</button>
+                            <button type="button" class="bze-btn bze-btn-primario" data-bze-ir="3">Siguiente <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+                        </div>
+                    </section>
+
+                    <!-- ══ PASO 3 · EL DESAFÍO ══ -->
+                    <section class="bze-step" id="bzePaso3" role="group" aria-labelledby="bzeT3">
+                        <h4 class="bze-step-title" id="bzeT3" tabindex="-1">El desafío regulatorio</h4>
+                        <p class="bze-step-sub">Cuéntanos qué obstáculo enfrentaste. Mientras más concreta la descripción, mejor podremos clasificar y derivar el caso.</p>
+                        <div class="bze-alert" role="alert" data-bze-alert></div>
+
+                        <div class="form-group mb-4">
+                            <span class="bze-label">¿Tu caso es de importación o exportación? <span class="bze-req">*</span></span>
+                            <label class="bze-card"><input type="radio" name="operacion" value="Importación"><span>Importación de insumos científicos o tecnológicos</span></label>
+                            <label class="bze-card"><input type="radio" name="operacion" value="Exportación"><span>Exportación de productos o servicios tecnológicos</span></label>
+                            <label class="bze-card"><input type="radio" name="operacion" value="Ambas"><span>Ambas</span></label>
+                            <span class="bze-error-msg" id="bzeOperacionError"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <span class="bze-label">¿Qué materia(s) o trámite(s) involucra? <span class="bze-hint" style="display:inline;">(opcional)</span></span>
+                            <span class="bze-hint mb-2">Selecciona todas las que sean representativas de tu caso.</span>
+                            <label class="bze-card"><input type="checkbox" name="materias" value="Trámites aduaneros y clasificación arancelaria"><span>Trámites aduaneros y clasificación arancelaria</span></label>
+                            <label class="bze-card"><input type="checkbox" name="materias" value="Certificaciones sanitarias o fitosanitarias"><span>Certificaciones sanitarias o fitosanitarias</span></label>
+                            <label class="bze-card"><input type="checkbox" name="materias" value="Homologación o permisos de entidades reguladoras"><span>Homologación o permisos de entidades reguladoras</span></label>
+                            <label class="bze-card"><input type="checkbox" name="materias" value="Tributación o facturación asociada a comercio exterior"><span>Tributación o facturación asociada a comercio exterior</span></label>
+                            <label class="bze-card"><input type="checkbox" name="materias" value="__otro__" id="bzeMateriaOtroCheck"><span>Otra</span></label>
+                            <input type="text" class="bze-input bze-oculto mt-2" id="bzeMateriaOtroTexto" name="materiaOtro" maxlength="120" placeholder="Especifica la materia o trámite" aria-label="Especifica la otra materia">
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label class="bze-label" for="bzeTitulo">Título del caso <span class="bze-req">*</span></label>
+                            <input type="text" class="bze-input" id="bzeTitulo" name="titulo" maxlength="120" placeholder="Ej: Retención de reactivos biológicos en Aduana por más de 30 días">
+                            <div class="bze-counter"><span data-bze-cuenta="bzeTitulo">0</span>/120</div>
+                            <span class="bze-error-msg" id="bzeTituloError"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label class="bze-label" for="bzeDesafio">Descripción del desafío o problema <span class="bze-req">*</span></label>
+                            <span class="bze-hint mb-2">¿Qué ocurrió? ¿Cuándo? ¿Con qué trámite o normativa? ¿En qué punto se trabó el proceso?</span>
+                            <textarea class="bze-textarea" id="bzeDesafio" name="descripcionDesafio" rows="5" maxlength="2500" placeholder="Describe la situación con el mayor detalle posible…"></textarea>
+                            <div class="bze-counter"><span data-bze-cuenta="bzeDesafio">0</span>/2500 · mínimo 40 caracteres</div>
+                            <span class="bze-error-msg" id="bzeDesafioError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="bze-label">Impacto en la empresa <span class="bze-hint" style="display:inline;">(opcional)</span></span>
+                            <span class="bze-hint mb-2">Selecciona todas las que sean representativas de tu caso.</span>
+                            <label class="bze-card"><input type="checkbox" name="impactos" value="Retrasos en proyectos o hitos de I+D"><span>Retrasos en proyectos o hitos de I+D</span></label>
+                            <label class="bze-card"><input type="checkbox" name="impactos" value="Sobrecostos (bodegaje, multas, reembarques)"><span>Sobrecostos (bodegaje, multas, reembarques)</span></label>
+                            <label class="bze-card"><input type="checkbox" name="impactos" value="Proyecto, venta o contrato detenido"><span>Proyecto, venta o contrato detenido</span></label>
+                            <label class="bze-card"><input type="checkbox" name="impactos" value="Pérdida de clientes o mercados"><span>Pérdida de clientes o mercados</span></label>
+                        </div>
+
+                        <div class="bze-footer">
+                            <button type="button" class="bze-btn bze-btn-suave" data-bze-ir="2"><i class="fas fa-arrow-left" aria-hidden="true"></i> Volver</button>
+                            <button type="button" class="bze-btn bze-btn-primario" data-bze-ir="4">Siguiente <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+                        </div>
+                    </section>
+
+                    <!-- ══ PASO 4 · PRODUCTO Y ENVÍO ══ -->
+                    <section class="bze-step" id="bzePaso4" role="group" aria-labelledby="bzeT4">
+                        <h4 class="bze-step-title" id="bzeT4" tabindex="-1">Producto y envío</h4>
+                        <p class="bze-step-sub">Contexto del producto o tecnología involucrada en el caso.</p>
+                        <div class="bze-alert" role="alert" data-bze-alert></div>
+
+                        <div class="form-group mb-4">
+                            <label class="bze-label" for="bzeProducto">Descripción breve del producto o tecnología involucrada <span class="bze-req">*</span></label>
+                            <textarea class="bze-textarea" id="bzeProducto" name="descripcionProducto" rows="2" maxlength="600" placeholder="Ej: Kit de reactivos para secuenciación genómica…"></textarea>
+                            <span class="bze-error-msg" id="bzeProductoError"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label class="bze-label" for="bzePais">País de origen o destino del envío <span class="bze-req">*</span></label>
+                            <input type="text" class="bze-input" id="bzePais" name="pais" maxlength="120" list="bzePaises" placeholder="Ej: Estados Unidos">
+                            <datalist id="bzePaises">
+                                <option>Estados Unidos</option><option>China</option><option>Alemania</option><option>Brasil</option>
+                                <option>Argentina</option><option>México</option><option>España</option><option>Reino Unido</option>
+                                <option>Japón</option><option>Corea del Sur</option><option>India</option><option>Canadá</option>
+                                <option>Países Bajos</option><option>Francia</option><option>Suiza</option><option>Israel</option>
+                            </datalist>
+                            <span class="bze-error-msg" id="bzePaisError"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <span class="bze-label">Etapa de desarrollo del producto <span class="bze-hint" style="display:inline;">(opcional)</span></span>
+                            <label class="bze-card"><input type="radio" name="etapaTRL" value="Etapa 1: Ideación y Conceptualización (TRL 1-2)"><span>Etapa 1: Ideación y Conceptualización (TRL 1-2)</span></label>
+                            <label class="bze-card"><input type="radio" name="etapaTRL" value="Etapa 2: Definición y Filtrado del Producto (TRL 3)"><span>Etapa 2: Definición y Filtrado del Producto (TRL 3)</span></label>
+                            <label class="bze-card"><input type="radio" name="etapaTRL" value="Etapa 3: Diseño y Prototipado (TRL 4-6)"><span>Etapa 3: Diseño y Prototipado (TRL 4-6)</span></label>
+                            <label class="bze-card"><input type="radio" name="etapaTRL" value="Etapa 4: Validación y Pruebas (TRL 7-8)"><span>Etapa 4: Validación y Pruebas (TRL 7-8)</span></label>
+                            <label class="bze-card"><input type="radio" name="etapaTRL" value="Etapa 5: Comercialización y Lanzamiento (TRL 9)"><span>Etapa 5: Comercialización y Lanzamiento (TRL 9)</span></label>
+                        </div>
+
+                        <details class="bze-legal" id="bzeDetTecnico">
+                            <summary><i class="fas fa-chevron-right" aria-hidden="true"></i> Información técnica opcional (productos complejos)</summary>
+                            <div class="bze-legal-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label class="bze-label" for="bzeNaturaleza">Naturaleza del producto</label>
+                                        <select class="bze-select" id="bzeNaturaleza" name="naturaleza">
+                                            <option value="">Seleccione…</option>
+                                            <option value="Biológico / biotecnológico">Biológico / biotecnológico</option>
+                                            <option value="Químico">Químico</option>
+                                            <option value="Vegetal / agropecuario">Vegetal / agropecuario (semillas, plantas, suelo, pecuario)</option>
+                                            <option value="Electrónico / telecomunicaciones">Electrónico / telecomunicaciones (sensores, IoT, RF, semiconductores)</option>
+                                            <option value="Eléctrico / energía">Eléctrico / energía (baterías, fuentes de poder, celdas)</option>
+                                            <option value="Dispositivo / instrumental médico">Dispositivo / instrumental médico</option>
+                                            <option value="Radiactivo / nuclear">Radiactivo / nuclear</option>
+                                            <option value="Materiales avanzados / nanotecnología">Materiales avanzados / nanotecnología</option>
+                                            <option value="__otro__">Otro / multinaturaleza</option>
+                                        </select>
+                                        <input type="text" class="bze-input bze-oculto mt-2" id="bzeNaturalezaOtro" name="naturalezaOtro" maxlength="100" placeholder="Especifica la naturaleza" aria-label="Especifica otra naturaleza del producto">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="bze-label" for="bzeUso">Uso previsto</label>
+                                        <select class="bze-select" id="bzeUso" name="usoPrevisto">
+                                            <option value="">Seleccione…</option>
+                                            <option>Investigación</option><option>Validación comercial</option>
+                                            <option>Producción</option><option value="__otro__">Otro</option>
+                                        </select>
+                                        <input type="text" class="bze-input bze-oculto mt-2" id="bzeUsoOtro" name="usoPrevistoOtro" maxlength="100" placeholder="Especifica el uso" aria-label="Especifica otro uso previsto">
+                                    </div>
+                                </div>
+                                <span class="bze-label" style="font-size:0.84rem;">Documentos de referencia disponibles</span>
+                                <label class="bze-card"><input type="checkbox" name="documentosReferencia" value="Ficha técnica"><span>Ficha técnica</span></label>
+                                <label class="bze-card"><input type="checkbox" name="documentosReferencia" value="Hoja de seguridad"><span>Hoja de seguridad</span></label>
+                                <label class="bze-card"><input type="checkbox" name="documentosReferencia" value="Certificado de análisis"><span>Certificado de análisis</span></label>
+                                <label class="bze-card"><input type="checkbox" name="documentosReferencia" value="Manual de uso"><span>Manual de uso</span></label>
+                            </div>
+                        </details>
+
+                        <div class="bze-footer">
+                            <button type="button" class="bze-btn bze-btn-suave" data-bze-ir="3"><i class="fas fa-arrow-left" aria-hidden="true"></i> Volver</button>
+                            <button type="button" class="bze-btn bze-btn-primario" data-bze-ir="5">Siguiente <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+                        </div>
+                    </section>
+
+                    <!-- ══ PASO 5 · INSTITUCIONES ══ -->
+                    <section class="bze-step" id="bzePaso5" role="group" aria-labelledby="bzeT5">
+                        <h4 class="bze-step-title" id="bzeT5" tabindex="-1">Interacciones e instituciones</h4>
+                        <p class="bze-step-sub">Esto nos permite derivar el caso a la institución correcta dentro de la mesa interinstitucional.</p>
+                        <div class="bze-alert" role="alert" data-bze-alert></div>
+
+                        <div class="form-group mb-4">
+                            <span class="bze-label">¿Ha contactado previamente alguna entidad pública o privada por este caso? <span class="bze-req">*</span></span>
+                            <label class="bze-card"><input type="radio" name="contactoPrevio" value="Sí"><span>Sí</span></label>
+                            <label class="bze-card"><input type="radio" name="contactoPrevio" value="No"><span>No</span></label>
+                            <span class="bze-error-msg" id="bzeContactoPrevioError"></span>
+                        </div>
+
+                        <div class="form-group mb-4 bze-oculto" id="bzeDivDetallePrevio">
+                            <label class="bze-label" for="bzeDetallePrevio">Indique a cuáles entidades contactó y el estado de respuesta <span class="bze-req">*</span></label>
+                            <textarea class="bze-textarea" id="bzeDetallePrevio" name="detalleContactoPrevio" rows="3" maxlength="1000" placeholder="Ej: Contacté al ISP en marzo; respondieron solicitando antecedentes adicionales…"></textarea>
+                            <div class="bze-counter"><span data-bze-cuenta="bzeDetallePrevio">0</span>/1000</div>
+                            <span class="bze-error-msg" id="bzeDetallePrevioError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="bze-label">Selecciona la o las instituciones que se vinculan con el desafío o problema <span class="bze-hint" style="display:inline;">(opcional)</span></span>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="Defensoría del Contribuyente (DEDECON)"><span>Defensoría del Contribuyente (DEDECON)</span></label>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="CORFO – Innova"><span>CORFO – Innova</span></label>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="Servicio de Impuestos Internos (SII)"><span>Servicio de Impuestos Internos (SII)</span></label>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="Agencia Nacional de Investigación y Desarrollo (ANID)"><span>Agencia Nacional de Investigación y Desarrollo (ANID)</span></label>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="Servicio Nacional de Aduanas / SICEX"><span>Servicio Nacional de Aduanas / SICEX</span></label>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="Ministerio de Ciencia, Tecnología, Conocimiento e Innovación (MinCiencia)"><span>Ministerio de Ciencia, Tecnología, Conocimiento e Innovación (MinCiencia)</span></label>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="SOFOFA / SOFOFA Hub (CBT)"><span>SOFOFA / SOFOFA Hub (CBT)</span></label>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="Instituto de Salud Pública (ISP)"><span>Instituto de Salud Pública (ISP)</span></label>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="Servicio Agrícola y Ganadero (SAG)"><span>Servicio Agrícola y Ganadero (SAG)</span></label>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="Comisión Chilena de Energía Nuclear (CCHEN)"><span>Comisión Chilena de Energía Nuclear (CCHEN)</span></label>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="Subsecretaría de Telecomunicaciones (SUBTEL)"><span>Subsecretaría de Telecomunicaciones (SUBTEL)</span></label>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="Superintendencia de Electricidad y Combustibles (SEC)"><span>Superintendencia de Electricidad y Combustibles (SEC)</span></label>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="Dirección General de Aeronáutica Civil (DGAC)"><span>Dirección General de Aeronáutica Civil (DGAC)</span></label>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="Servicio Nacional de Pesca y Acuicultura (SERNAPESCA)"><span>Servicio Nacional de Pesca y Acuicultura (SERNAPESCA)</span></label>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="No lo tengo claro"><span><em>No lo tengo claro.</em> Necesito orientación sobre la entidad responsable.</span></label>
+                            <label class="bze-card"><input type="checkbox" name="instituciones" value="__otro__" id="bzeInstOtroCheck"><span>Otra institución</span></label>
+                            <input type="text" class="bze-input bze-oculto mt-2" id="bzeInstOtroTexto" name="institucionesOtro" maxlength="160" placeholder="¿Cuál?" aria-label="Especifica la otra institución">
+                        </div>
+
+                        <div class="bze-footer">
+                            <button type="button" class="bze-btn bze-btn-suave" data-bze-ir="4"><i class="fas fa-arrow-left" aria-hidden="true"></i> Volver</button>
+                            <button type="button" class="bze-btn bze-btn-primario" data-bze-ir="6">Siguiente <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+                        </div>
+                    </section>
+
+                    <!-- ══ PASO 6 · EXPECTATIVAS Y RESPALDOS ══ -->
+                    <section class="bze-step" id="bzePaso6" role="group" aria-labelledby="bzeT6">
+                        <h4 class="bze-step-title" id="bzeT6" tabindex="-1">Expectativas y respaldos</h4>
+                        <p class="bze-step-sub">¿Qué esperas de este reporte y qué evidencia puedes aportar?</p>
+                        <div class="bze-alert" role="alert" data-bze-alert></div>
+
+                        <div class="form-group mb-4">
+                            <span class="bze-label">¿Qué tipo de orientación espera recibir? <span class="bze-hint" style="display:inline;">(opcional)</span></span>
+                            <label class="bze-card"><input type="checkbox" name="orientaciones" value="Claridad sobre entidad responsable"><span>Claridad sobre entidad responsable</span></label>
+                            <label class="bze-card"><input type="checkbox" name="orientaciones" value="Sugerencia de ruta regulatoria"><span>Sugerencia de ruta regulatoria</span></label>
+                            <label class="bze-card"><input type="checkbox" name="orientaciones" value="Identificación de buenas prácticas o precedentes"><span>Identificación de buenas prácticas o precedentes</span></label>
+                            <label class="bze-card"><input type="checkbox" name="orientaciones" value="Recomendaciones para próximas importaciones/exportaciones"><span>Recomendaciones para próximas importaciones/exportaciones</span></label>
+                            <label class="bze-card"><input type="checkbox" name="orientaciones" value="__otro__" id="bzeOrientOtroCheck"><span>Otro</span></label>
+                            <input type="text" class="bze-input bze-oculto mt-2" id="bzeOrientOtroTexto" name="orientacionOtro" maxlength="160" placeholder="¿Qué orientación esperas?" aria-label="Especifica otra orientación esperada">
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <span class="bze-label">¿Cuenta con documentación de respaldo (certificados, correos, resoluciones)? <span class="bze-req">*</span></span>
+                            <label class="bze-card"><input type="radio" name="tieneRespaldo" value="Sí"><span>Sí</span></label>
+                            <label class="bze-card"><input type="radio" name="tieneRespaldo" value="No"><span>No</span></label>
+                            <span class="bze-error-msg" id="bzeRespaldoError"></span>
+                        </div>
+
+                        <div class="form-group mb-2 bze-oculto" id="bzeDivUpload">
+                            <span class="bze-label">Adjunta archivos PDF o imágenes relevantes</span>
+                            <div class="bze-upload" id="bzeZonaUpload" role="button" tabindex="0"
+                                 aria-label="Subir archivos de respaldo. Formatos PDF, JPG o PNG, máximo 10 MB en total.">
+                                <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                                <h6 style="font-weight:800;color:#1e293b;margin-bottom:4px;">Haz clic o arrastra tus archivos aquí</h6>
+                                <p class="bze-hint mb-0">PDF, JPG o PNG · máximo 10 MB en total</p>
+                            </div>
+                            <input type="file" id="bzeInputArchivos" class="bze-oculto" accept=".pdf,.jpg,.jpeg,.png" multiple>
+                            <div id="bzeListaArchivos" aria-live="polite"></div>
+                            <span class="bze-error-msg" id="bzeArchivosError"></span>
+                            <span class="bze-hint mt-2">Si no los tienes a mano, puedes enviarlos después respondiendo el correo de confirmación con tu folio.</span>
+                        </div>
+
+                        <div class="bze-footer">
+                            <button type="button" class="bze-btn bze-btn-suave" data-bze-ir="5"><i class="fas fa-arrow-left" aria-hidden="true"></i> Volver</button>
+                            <button type="button" class="bze-btn bze-btn-primario" data-bze-ir="7">Revisar y enviar <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+                        </div>
+                    </section>
+
+                    <!-- ══ PASO 7 · REVISIÓN Y ENVÍO ══ -->
+                    <section class="bze-step" id="bzePaso7" role="group" aria-labelledby="bzeT7">
+                        <h4 class="bze-step-title" id="bzeT7" tabindex="-1">Revisa tu caso antes de enviar</h4>
+                        <p class="bze-step-sub">Verifica que la información esté correcta. Puedes editar cualquier sección.</p>
+                        <div class="bze-alert" role="alert" data-bze-alert></div>
+                        <div id="bzeResumen"></div>
+
+                        <div class="bze-footer">
+                            <button type="button" class="bze-btn bze-btn-suave" data-bze-ir="6"><i class="fas fa-arrow-left" aria-hidden="true"></i> Volver</button>
+                            <button type="button" class="bze-btn bze-btn-primario" id="bzeBtnEnviar">
+                                <i class="fas fa-paper-plane" aria-hidden="true"></i> Enviar caso
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- ══ PANTALLA DE ÉXITO ══ -->
+                    <section class="bze-step" id="bzePasoExito" role="group" aria-labelledby="bzeTExito">
+                        <div class="bze-exito">
+                            <div class="bze-exito-icono"><i class="fas fa-check" aria-hidden="true"></i></div>
+                            <h4 class="bze-step-title" id="bzeTExito" tabindex="-1">¡Tu caso fue registrado!</h4>
+                            <p style="font-size:0.86rem;color:#475569;">Guarda tu número de folio para futuras referencias:</p>
+                            <div class="bze-folio">
+                                <span id="bzeFolioTexto">EBCT-0000-0000</span>
+                                <button type="button" id="bzeBtnCopiarFolio" aria-label="Copiar folio al portapapeles"><i class="far fa-copy" aria-hidden="true"></i> Copiar</button>
+                            </div>
+                            <p class="bze-hint" id="bzeEcoEmail"></p>
+                            <ol class="bze-pasos-sigue">
+                                <li><b>Revisión y depuración:</b> el equipo de MinCiencia valida y normaliza la información recibida.</li>
+                                <li><b>Clasificación y derivación:</b> el caso se analiza y se vincula con las instituciones pertinentes.</li>
+                                <li><b>Mesa Interinstitucional:</b> los desafíos se abordan de forma agregada, como problemas del ecosistema.</li>
+                                <li><b>Publicación de avances:</b> los acuerdos y avances se comunican periódicamente en esta misma página.</li>
+                            </ol>
+                            <p class="bze-hint mt-3">Recuerda: este buzón no constituye un canal oficial de resolución de trámites o reclamos administrativos, ni entrega respuestas individuales — los casos impulsan soluciones para el ecosistema completo.</p>
+                            <button type="button" class="bze-btn bze-btn-primario mt-3" data-dismiss="modal" id="bzeBtnCerrarFinal">Cerrar buzón</button>
+                        </div>
+                    </section>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function(){
+    'use strict';
+
+    /* ════════════════════════════════════════════════════════════════
+       CONFIGURACIÓN — editar solo esta sección
+       1) Despliega el Apps Script (ver README-implementacion.md)
+       2) Pega aquí la URL del Web App que termina en /exec
+       Si APPS_SCRIPT_URL queda vacío, el buzón funciona en MODO DEMO
+       (simula el envío y genera un folio de prueba).
+       ════════════════════════════════════════════════════════════════ */
+    var CONFIG = {
+        APPS_SCRIPT_URL: '',
+        MAX_TOTAL_MB: 10,                    // tope total de adjuntos
+        ANALITICA: true,                     // eventos anónimos de avance (hoja "Analítica"): paso alcanzado, sin datos personales
+        GUARDAR_INCOMPLETOS: true,           // guarda el avance con datos en la hoja "Incompletos" (separada de "Casos"); se elimina a los 30 días si no envían
+        VERSION: 'buzon-ebct-v2.0'
+    };
+
+    var TOTAL_PASOS = 7;
+    var NOMBRES_PASOS = ['Bienvenida','Identificación','El desafío','Producto y envío','Instituciones','Expectativas','Revisión'];
+    var CLAVE_BORRADOR = 'bzeBorradorV2';
+    var pasoActual = 1;
+    var archivos = [];          // {nombre, tipo, tamano, datos(base64)}
+    var abiertoEn = Date.now();
+    var temporizadorBorrador = null;
+    var sesionId = nuevoIdSesion();
+    var maxPasoRegistrado = 0;
+
+    function $id(x){ return document.getElementById(x); }
+    function qsa(sel, ctx){ return Array.prototype.slice.call((ctx||document).querySelectorAll(sel)); }
+    var form = $id('bzeForm');
+    if (!form) return;
+
+    /* ── Analítica anónima de avance (solo nº de paso + id de sesión aleatorio) ── */
+    function nuevoIdSesion(){
+        return 'S-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+    }
+    function registrarEvento(evento, paso){
+        if (!CONFIG.ANALITICA || !CONFIG.APPS_SCRIPT_URL) return;
+        try {
+            fetch(CONFIG.APPS_SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify({ tipo: 'evento', sesion: sesionId, evento: evento, paso: paso || '', origen: location.href }),
+                keepalive: true,
+                redirect: 'follow'
+            }).catch(function(){});
+        } catch (e) { /* la analítica nunca debe romper el formulario */ }
+    }
+    /* Guarda el avance con datos en la hoja "Incompletos" (solo desde el paso 3,
+       cuando la persona ya consintió y se identificó). El servidor lo separa de "Casos". */
+    function registrarParcial(pasoAlcanzado){
+        if (!CONFIG.GUARDAR_INCOMPLETOS || !CONFIG.APPS_SCRIPT_URL) return;
+        try {
+            var d = recolectar();
+            d.tipo = 'parcial';
+            d.pasoAlcanzado = pasoAlcanzado;
+            fetch(CONFIG.APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify(d), keepalive: true, redirect: 'follow' }).catch(function(){});
+        } catch (e) { /* nunca debe romper el formulario */ }
+    }
+
+    /* ── Navegación entre pasos ── */
+    function irAlPaso(n, omitirValidacion){
+        if (typeof n === 'number' && n > pasoActual && !omitirValidacion) {
+            for (var p = pasoActual; p < n; p++) {
+                if (!validarPaso(p)) { mostrarPaso(p); return; }
+            }
+        }
+        mostrarPaso(n);
+    }
+
+    function mostrarPaso(n){
+        qsa('.bze-step', form).forEach(function(s){ s.classList.remove('active'); });
+        var panel = (n === 'exito') ? $id('bzePasoExito') : $id('bzePaso' + n);
+        panel.classList.add('active');
+        panel.scrollTop = 0;
+
+        var pct, etiqueta;
+        if (n === 'exito') { pct = 100; etiqueta = 'Caso enviado'; registrarEvento('enviado', TOTAL_PASOS); }
+        else {
+            pasoActual = n;
+            pct = Math.round((n / TOTAL_PASOS) * 100);
+            etiqueta = 'Paso ' + n + ' de ' + TOTAL_PASOS + ' · ' + NOMBRES_PASOS[n-1];
+            if (n === 7) construirResumen();
+            if (n > maxPasoRegistrado) {
+                maxPasoRegistrado = n;
+                registrarEvento('paso', n);
+                if (n >= 3) registrarParcial(n);
+            }
+        }
+        $id('bzeProgreso').style.width = pct + '%';
+        $id('bzeProgresoEtiqueta').textContent = etiqueta;
+        $id('bzeProgresoPct').textContent = pct + '%';
+
+        var titulo = panel.querySelector('.bze-step-title');
+        if (titulo) titulo.focus({ preventScroll: true });
+    }
+
+    /* ── Recolección de datos ── */
+    function valoresMarcados(nombre, conOtro, textoOtroId){
+        var vals = qsa('input[name="' + nombre + '"]:checked', form).map(function(i){ return i.value; });
+        if (conOtro) {
+            var idx = vals.indexOf('__otro__');
+            if (idx > -1) {
+                var t = ($id(textoOtroId).value || '').trim();
+                vals[idx] = t ? 'Otro: ' + t : 'Otro';
+            }
+        }
+        return vals;
+    }
+    function radioMarcado(nombre){
+        var r = form.querySelector('input[name="' + nombre + '"]:checked');
+        return r ? r.value : '';
+    }
+    function valorSelectConOtro(idSelect, idOtro){
+        var v = $id(idSelect).value;
+        if (v === '__otro__') {
+            var t = ($id(idOtro).value || '').trim();
+            return t ? 'Otro: ' + t : 'Otro';
+        }
+        return v;
+    }
+
+    function recolectar(){
+        return {
+            version: CONFIG.VERSION,
+            sesion: sesionId,
+            empresa: $id('bzeEmpresa').value.trim(),
+            rut: $id('bzeRut').value.trim(),
+            nombreContacto: $id('bzeContacto').value.trim(),
+            email: $id('bzeEmail').value.trim(),
+            telefono: $id('bzeTelefono').value.trim(),
+            region: $id('bzeRegion').value,
+            operacion: radioMarcado('operacion'),
+            materias: valoresMarcados('materias', true, 'bzeMateriaOtroTexto'),
+            titulo: $id('bzeTitulo').value.trim(),
+            descripcionDesafio: $id('bzeDesafio').value.trim(),
+            impactos: valoresMarcados('impactos'),
+            descripcionProducto: $id('bzeProducto').value.trim(),
+            pais: $id('bzePais').value.trim(),
+            etapaTRL: radioMarcado('etapaTRL'),
+            naturaleza: valorSelectConOtro('bzeNaturaleza', 'bzeNaturalezaOtro'),
+            usoPrevisto: valorSelectConOtro('bzeUso', 'bzeUsoOtro'),
+            documentosReferencia: valoresMarcados('documentosReferencia'),
+            contactoPrevio: radioMarcado('contactoPrevio'),
+            detalleContactoPrevio: $id('bzeDetallePrevio').value.trim(),
+            instituciones: valoresMarcados('instituciones', true, 'bzeInstOtroTexto'),
+            orientaciones: valoresMarcados('orientaciones', true, 'bzeOrientOtroTexto'),
+            tieneRespaldo: radioMarcado('tieneRespaldo'),
+            consentimientos: valoresMarcados('consentimientos'),
+            tiempoSegundos: Math.round((Date.now() - abiertoEn) / 1000),
+            origen: location.href,
+            _sitio_referencia: form.querySelector('input[name="_sitio_referencia"]').value
+        };
+    }
+
+    /* ── Validación ── */
+    function ponerError(idInput, idMsg, msg){
+        if (idInput) { var el = $id(idInput); if (el) el.classList.add('bze-invalid'); }
+        var m = $id(idMsg);
+        if (m) { m.textContent = msg; m.style.display = 'block'; }
+    }
+    function limpiarErroresPaso(panel){
+        qsa('.bze-invalid', panel).forEach(function(e){ e.classList.remove('bze-invalid'); });
+        qsa('.bze-error-msg', panel).forEach(function(e){ e.style.display = 'none'; });
+        var alerta = panel.querySelector('[data-bze-alert]');
+        if (alerta) { alerta.style.display = 'none'; alerta.textContent = ''; }
+    }
+    function alertaPaso(panel, msg){
+        var alerta = panel.querySelector('[data-bze-alert]');
+        if (alerta) { alerta.innerHTML = '<i class="fas fa-circle-exclamation mr-1" aria-hidden="true"></i> ' + msg; alerta.style.display = 'block'; }
+        panel.scrollTop = 0;
+    }
+    function emailValido(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
+
+    function rutValido(rut){
+        var limpio = rut.replace(/\./g, '').replace(/-/g, '').replace(/\s/g, '').toUpperCase();
+        if (!/^\d{7,8}[0-9K]$/.test(limpio)) return false;
+        var cuerpo = limpio.slice(0, -1), dv = limpio.slice(-1);
+        var suma = 0, mult = 2;
+        for (var i = cuerpo.length - 1; i >= 0; i--) {
+            suma += parseInt(cuerpo[i], 10) * mult;
+            mult = (mult === 7) ? 2 : mult + 1;
+        }
+        var resto = 11 - (suma % 11);
+        var dvCalc = (resto === 11) ? '0' : (resto === 10) ? 'K' : String(resto);
+        return dv === dvCalc;
+    }
+
+    function validarPaso(n){
+        var panel = $id('bzePaso' + n);
+        limpiarErroresPaso(panel);
+        var d = recolectar();
+        var errores = 0;
+
+        if (n === 1) {
+            if (d.consentimientos.length < 3) {
+                alertaPaso(panel, 'Para continuar debes aceptar las tres declaraciones de consentimiento.');
+                errores++;
+            }
+        }
+        if (n === 2) {
+            if (!d.empresa) { ponerError('bzeEmpresa', 'bzeEmpresaError', 'Ingresa el nombre de la empresa.'); errores++; }
+            if (!d.nombreContacto) { ponerError('bzeContacto', 'bzeContactoError', 'Ingresa el nombre de la persona de contacto.'); errores++; }
+            if (!d.email) { ponerError('bzeEmail', 'bzeEmailError', 'Ingresa un correo de contacto.'); errores++; }
+            else if (!emailValido(d.email)) { ponerError('bzeEmail', 'bzeEmailError', 'El correo no parece válido. Revísalo.'); errores++; }
+            if (d.rut && !rutValido(d.rut)) { ponerError('bzeRut', 'bzeRutError', 'El RUT no es válido (revisa el dígito verificador) o déjalo en blanco.'); errores++; }
+            if (errores) alertaPaso(panel, 'Revisa los campos marcados antes de continuar.');
+        }
+        if (n === 3) {
+            if (!d.operacion) { ponerError(null, 'bzeOperacionError', 'Indica si tu caso es de importación o exportación.'); errores++; }
+            if ($id('bzeMateriaOtroCheck').checked && !$id('bzeMateriaOtroTexto').value.trim()) { ponerError('bzeMateriaOtroTexto', null, 'Especifica la otra materia.'); errores++; }
+            if (d.titulo.length < 5) { ponerError('bzeTitulo', 'bzeTituloError', 'Ingresa un título de al menos 5 caracteres.'); errores++; }
+            if (d.descripcionDesafio.length < 40) { ponerError('bzeDesafio', 'bzeDesafioError', 'Describe el desafío con al menos 40 caracteres: es la base para clasificar tu caso.'); errores++; }
+            if (errores) alertaPaso(panel, 'Revisa los campos marcados antes de continuar.');
+        }
+        if (n === 4) {
+            if (d.descripcionProducto.length < 5) { ponerError('bzeProducto', 'bzeProductoError', 'Describe brevemente el producto o tecnología.'); errores++; }
+            if (!d.pais) { ponerError('bzePais', 'bzePaisError', 'Indica el país de origen o destino.'); errores++; }
+            if (errores) alertaPaso(panel, 'Revisa los campos marcados antes de continuar.');
+        }
+        if (n === 5) {
+            if (!d.contactoPrevio) { ponerError(null, 'bzeContactoPrevioError', 'Indica si contactaste previamente alguna entidad.'); errores++; }
+            if (d.contactoPrevio === 'Sí' && d.detalleContactoPrevio.length < 10) {
+                ponerError('bzeDetallePrevio', 'bzeDetallePrevioError', 'Cuéntanos qué entidades contactaste y qué respuesta recibiste.'); errores++;
+            }
+            if (errores) alertaPaso(panel, 'Revisa los campos marcados antes de continuar.');
+        }
+        if (n === 6) {
+            if (!d.tieneRespaldo) { ponerError(null, 'bzeRespaldoError', 'Indica si cuentas con documentación de respaldo.'); errores++; }
+            if (errores) alertaPaso(panel, 'Revisa los campos marcados antes de continuar.');
+        }
+        return errores === 0;
+    }
+
+    /* ── Campos condicionales ── */
+    function alternar(el, visible){ el.classList.toggle('bze-oculto', !visible); }
+    function refrescarCondicionales(){
+        alternar($id('bzeMateriaOtroTexto'), $id('bzeMateriaOtroCheck').checked);
+        alternar($id('bzeInstOtroTexto'), $id('bzeInstOtroCheck').checked);
+        alternar($id('bzeOrientOtroTexto'), $id('bzeOrientOtroCheck').checked);
+        alternar($id('bzeNaturalezaOtro'), $id('bzeNaturaleza').value === '__otro__');
+        alternar($id('bzeUsoOtro'), $id('bzeUso').value === '__otro__');
+        alternar($id('bzeDivDetallePrevio'), radioMarcado('contactoPrevio') === 'Sí');
+        alternar($id('bzeDivUpload'), radioMarcado('tieneRespaldo') === 'Sí');
+    }
+
+    /* ── Tarjetas marcadas (estilo visual) ── */
+    function refrescarTarjetas(){
+        qsa('.bze-card input', form).forEach(function(inp){
+            inp.closest('.bze-card').classList.toggle('bze-checked', inp.checked);
+        });
+    }
+
+    /* ── Contadores de caracteres ── */
+    function refrescarContadores(){
+        qsa('[data-bze-cuenta]').forEach(function(span){
+            var campo = $id(span.getAttribute('data-bze-cuenta'));
+            if (campo) span.textContent = campo.value.length;
+        });
+    }
+
+    /* ── Borrador en localStorage (no incluye adjuntos) ── */
+    function guardarBorrador(){
+        clearTimeout(temporizadorBorrador);
+        temporizadorBorrador = setTimeout(function(){
+            try {
+                var datos = {};
+                qsa('input[name], select[name], textarea[name]', form).forEach(function(el){
+                    if (el.name === '_sitio_referencia') return;
+                    if (el.type === 'checkbox' || el.type === 'radio') {
+                        if (el.checked) { (datos[el.name] = datos[el.name] || []).push(el.value); }
+                    } else if (el.value) { datos[el.name] = el.value; }
+                });
+                localStorage.setItem(CLAVE_BORRADOR, JSON.stringify(datos));
+            } catch (e) { /* almacenamiento no disponible: seguimos sin borrador */ }
+        }, 400);
+    }
+    function restaurarBorrador(){
+        var crudo;
+        try { crudo = localStorage.getItem(CLAVE_BORRADOR); } catch (e) { return; }
+        if (!crudo) return;
+        var datos;
+        try { datos = JSON.parse(crudo); } catch (e) { return; }
+        var hayAlgo = false;
+        Object.keys(datos).forEach(function(nombre){
+            var els = qsa('[name="' + nombre + '"]', form);
+            els.forEach(function(el){
+                if (el.type === 'checkbox' || el.type === 'radio') {
+                    if (Array.isArray(datos[nombre]) && datos[nombre].indexOf(el.value) > -1) { el.checked = true; hayAlgo = true; }
+                } else { el.value = datos[nombre]; hayAlgo = true; }
+            });
+        });
+        if (hayAlgo) $id('bzeAvisoBorrador').classList.remove('bze-oculto');
+        refrescarCondicionales(); refrescarTarjetas(); refrescarContadores();
+    }
+    function limpiarBorrador(){
+        try { localStorage.removeItem(CLAVE_BORRADOR); } catch (e) {}
+    }
+
+    /* ── Adjuntos ── */
+    var EXT_PERMITIDAS = ['pdf','jpg','jpeg','png'];
+    function tamanoTotal(){ return archivos.reduce(function(s,a){ return s + a.tamano; }, 0); }
+    function agregarArchivos(lista){
+        var msj = $id('bzeArchivosError'); msj.style.display = 'none';
+        Array.prototype.slice.call(lista).forEach(function(f){
+            var ext = f.name.split('.').pop().toLowerCase();
+            if (EXT_PERMITIDAS.indexOf(ext) === -1) { msj.textContent = '«' + f.name + '» no es PDF/JPG/PNG y fue omitido.'; msj.style.display = 'block'; return; }
+            if (tamanoTotal() + f.size > CONFIG.MAX_TOTAL_MB * 1024 * 1024) { msj.textContent = 'Superas el máximo de ' + CONFIG.MAX_TOTAL_MB + ' MB en total; «' + f.name + '» fue omitido.'; msj.style.display = 'block'; return; }
+            if (archivos.some(function(a){ return a.nombre === f.name && a.tamano === f.size; })) return;
+            archivos.push({ nombre: f.name, tipo: f.type || 'application/octet-stream', tamano: f.size, _file: f });
+        });
+        pintarArchivos();
+    }
+    function pintarArchivos(){
+        var cont = $id('bzeListaArchivos');
+        cont.innerHTML = '';
+        archivos.forEach(function(a, i){
+            var fila = document.createElement('div');
+            fila.className = 'bze-file';
+            var icono = (a.nombre.toLowerCase().lastIndexOf('.pdf') === a.nombre.length - 4) ? 'fa-file-pdf' : 'fa-file-image';
+            fila.innerHTML = '<span><i class="fas ' + icono + ' mr-2" aria-hidden="true"></i></span>' +
+                             '<span style="flex:1;word-break:break-all;"></span>' +
+                             '<span style="color:#64748b;font-weight:500;">' + (a.tamano / 1048576).toFixed(1) + ' MB</span>';
+            fila.children[1].textContent = a.nombre;
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.setAttribute('aria-label', 'Quitar ' + a.nombre);
+            btn.innerHTML = '<i class="fas fa-times" aria-hidden="true"></i>';
+            btn.addEventListener('click', function(){ archivos.splice(i, 1); pintarArchivos(); });
+            fila.appendChild(btn);
+            cont.appendChild(fila);
+        });
+    }
+    function leerArchivosBase64(){
+        return Promise.all(archivos.map(function(a){
+            return new Promise(function(res, rej){
+                var lector = new FileReader();
+                lector.onload = function(){ res({ nombre: a.nombre, tipo: a.tipo, datos: String(lector.result).split(',')[1] }); };
+                lector.onerror = rej;
+                lector.readAsDataURL(a._file);
+            });
+        }));
+    }
+
+    /* ── Resumen (paso 7) ── */
+    function fila(label, valor){
+        if (!valor || (Array.isArray(valor) && !valor.length)) return '';
+        var v = Array.isArray(valor) ? valor.join(' · ') : valor;
+        return '<div class="bze-rev-fila"><b>' + label + ':</b><span>' + escaparHTML(v) + '</span></div>';
+    }
+    function escaparHTML(s){ var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+    function bloque(titulo, paso, contenido){
+        if (!contenido) return '';
+        return '<div class="bze-review-bloque"><div class="bze-review-head"><span>' + titulo + '</span>' +
+               '<button type="button" class="bze-btn-enlace" data-bze-editar="' + paso + '">Editar</button></div>' +
+               '<div class="bze-review-body">' + contenido + '</div></div>';
+    }
+    function construirResumen(){
+        var d = recolectar();
+        var html = '';
+        html += bloque('Identificación', 2,
+            fila('Empresa', d.empresa) + fila('RUT', d.rut) + fila('Contacto', d.nombreContacto) +
+            fila('Correo', d.email) + fila('Teléfono', d.telefono) + fila('Región', d.region));
+        html += bloque('El desafío', 3,
+            fila('Operación', d.operacion) + fila('Materia(s)', d.materias) + fila('Título', d.titulo) +
+            fila('Descripción', d.descripcionDesafio.length > 220 ? d.descripcionDesafio.slice(0, 220) + '…' : d.descripcionDesafio) +
+            fila('Impacto', d.impactos));
+        html += bloque('Producto y envío', 4,
+            fila('Producto', d.descripcionProducto) + fila('País', d.pais) + fila('Etapa', d.etapaTRL) +
+            fila('Naturaleza', d.naturaleza) + fila('Uso previsto', d.usoPrevisto) + fila('Docs. de referencia', d.documentosReferencia));
+        html += bloque('Instituciones', 5,
+            fila('Contacto previo', d.contactoPrevio) + fila('Detalle', d.detalleContactoPrevio) + fila('Instituciones', d.instituciones));
+        html += bloque('Expectativas y respaldos', 6,
+            fila('Orientación esperada', d.orientaciones) + fila('Respaldo documental', d.tieneRespaldo) +
+            fila('Adjuntos', archivos.length ? archivos.length + ' archivo(s) — ' + (tamanoTotal()/1048576).toFixed(1) + ' MB' : ''));
+        $id('bzeResumen').innerHTML = html;
+    }
+
+    /* ── Envío ── */
+    function generarFolioDemo(){
+        return 'EBCT-DEMO-' + String(Math.floor(1000 + Math.random() * 9000));
+    }
+    function mostrarExito(folio, email){
+        $id('bzeFolioTexto').textContent = folio;
+        $id('bzeEcoEmail').textContent = email ? 'Enviamos una copia de confirmación a ' + email + '.' : '';
+        limpiarBorrador();
+        mostrarPaso('exito');
+    }
+    function enviar(){
+        var panel = $id('bzePaso7');
+        limpiarErroresPaso(panel);
+        var btn = $id('bzeBtnEnviar');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Enviando…';
+
+        var restaurarBoton = function(){
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-paper-plane" aria-hidden="true"></i> Enviar caso';
+        };
+
+        leerArchivosBase64().then(function(adjuntos){
+            var payload = recolectar();
+            payload.archivos = adjuntos;
+
+            if (!CONFIG.APPS_SCRIPT_URL) {
+                /* MODO DEMO: sin backend configurado */
+                setTimeout(function(){ restaurarBoton(); mostrarExito(generarFolioDemo(), payload.email); }, 1200);
+                return;
+            }
+
+            var controlador = new AbortController();
+            var tiempoFuera = setTimeout(function(){ controlador.abort(); }, 90000);
+
+            /* Se envía como text/plain (sin header Content-Type) para evitar el
+               preflight CORS que Apps Script no soporta. El backend lee
+               e.postData.contents y responde JSON. */
+            fetch(CONFIG.APPS_SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(payload),
+                redirect: 'follow',
+                signal: controlador.signal
+            })
+            .then(function(r){ clearTimeout(tiempoFuera); return r.json(); })
+            .then(function(resp){
+                restaurarBoton();
+                if (resp && resp.ok) { mostrarExito(resp.folio, payload.email); }
+                else { throw new Error((resp && resp.error) || 'respuesta inválida'); }
+            })
+            .catch(function(err){
+                clearTimeout(tiempoFuera);
+                restaurarBoton();
+                alertaPaso(panel, 'No pudimos enviar tu caso (' + (err && err.name === 'AbortError' ? 'tiempo de espera agotado' : 'error de conexión') + '). ' +
+                    'Tu información sigue guardada en este navegador: inténtalo nuevamente en unos minutos.');
+            });
+        }).catch(function(){
+            restaurarBoton();
+            alertaPaso(panel, 'No pudimos leer uno de los archivos adjuntos. Quítalo e inténtalo de nuevo.');
+        });
+    }
+
+    /* ── Listeners ── */
+    document.addEventListener('click', function(ev){
+        var nav = ev.target.closest('[data-bze-ir]');
+        if (nav) { irAlPaso(parseInt(nav.getAttribute('data-bze-ir'), 10)); return; }
+        var editar = ev.target.closest('[data-bze-editar]');
+        if (editar) { mostrarPaso(parseInt(editar.getAttribute('data-bze-editar'), 10)); return; }
+    });
+
+    form.addEventListener('input', function(){ refrescarContadores(); guardarBorrador(); });
+    form.addEventListener('change', function(){ refrescarCondicionales(); refrescarTarjetas(); guardarBorrador(); });
+
+    $id('bzeBtnEnviar').addEventListener('click', enviar);
+    $id('bzeDescartarBorrador').addEventListener('click', function(){
+        limpiarBorrador();
+        form.reset();
+        archivos = []; pintarArchivos();
+        refrescarCondicionales(); refrescarTarjetas(); refrescarContadores();
+        $id('bzeAvisoBorrador').classList.add('bze-oculto');
+    });
+    $id('bzeBtnCopiarFolio').addEventListener('click', function(){
+        var folio = $id('bzeFolioTexto').textContent;
+        var listo = function(){
+            var b = $id('bzeBtnCopiarFolio');
+            b.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> Copiado';
+            setTimeout(function(){ b.innerHTML = '<i class="far fa-copy" aria-hidden="true"></i> Copiar'; }, 2000);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(folio).then(listo, listo); }
+        else { listo(); }
+    });
+    $id('bzeBtnCerrarFinal').addEventListener('click', function(){
+        form.reset(); archivos = []; pintarArchivos();
+        refrescarCondicionales(); refrescarTarjetas(); refrescarContadores();
+        abiertoEn = Date.now();
+        setTimeout(function(){ mostrarPaso(1); }, 400);
+    });
+
+    /* Zona de subida: clic, teclado y arrastrar/soltar */
+    var zona = $id('bzeZonaUpload');
+    zona.addEventListener('click', function(){ $id('bzeInputArchivos').click(); });
+    zona.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $id('bzeInputArchivos').click(); } });
+    zona.addEventListener('dragover', function(e){ e.preventDefault(); zona.classList.add('bze-drag'); });
+    zona.addEventListener('dragleave', function(){ zona.classList.remove('bze-drag'); });
+    zona.addEventListener('drop', function(e){ e.preventDefault(); zona.classList.remove('bze-drag'); if (e.dataTransfer && e.dataTransfer.files) agregarArchivos(e.dataTransfer.files); });
+    $id('bzeInputArchivos').addEventListener('change', function(){ agregarArchivos(this.files); this.value = ''; });
+
+    /* Foco al abrir el modal (cuando Bootstrap esté disponible) */
+    function enlazarEventosModal(intentos){
+        if (window.jQuery && jQuery.fn && jQuery.fn.modal) {
+            jQuery('#modalBuzonEBCT').on('shown.bs.modal', function(){
+                abiertoEn = Date.now();
+                sesionId = nuevoIdSesion();
+                maxPasoRegistrado = 0;
+                registrarEvento('apertura', pasoActual);
+                var t = document.querySelector('#modalBuzonEBCT .bze-step.active .bze-step-title');
+                if (t) t.focus({ preventScroll: true });
+            });
+        } else if (intentos > 0) { setTimeout(function(){ enlazarEventosModal(intentos - 1); }, 400); }
+    }
+
+    /* ── Inicio ── */
+    function iniciar(){
+        restaurarBorrador();
+        refrescarCondicionales();
+        refrescarTarjetas();
+        refrescarContadores();
+        enlazarEventosModal(20);
+    }
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', iniciar); }
+    else { iniciar(); }
+})();
+</script>
+
+<!-- ╔══════════════════════════════════════════════════════════════════════╗
+     ║   FIN SNIPPET CMS · BUZÓN EBCT v2.0                                   ║
+     ╚══════════════════════════════════════════════════════════════════════╝ -->
+
+</body>
+</html>

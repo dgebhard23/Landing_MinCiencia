@@ -1,0 +1,170 @@
+[
+  {
+    "id": "01-barra-aviso-por-fecha",
+    "nombre": "Barra de aviso según la fecha",
+    "cat": "Navegación",
+    "que": "Franja fija arriba de la página cuyo texto cambia solo: antes, durante y después de una convocatoria. Calcula los días que faltan en hora de Chile.",
+    "cuando": "Convocatorias, consultas públicas, inscripciones o cualquier plazo que la gente tenga que ver apenas entra.",
+    "origen": "Landing Reglamentos TT (ronda 14–16)"
+  },
+  {
+    "id": "02-encabezado-inteligente",
+    "nombre": "Encabezado inteligente y menú móvil",
+    "cat": "Navegación",
+    "que": "Encabezado que se vuelve sólido al bajar, se esconde cuando bajas y reaparece cuando subes. Marca en el menú la sección que estás leyendo, desplaza suave a los anclajes y en celular se convierte en menú hamburguesa.",
+    "cuando": "Toda landing de una sola página con varias secciones.",
+    "origen": "Landing Reglamentos TT"
+  },
+  {
+    "id": "03-portada-haces-de-luz",
+    "nombre": "Portada con haces de luz animados",
+    "cat": "Portada",
+    "que": "Fondo de portada dibujado en canvas: curvas finas de luz que ondulan lentamente, en mezcla aditiva. Toma los colores de los tokens, se pausa fuera de pantalla y queda quieto si el usuario pidió reducir el movimiento.",
+    "cuando": "Portadas institucionales que necesitan presencia sin usar fotos o video. Pesa casi nada.",
+    "origen": "Landing Reglamentos TT (portada)"
+  },
+  {
+    "id": "04-titulos-que-suben",
+    "nombre": "Títulos que suben línea a línea",
+    "cat": "Movimiento",
+    "que": "Cada línea de un título sube detrás de una máscara cuando el título entra en pantalla. Sin librerías: usa IntersectionObserver y transiciones CSS.",
+    "cuando": "Títulos de sección grandes, para dar ritmo editorial al recorrer la página.",
+    "origen": "Landing Reglamentos TT (antes con GSAP; aquí sin dependencias)"
+  },
+  {
+    "id": "05-aparicion-al-desplazar",
+    "nombre": "Aparición escalonada al desplazar",
+    "cat": "Movimiento",
+    "que": "Los elementos marcados con data-aparecer entran suavemente (opacidad y desplazamiento) en grupo y con un pequeño desfase entre ellos.",
+    "cuando": "Tarjetas, listas, cifras y bloques de texto. Le da vida a la página sin distraer.",
+    "origen": "Landing Reglamentos TT (antes ScrollTrigger.batch)"
+  },
+  {
+    "id": "06-cifras-y-dias",
+    "nombre": "Cifras clave con conteo y días al plazo",
+    "cat": "Contenido",
+    "que": "Bloque de cifras grandes que cuentan desde cero al aparecer. Una cifra puede ser automática: los días que faltan para una fecha (plazo legal, cierre, evento).",
+    "cuando": "Datos clave de un programa, resultados, o el «quedan N días» de una convocatoria.",
+    "origen": "Landing Reglamentos TT (datos clave) y home EBCT (KPI)"
+  },
+  {
+    "id": "07-cuenta-regresiva",
+    "nombre": "Cuenta regresiva con dígitos que ruedan",
+    "cat": "Contenido",
+    "que": "Reloj de días, horas, minutos y segundos hasta una fecha. Cada dígito rueda verticalmente al cambiar.",
+    "cuando": "Lanzamientos, cierres de postulación, eventos (EtMday, CES, demodays).",
+    "origen": "Landing Reglamentos TT (versión larga)"
+  },
+  {
+    "id": "08-carta-gantt",
+    "nombre": "Carta Gantt con estados y marca de hoy",
+    "cat": "Calendario y proceso",
+    "que": "Línea de tiempo por meses: cada barra se ubica y dimensiona sola a partir de sus fechas, se colorea por tipo de actor y por estado (hecho, en curso, próximo). Incluye la línea de «hoy», banderas de hitos y el texto «Fase en curso».",
+    "cuando": "Planes de trabajo, procesos regulatorios, programas con etapas, cronogramas de licitaciones.",
+    "origen": "Landing Reglamentos TT («La ruta»)"
+  },
+  {
+    "id": "09-hoja-de-ruta-en-u",
+    "nombre": "Hoja de ruta interactiva en forma de U",
+    "cat": "Calendario y proceso",
+    "que": "Un camino dibujado en SVG con paradas numeradas. En escritorio forma una U (ida arriba, vuelta abajo) y el detalle de la parada elegida aparece dentro de la curva; en celular el camino baja en zigzag. El tramo recorrido se dibuja hasta la fase en curso. Navegable con teclado y con flechas anterior/siguiente.",
+    "cuando": "Explicar un proceso de varias etapas de forma memorable: procesos participativos, rutas de acompañamiento, trayectorias (EBCT, Semillero), etapas de un fondo.",
+    "origen": "Landing Reglamentos TT («Qué pasa en cada fase»)"
+  },
+  {
+    "id": "10-hitos-hechos-y-proximos",
+    "nombre": "Hitos: completados y próximos",
+    "cat": "Calendario y proceso",
+    "que": "Una sola lista de hitos con fecha se reparte sola en dos columnas: «Completado» (del más reciente al más antiguo) y «Lo que viene» (los próximos seis, con el resto resumido). Marca el próximo hito y cuántos días faltan.",
+    "cuando": "Bitácoras de avance, transparencia de procesos, páginas de seguimiento de un programa.",
+    "origen": "Landing Reglamentos TT (versión larga)"
+  },
+  {
+    "id": "11-ventana-desde-la-tarjeta",
+    "nombre": "Ventana de detalle que nace desde la tarjeta",
+    "cat": "Interacción",
+    "que": "Al hacer clic en una tarjeta, se abre una ventana (<dialog>) que crece desde la posición de la tarjeta, con su contenido entrando en cascada. Se cierra con la ×, la tecla Esc o clic fuera, con animación de salida. Accesible por defecto.",
+    "cuando": "Mostrar el detalle de reglamentos, programas, instrumentos o perfiles sin sacar al usuario de la página.",
+    "origen": "Landing Reglamentos TT («Los cuatro reglamentos»)"
+  },
+  {
+    "id": "12-preguntas-frecuentes",
+    "nombre": "Preguntas frecuentes con buscador y filtros",
+    "cat": "Interacción",
+    "que": "Acordeón accesible (una pregunta abierta a la vez) con un buscador que filtra mientras escribes, resalta las coincidencias y filtra por tema con contadores. Con «no encontramos resultados» y enlace a contacto.",
+    "cuando": "FAQ de convocatorias, trámites, programas. Combina bien con el módulo 17 para que el contenido salga de una planilla.",
+    "origen": "Landing Reglamentos TT (FAQ) + FAQ web EBCT (filtros y buscador)"
+  },
+  {
+    "id": "13-pestanas",
+    "nombre": "Pestañas accesibles",
+    "cat": "Interacción",
+    "que": "Pestañas con roles ARIA, navegación con flechas del teclado, y aviso al contenido cuando se muestra (útil para dibujar gráficos solo cuando se ven). Recuerda la pestaña elegida en la URL (#pestana).",
+    "cuando": "Separar perfiles, años, regiones o instrumentos en una misma sección sin alargar la página.",
+    "origen": "Home EBCT y «3er registro EBCT» (pestañas Ecosistema / Trayectoria / Startup Ciencia)"
+  },
+  {
+    "id": "14-carrusel",
+    "nombre": "Carrusel liviano (sin jQuery)",
+    "cat": "Interacción",
+    "que": "Carrusel con scroll-snap nativo: se desliza con el dedo, flechas, puntos, teclado y avance automático que se pausa al pasar el mouse o al enfocar. Acepta imágenes de Google Drive pegando su enlace.",
+    "cuando": "Fotos de actividades, logos de beneficiarios, testimonios, noticias.",
+    "origen": "Home EBCT (carruseles Asuntos regulatorios y Catálisis, antes con Bootstrap/jQuery)"
+  },
+  {
+    "id": "15-formulario-por-pasos",
+    "nombre": "Formulario por pasos (ficha en línea)",
+    "cat": "Formularios",
+    "que": "El formulario completo de la ficha de Reglamentos, generalizado: ventana con pasos numerados y barra de avance; validación por paso con mensajes que se borran al corregir; campos condicionales; filas que se agregan y quitan; contador de palabras; borrador automático en el navegador; resumen final con «Editar» por sección; descarga de una copia en Word; envío a Google Apps Script (Sheets + Drive + aviso por correo) o, sin endpoint, modo de respaldo por correo; campo trampa anti-spam; y «enviar otra» conservando los datos de contacto.",
+    "cuando": "Postulaciones, fichas de insumos, inscripciones, encuestas largas, consultas ciudadanas.",
+    "origen": "Landing Reglamentos TT (ronda 13–15) + Buzón EBCT"
+  },
+  {
+    "id": "16-zona-de-adjuntos",
+    "nombre": "Zona de adjuntos (arrastrar y soltar)",
+    "cat": "Formularios",
+    "que": "Caja para subir archivos con clic, teclado o arrastrando. Valida tipo, tamaño por archivo y tope total; muestra la lista con peso y botón para quitar; entrega los archivos en base64 listos para mandar a Apps Script.",
+    "cuando": "Respaldos de postulaciones, documentos de antecedentes, evidencia en un buzón.",
+    "origen": "Buzón EBCT"
+  },
+  {
+    "id": "17-contenido-desde-google-sheets",
+    "nombre": "Contenido editable desde Google Sheets",
+    "cat": "Datos",
+    "que": "La página lee una hoja de Google Sheets publicada como CSV y arma tarjetas con filtros por categoría (con contadores), buscador y paginación. Así cualquiera del equipo actualiza la landing editando la planilla, sin tocar código. Se refresca cada 5 minutos y convierte enlaces de Google Drive en imágenes.",
+    "cuando": "FAQ, oferta de instrumentos, trámites por institución, noticias, convocatorias abiertas, equipos: todo lo que cambia seguido.",
+    "origen": "Web EBCT (FAQ, Portal y Trámites por institución leen hojas publicadas)"
+  },
+  {
+    "id": "18-graficos",
+    "nombre": "Gráficos que toman los colores de la marca",
+    "cat": "Datos",
+    "que": "Barras, dona y líneas con Chart.js, configurados para leer la paleta desde los tokens (--serie-1 … --serie-6), con formato chileno de números y dibujados solo cuando su pestaña o sección se ve.",
+    "cuando": "Resultados de encuestas, registros (como el 3er registro EBCT), indicadores de un programa.",
+    "origen": "Home EBCT y «3er registro EBCT»"
+  },
+  {
+    "id": "19-tabla-filtrable",
+    "nombre": "Tabla filtrable, ordenable y exportable",
+    "cat": "Datos",
+    "que": "Tabla que se ordena al hacer clic en el encabezado, se filtra con un buscador y selectores, muestra el total filtrado y exporta lo visible a CSV (abre en Excel con tildes correctas). En celular cada fila se convierte en tarjeta.",
+    "cuando": "Listados de beneficiarios, seguimiento de difusión, back office, resultados de una convocatoria.",
+    "origen": "Dashboard Back Office EBCT y Seguimiento Difusión EtMday"
+  },
+  {
+    "id": "20-logos-agrupados",
+    "nombre": "Instituciones con logos agrupados",
+    "cat": "Contenido",
+    "que": "Bloque «Quiénes» con los logos agrupados por rol (Lidera · Cofirman · Colaboran). Los logos se ven en gris y toman color al pasar el mouse; cada uno puede llevar su dependencia. Si falta un logo, muestra el nombre en una pastilla.",
+    "cuando": "Toda landing interinstitucional: mostrar quién lidera, quién firma y quién colabora.",
+    "origen": "Landing Reglamentos TT («Quiénes construyen los reglamentos»)"
+  },
+  {
+    "id": "21-copiar-y-compartir",
+    "nombre": "Copiar, compartir y avisos breves",
+    "cat": "Utilidades",
+    "que": "Botones para copiar un texto o enlace (con respaldo si el navegador no lo permite), compartir con el menú nativo del celular (o WhatsApp, LinkedIn y correo en escritorio) y un aviso flotante breve («Copiado ✓») reutilizable.",
+    "cuando": "Compartir una convocatoria, copiar un folio de seguimiento del buzón, difundir en redes.",
+    "origen": "Buzón EBCT (copiar folio) y home EBCT"
+  }
+]

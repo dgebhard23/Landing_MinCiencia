@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portada con haces de luz animados</title>
+<link rel="stylesheet" href="../../base/tokens.css">
+<link rel="stylesheet" href="../../base/base.css">
+<link rel="stylesheet" href="modulo.css">
+
+</head>
+<body>
+<header class="demo-cab"><a href="../../index.html">← Catálogo de funcionalidades</a><h1>Portada con haces de luz animados</h1><p>Fondo de portada dibujado en canvas: curvas finas de luz que ondulan lentamente, en mezcla aditiva. Toma los colores de los tokens, se pausa fuera de pantalla y queda quieto si el usuario pidió reducir el movimiento.</p></header>
+<section class="portada tema-oscuro">
+  <canvas class="portada__haces" data-haces aria-hidden="true"></canvas>
+  <div class="portada__fundido" aria-hidden="true"></div>
+  <div class="contenedor portada__in">
+    <p class="etiqueta">Ley N° 00.000</p>
+    <h1 class="portada__titulo"><span>Un título grande</span><span class="sangria">en líneas</span><span>con una palabra <em>destacada</em></span></h1>
+  </div>
+</section>
+<script src="modulo.js"></script>
+
+</body>
+</html>

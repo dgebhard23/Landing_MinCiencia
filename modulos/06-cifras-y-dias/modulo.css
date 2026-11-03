@@ -1,0 +1,5 @@
+/* Cifras clave con conteo y días al plazo — usa las variables de base/tokens.css */
+.cifras { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; }
+.cifras li { border-top: 1px solid var(--c-borde); padding-top: 18px; }
+.cifras b { display: block; font: 700 clamp(48px, 6vw, 80px)/1 var(--f-titulo); font-variant-numeric: tabular-nums; }
+.cifras span { color: var(--c-texto-suave); font-size: 15px; }

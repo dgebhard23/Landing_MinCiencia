@@ -1,0 +1,13 @@
+/* Carrusel liviano (sin jQuery) — usa las variables de base/tokens.css */
+.carrusel { position: relative; margin-top: 24px; }
+.carrusel__pista { display: grid; grid-auto-flow: column; grid-auto-columns: min(80%, 520px); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding-bottom: 8px; scrollbar-width: none; }
+.carrusel__pista::-webkit-scrollbar { display: none; }
+.carrusel__item { margin: 0; scroll-snap-align: start; }
+.carrusel__item img, .foto { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--radio); }
+.foto { background: linear-gradient(135deg, hsl(var(--h) 45% 55%), hsl(calc(var(--h) + 40) 50% 35%)); }
+.carrusel__item figcaption { font-size: 14px; color: var(--c-texto-suave); margin-top: 8px; }
+.carrusel__flecha { position: absolute; top: 40%; width: 46px; height: 46px; border-radius: 50%; border: 0; background: var(--c-superficie); box-shadow: var(--sombra); cursor: pointer; font-size: 20px; }
+.carrusel__flecha--ant { left: -10px; } .carrusel__flecha--sig { right: -10px; }
+.carrusel__puntos { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
+.carrusel__puntos button { width: 10px; height: 10px; border-radius: 99px; border: 0; background: var(--c-borde); cursor: pointer; padding: 0; transition: width .3s var(--ease); }
+.carrusel__puntos button[aria-current="true"] { width: 28px; background: var(--c-primario); }

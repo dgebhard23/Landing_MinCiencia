@@ -1,0 +1,4 @@
+/* Aparición escalonada al desplazar — usa las variables de base/tokens.css */
+.grilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; margin-top: 40vh; }
+[data-aparecer] { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+[data-aparecer].is-visible { opacity: 1; transform: none; }

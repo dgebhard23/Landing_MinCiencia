@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Barra de aviso según la fecha</title>
+<link rel="stylesheet" href="../../base/tokens.css">
+<link rel="stylesheet" href="../../base/base.css">
+<link rel="stylesheet" href="modulo.css">
+
+</head>
+<body>
+<header class="demo-cab"><a href="../../index.html">← Catálogo de funcionalidades</a><h1>Barra de aviso según la fecha</h1><p>Franja fija arriba de la página cuyo texto cambia solo: antes, durante y después de una convocatoria. Calcula los días que faltan en hora de Chile.</p></header>
+<p class="aviso" data-aviso
+   data-abre="2026-10-27" data-cierra="2026-12-11"
+   data-antes="Recibimos postulaciones del {abre} al {cierra} ({faltan})."
+   data-durante="Postulaciones abiertas hasta el {cierra} ({quedan})."
+   data-despues="Postulaciones cerradas el {cierra}. Gracias por participar."></p>
+<main class="contenedor seccion">
+  <h2>Cómo funciona</h2>
+  <p>Las fechas y los tres textos van en atributos <code>data-*</code>. El script elige el texto que corresponde a hoy y reemplaza <code>{abre}</code>, <code>{cierra}</code>, <code>{faltan}</code> y <code>{quedan}</code>.</p>
+  <p>Prueba otra fecha:</p>
+  <p><input type="date" data-simular value=""> <button class="btn btn--linea" type="button" data-hoy>Volver a hoy</button></p>
+</main>
+<script src="modulo.js"></script>
+<script>
+const sim = document.querySelector('[data-simular]'), barra = document.querySelector('[data-aviso]');
+sim.addEventListener('change', () => sim.value && BarraAviso.pintar(barra, new Date(sim.value + 'T12:00:00-03:00').getTime()));
+document.querySelector('[data-hoy]').addEventListener('click', () => { sim.value = ''; BarraAviso.pintar(barra); });
+</script>
+</body>
+</html>

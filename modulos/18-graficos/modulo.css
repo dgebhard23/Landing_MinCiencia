@@ -1,0 +1,6 @@
+/* Gráficos que toman los colores de la marca — usa las variables de base/tokens.css */
+.graficos { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px; }
+.graficos .ancho { grid-column: 1 / -1; }
+.graficos figure { margin: 0; } .graficos figcaption { font: 600 16px var(--f-titulo); margin-bottom: 12px; }
+.graficos canvas { max-height: 320px; }
+@media (max-width: 760px) { .graficos { grid-template-columns: 1fr; } }

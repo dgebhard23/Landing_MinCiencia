@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Encabezado inteligente y menú móvil</title>
+<link rel="stylesheet" href="../../base/tokens.css">
+<link rel="stylesheet" href="../../base/base.css">
+<link rel="stylesheet" href="modulo.css">
+<style>.demo-cab { background: var(--c-oscuro-fondo); color: var(--c-oscuro-texto); padding-top: 100px; } .demo-cab p { color: var(--c-oscuro-suave); }</style>
+</head>
+<body>
+<header class="demo-cab"><a href="../../index.html">← Catálogo de funcionalidades</a><h1>Encabezado inteligente y menú móvil</h1><p>Encabezado que se vuelve sólido al bajar, se esconde cuando bajas y reaparece cuando subes. Marca en el menú la sección que estás leyendo, desplaza suave a los anclajes y en celular se convierte en menú hamburguesa.</p></header>
+<header class="cab" data-cab>
+  <div class="contenedor cab__fila">
+    <a class="cab__logo" href="#inicio">Logo</a>
+    <nav class="cab__nav" aria-label="Secciones">
+      <a href="#uno">Sección uno</a><a href="#dos">Sección dos</a><a href="#tres">Sección tres</a>
+    </nav>
+    <a class="btn btn--acento cab__cta" href="#tres">Participa</a>
+    <button class="cab__burger" type="button" aria-expanded="false" aria-controls="menu-movil" aria-label="Abrir menú" data-burger><span></span><span></span></button>
+  </div>
+  <div class="cab__movil" id="menu-movil" hidden data-menu-movil>
+    <a href="#uno">Sección uno</a><a href="#dos">Sección dos</a><a href="#tres">Sección tres</a>
+    <a class="btn btn--acento" href="#tres">Participa</a>
+  </div>
+</header>
+<section id="inicio" class="tema-oscuro relleno"><div class="contenedor"><p class="etiqueta">Portada</p><h2>Baja para ver el encabezado cambiar</h2></div></section>
+<section id="uno" class="relleno"><div class="contenedor"><h2>Sección uno</h2><p class="suave">El enlace del menú se marca cuando esta sección está al centro de la pantalla.</p></div></section>
+<section id="dos" class="relleno tema-oscuro"><div class="contenedor"><h2>Sección dos</h2></div></section>
+<section id="tres" class="relleno"><div class="contenedor"><h2>Sección tres</h2></div></section>
+<script src="modulo.js"></script>
+
+</body>
+</html>

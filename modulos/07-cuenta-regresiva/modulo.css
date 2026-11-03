@@ -1,0 +1,8 @@
+/* Cuenta regresiva con dígitos que ruedan — usa las variables de base/tokens.css */
+.reloj { display: flex; gap: clamp(12px, 3vw, 32px); flex-wrap: wrap; margin-top: 24px; }
+.reloj > div { text-align: center; }
+.reloj b { display: flex; gap: 4px; font: 700 clamp(44px, 8vw, 96px)/1 var(--f-titulo); font-variant-numeric: tabular-nums; }
+.reloj small { color: var(--c-texto-suave); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; }
+.digito { display: inline-block; height: 1em; overflow: hidden; background: var(--c-superficie); border-radius: 10px; padding: 0 .08em; }
+.digito__rollo { display: flex; flex-direction: column; transition: transform .6s var(--ease); }
+.digito__rollo span { height: 1em; line-height: 1em; }

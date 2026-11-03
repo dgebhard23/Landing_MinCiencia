@@ -1,0 +1,19 @@
+/* Encabezado inteligente y menú móvil — usa las variables de base/tokens.css */
+.cab { position: fixed; inset: 0 0 auto; z-index: 40; transition: transform .35s var(--ease), background .3s, box-shadow .3s; color: #fff; }
+.cab.is-solido { background: var(--c-superficie); color: var(--c-texto); box-shadow: 0 1px 0 var(--c-borde); }
+.cab.is-oculto { transform: translateY(-100%); }
+.cab__fila { display: flex; align-items: center; gap: 24px; height: 76px; }
+.cab__logo { font: 700 20px var(--f-titulo); color: inherit; text-decoration: none; margin-right: auto; }
+.cab__nav { display: flex; gap: 4px; padding: 6px; border-radius: 999px; background: rgba(255,255,255,.92); }
+.cab__nav a { padding: 8px 14px; border-radius: 999px; color: #16181d; text-decoration: none; font-size: 15px; }
+.cab__nav a[aria-current] { background: var(--c-primario); color: #fff; }
+.cab__burger { display: none; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--c-superficie); cursor: pointer; position: relative; }
+.cab__burger span { position: absolute; left: 12px; right: 12px; height: 2px; background: var(--c-texto); transition: transform .25s; }
+.cab__burger span:first-child { top: 17px; } .cab__burger span:last-child { top: 25px; }
+.cab__burger[aria-expanded="true"] span:first-child { transform: translateY(4px) rotate(45deg); }
+.cab__burger[aria-expanded="true"] span:last-child { transform: translateY(-4px) rotate(-45deg); }
+.cab__movil { display: grid; gap: 4px; padding: 12px var(--margen) 24px; background: var(--c-superficie); }
+.cab__movil a:not(.btn) { padding: 12px 0; color: var(--c-texto); text-decoration: none; border-bottom: 1px solid var(--c-borde); font-size: 18px; }
+.cab__movil .btn { margin-top: 12px; justify-content: center; }
+@media (max-width: 860px) { .cab__nav, .cab__cta { display: none; } .cab__burger { display: block; } }
+.relleno { min-height: 90vh; padding-top: 140px; }
