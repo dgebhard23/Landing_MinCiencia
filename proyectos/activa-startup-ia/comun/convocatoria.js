@@ -14,7 +14,7 @@
       { n: '1', nombre: 'Postulación', desde: '2026-11-03', hasta: '2026-11-16', texto: 'Completa el formulario en línea y adjunta los documentos. Cierra el lunes 16 de noviembre a las 15:00.', participa: true },
       { n: '2', nombre: 'Admisibilidad', desde: '2026-11-17', hasta: '2026-11-20', texto: 'Lista de chequeo del formulario y los documentos. Se puede pedir, por una sola vez, subsanar errores formales en 2 días hábiles.' },
       { n: '3', nombre: 'Evaluación', desde: '2026-11-23', hasta: '2026-12-02', texto: 'Pertinencia de la propuesta, puntaje según los 7 criterios y verificación documental. ElevenLabs revisa la nómina con su análisis de fraude.' },
-      { n: '4', nombre: 'Resultados y activación', desde: '2026-12-03', hasta: '2026-12-31', texto: 'Publicación y aviso por correo el 3 de diciembre. Cada empresa seleccionada completa el formulario de activación de ElevenLabs y comienza sus 12 meses.', participa: true },
+      { n: '4', nombre: 'Resultados y activación', desde: '2026-12-03', hasta: '2026-12-31', texto: 'Publicación y aviso por correo el 3 de diciembre. Cada startup/EBCT seleccionada completa el formulario de activación de ElevenLabs y comienza sus 12 meses.', participa: true },
     ],
     // Numeral 8: criterios y niveles. La región se deduce de la casa matriz; la calidad la asigna el Ministerio.
     criterios: [
@@ -35,8 +35,8 @@
     ],
     // Numeral 1: quién hace qué en la colaboración (Memorando de Entendimiento)
     colaboracion: {
-      ministerio: ['Diseña, publica y difunde la convocatoria.', 'Revisa admisibilidad e integridad.', 'Evalúa y selecciona a las empresas.'],
-      elevenlabs: ['Aporta licencias de hasta 44 millones de créditos por empresa, por 12 meses.', 'Habilita las licencias a las empresas seleccionadas.', 'Da apoyo técnico a la cohorte durante el año.'],
+      ministerio: ['Diseña, publica y difunde la convocatoria.', 'Revisa admisibilidad e integridad.', 'Evalúa y selecciona a las startups/EBCT.'],
+      elevenlabs: ['Aporta licencias de hasta 44.000.000 créditos por startup/EBCT (54.000 minutos de procesamiento), por 12 meses.', 'Habilita las licencias a las startups/EBCT seleccionadas.', 'Da apoyo técnico a la cohorte durante el año.'],
     },
     // Numeral 4: requisitos y exclusiones, como preguntas de sí o no. «ok» es la respuesta que cumple.
     elegibilidad: [
@@ -46,6 +46,7 @@
       { p: '¿Tu empresa tiene 25 trabajadores o menos?', ok: 'si' },
       { p: '¿Tienes un MVP, prototipo funcional o software en operación donde integrar ElevenLabs?', ok: 'si' },
       { p: '¿Tienes al menos una persona responsable de la implementación técnica?', ok: 'si' },
+      { p: '¿Tu empresa cumple las condiciones de integridad definidas en las bases?', d: 'Numeral 5: entre otras, sin condenas por delitos económicos ni términos anticipados de convenios con ANID o CORFO en los últimos 3 años.', ok: 'si' },
       { p: '¿Tu empresa está al día en obligaciones laborales y previsionales?', d: 'Se acredita con el certificado F30.', ok: 'si' },
       { p: '¿Tu producto está dirigido a menores de 18 años?', d: 'Incluye productos educativos para escolares.', ok: 'no' },
       { p: '¿Tu empresa es agencia, consultora o pyme sin desarrollo tecnológico propio?', ok: 'no' },
@@ -54,14 +55,16 @@
     ],
     // Preguntas frecuentes: [tema, pregunta, respuesta]. Todo sale de las bases.
     faq: [
-      ['beneficio', '¿Qué recibe cada empresa seleccionada?', 'Una licencia de la plataforma ElevenLabs de hasta 44.000.000 créditos (unos 54.000 minutos de procesamiento) para usar durante 12 meses desde la activación. Incluye síntesis de voz, transcripción, generación de música y agentes conversacionales de voz, según la licencia y las condiciones técnicas de ElevenLabs. Además, la cohorte recibe una sesión introductoria, un correo dedicado para consultas técnicas y una sesión trimestral de preguntas y respuestas.'],
+      ['beneficio', '¿Qué recibe cada startup/EBCT seleccionada?', 'Una licencia de la plataforma ElevenLabs de hasta 44.000.000 créditos por startup/EBCT (54.000 minutos de procesamiento) para usar durante 12 meses desde la activación. Incluye síntesis de voz, transcripción, generación de música y agentes conversacionales de voz, según la licencia y las condiciones técnicas de ElevenLabs. Además, la cohorte recibe una sesión introductoria, un correo dedicado para consultas técnicas y una sesión trimestral de preguntas y respuestas.'],
       ['beneficio', '¿Se entrega dinero?', 'No. El beneficio es una licencia de uso: es intransferible y no se puede canjear por dinero.'],
-      ['beneficio', '¿Cuántas empresas se seleccionan?', 'Hasta 100. Las postulaciones pertinentes que no queden entre las 100 primeras forman una lista de espera, en orden de puntaje, por si se libera un cupo.'],
-      ['requisitos', '¿Quién puede postular?', 'Personas jurídicas con fines de lucro constituidas en Chile que sean startup o EBCT, con inicio de actividades de entre 6 meses y 10 años al cierre, hasta 25 trabajadores, una persona responsable de la implementación técnica, un MVP, prototipo funcional o software en operación, y sin deudas laborales ni previsionales.'],
+      ['beneficio', '¿Cuántas startups/EBCT se seleccionan?', 'Hasta 100. Las postulaciones pertinentes que no queden entre las 100 primeras forman una lista de espera, en orden de puntaje, por si se libera un cupo.'],
+      ['requisitos', '¿Quién puede postular?', 'Startups o EBCT: personas jurídicas con fines de lucro constituidas en Chile, con inicio de actividades de entre 6 meses y 10 años al cierre, hasta 25 trabajadores, una persona responsable de la implementación técnica, un MVP, prototipo funcional o software en operación, y sin deudas laborales ni previsionales.'],
       ['requisitos', '¿Mi empresa puede postular si no tiene trabajadores contratados?', 'Sí. En ese caso no se pide la planilla de cotizaciones: basta con lo declarado en el Anexo N° 1. Igual necesitas una persona responsable de la implementación técnica.'],
       ['requisitos', 'Ya pago ElevenLabs. ¿Puedo postular?', 'Sí, si eres cliente de pago de autoservicio. No pueden postular los clientes enterprise vigentes ni las empresas que ya recibieron un grant de ElevenLabs.'],
       ['requisitos', '¿Puedo postular con un producto educativo?', 'Sí, si está dirigido a personas mayores de 18 años. Se excluyen los proyectos y productos para menores de edad, incluidos los del ámbito educativo.'],
-      ['requisitos', '¿Quiénes no pueden postular?', 'Las empresas con productos para menores de 18 años, las agencias, consultoras y pymes sin desarrollo tecnológico propio, las que desarrollan productos que compiten con ElevenLabs y los clientes enterprise o beneficiarios de un grant previo de ElevenLabs.'],
+      ['requisitos', '¿Qué usos están excluidos?', 'Los proyectos o productos dirigidos a menores de 18 años, incluidos los educativos; las agencias, consultoras o pymes sin desarrollo tecnológico propio; clonar voces sin consentimiento expreso de su titular, suplantar identidades o generar contenido engañoso; desarrollar productos que compitan con los de ElevenLabs, y ser cliente enterprise vigente de ElevenLabs o haber recibido antes un grant de ElevenLabs. Los clientes de pago de autoservicio sí pueden postular.'],
+      ['beneficio', '¿Qué acompañamiento declara la empresa?', 'ElevenLabs entrega a la cohorte una sesión introductoria, un correo dedicado para consultas técnicas y una sesión trimestral de preguntas y respuestas. Las startups/EBCT seleccionadas deben participar en estas instancias.'],
+      ['beneficio', '¿Cuánto dura el acceso?', '12 meses desde la activación del servicio.'],
       ['postulación', '¿Cuántas postulaciones puede presentar una empresa?', 'Una. Tampoco se admiten postulaciones de dos o más empresas con los mismos socios mayoritarios o el mismo representante legal.'],
       ['postulación', '¿Qué documentos necesito?', 'Certificado de vigencia (de hasta 60 días), Carpeta Tributaria Electrónica (de hasta 30 días), certificado F30, planilla de cotizaciones del último mes (si tienes trabajadores), Anexo N° 1 firmado, presentación en PDF (si no tienes sitio web) y el enlace a la demo o a un video de hasta 2 minutos. Para sumar puntaje, también los respaldos de cada criterio que declares.'],
       ['postulación', '¿Qué pasa si me falta un documento?', 'Si es un documento obligatorio, la postulación es inadmisible. El Ministerio puede pedir, por una sola vez, corregir errores u omisiones formales en 2 días hábiles. Si falta el respaldo de un criterio de puntaje, ese criterio queda en 0 puntos y la postulación sigue en concurso.'],
@@ -210,7 +213,9 @@
     return indice.map((e) => ({ e, p: ws.reduce((s, w) => s + (e.enQ.has(w) ? 3 : e.claves.has(w) ? 1 : 0), 0) })).filter((x) => x.p > 0).sort((a, b) => b.p - a.p).map((x) => x.e);
   };
   document.querySelectorAll('[data-preguntale]').forEach((caja) => {
-    const populares = (caja.dataset.preguntale || '1,4,6,5,11,15').split(',').map(Number);
+    // Preguntas populares: las seis que revisaron las autoridades en la propuesta anterior
+    const POP = ['¿Qué recibe cada startup/EBCT seleccionada?', '¿Quién puede postular?', '¿Qué usos están excluidos?', '¿Qué acompañamiento declara la empresa?', '¿Cuánto dura el acceso?', '¿Mi empresa puede postular si no tiene trabajadores contratados?'];
+    const populares = POP.map((q) => indice.findIndex((e) => e.q === q)).filter((k) => k >= 0);
     caja.classList.add('preg');
     caja.innerHTML = `<form class="preg__form" role="search"><label class="sr-only" for="preg-q">Escribe tu pregunta</label>
       <input id="preg-q" type="search" placeholder="¿Qué quieres saber? Por ejemplo: ¿puedo postular sin trabajadores?" autocomplete="off"><button class="btn btn--lima" type="submit">Preguntar</button></form>

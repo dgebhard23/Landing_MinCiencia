@@ -119,7 +119,9 @@
     { titulo: 'Enviar', sec: 'F · Revisa y envía', final: true, campos: [
       { n: 'resumen', t: 'html', html: '<div class="fx__resumen" data-resumen></div>' },
       { n: 'acepta', t: 'checks', req: true, todas: true, opts: [
-        'Leí las bases y la empresa cumple los requisitos del numeral 4 y no está en ninguna de las exclusiones.',
+        'Leí las bases y la startup/EBCT cumple los requisitos del numeral 4 y no está en ninguna de las exclusiones.',
+        'La startup/EBCT no desarrolla productos que compitan con los de ElevenLabs.',
+        'La startup/EBCT no es cliente enterprise vigente de ElevenLabs ni ha recibido antes un grant de ElevenLabs.',
         'La información y los documentos son fidedignos y están vigentes. Entiendo que, una vez enviada, la postulación no se puede modificar y que se admite una por empresa.',
         'Usaremos la licencia conforme a los Términos de Servicio y la Política de Uso Prohibido de ElevenLabs: sin clonar voces sin consentimiento expreso, sin suplantar identidades ni generar contenido engañoso.',
         'Recibí la información sobre el tratamiento de datos personales: el Ministerio los usa para gestionar esta convocatoria y podrá comunicar a ElevenLabs los estrictamente necesarios para habilitar la licencia, lo que puede implicar una transferencia internacional (numeral 12).'] },
@@ -153,7 +155,7 @@
     <form novalidate>
       <div class="fx__cab"><p class="etiqueta">Postulación · ${A.nombre}</p><h3 id="pf-titulo">Formulario de postulación</h3>
         <ol class="fx__pasos">${PASOS.map((p) => `<li>${p.titulo}</li>`).join('')}</ol><p class="fx__cuenta" data-cuenta-paso></p></div>
-      <div class="fx__cuerpo"><p class="fx__ayuda" style="margin-bottom:12px">Los campos con * son obligatorios.</p>${PASOS.map((p, i) => `<fieldset data-paso ${i ? 'hidden' : ''}><legend class="fx__sec" tabindex="-1">${p.sec}</legend>
+      <div class="fx__cuerpo"><p class="fx__ayuda" style="margin-bottom:12px">Los campos con * son obligatorios.</p><p class="fx__aviso fx__aviso--rojo" role="alert" data-problemas hidden style="margin-bottom:14px"></p>${PASOS.map((p, i) => `<fieldset data-paso ${i ? 'hidden' : ''}><legend class="fx__sec" tabindex="-1">${p.sec}</legend>
         ${p.puntaje ? '<div class="fx__puntaje" aria-live="polite"><span>Puntaje declarado</span><b data-pts-total>0</b><span>de 90 · más hasta 10 por calidad, que asigna el Ministerio</span></div>' : ''}
         ${p.campos.map(campo).join('')}</fieldset>`).join('')}
         <input class="fx__trampa" name="sitio_web_hp" tabindex="-1" autocomplete="off" aria-hidden="true"></div>
@@ -363,7 +365,11 @@ ${puntos.map((p, i) => `<p>${i + 1}. ${p}</p>`).join('')}
     if (i === ultimo) { pintarResumen(); const cerrada = A.cerrada(); $('[data-cerrado]').hidden = !cerrada; enviar.disabled = cerrada; }
     cuerpo.scrollTop = 0; pasosEl[i].querySelector('.fx__sec')?.focus({ preventScroll: true });
   };
-  sig.addEventListener('click', () => { if (revisar(paso)) mostrar(paso + 1); });
+  // Aviso que dice dónde están los problemas cuando no se puede avanzar o enviar
+  const avisoProblemas = (txt) => { const a = $('[data-problemas]'); a.textContent = txt || ''; a.hidden = !txt; if (txt) cuerpo.scrollTop = 0; };
+  const cuantos = () => pasosEl[paso].querySelectorAll('.fx__campo.is-invalido').length;
+  const noAvanza = () => avisoProblemas(`No puedes continuar: ${cuantos() === 1 ? 'hay 1 campo' : `hay ${cuantos()} campos`} con problemas en este paso, marcados en rojo.`);
+  sig.addEventListener('click', () => { if (revisar(paso)) { avisoProblemas(''); mostrar(paso + 1); } else noAvanza(); });
   atras.addEventListener('click', () => mostrar(paso - 1));
 
   // ---------- Envío ----------
@@ -381,10 +387,13 @@ ${puntos.map((p, i) => `<p>${i + 1}. ${p}</p>`).join('')}
   };
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (paso !== ultimo) { if (revisar(paso)) mostrar(paso + 1); return; }
-    if (!revisar(paso) || A.cerrada()) return;
+    if (paso !== ultimo) { if (revisar(paso)) { avisoProblemas(''); mostrar(paso + 1); } else noAvanza(); return; }
+    if (A.cerrada()) return;
+    if (!revisar(paso)) { avisoProblemas('No pudimos enviar: marca todas las declaraciones de este paso.'); return; }
     if (form.elements.namedItem('sitio_web_hp').value) return; // trampa anti-spam
-    for (let i = 0; i < ultimo; i++) if (!revisar(i)) { mostrar(i); revisar(i); return; }
+    const v0 = valores(), malos = PASOS.slice(0, ultimo).map((_, i) => i).filter((i) => todos.some((c) => c.paso === i && problema(c, v0)));
+    if (malos.length) { mostrar(malos[0]); revisar(malos[0]); avisoProblemas(`No pudimos enviar: faltan datos o hay errores en ${malos.map((i) => `el paso ${i + 1} (${PASOS[i].titulo})`).join(', ')}. Te llevamos al primero; los campos con problemas están marcados en rojo.`); return; }
+    avisoProblemas('');
     if (!ENDPOINT) { terminar(''); return; }
     const err = $('[data-error-envio]'); err.hidden = true;
     const v = valores(), p = puntaje(v), datos = new URLSearchParams();
