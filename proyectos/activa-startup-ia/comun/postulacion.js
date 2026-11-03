@@ -15,7 +15,8 @@
   const REGIONES = ['Arica y Parinacota', 'Tarapacá', 'Antofagasta', 'Atacama', 'Coquimbo', 'Valparaíso', 'Metropolitana de Santiago', "Libertador General Bernardo O'Higgins", 'Maule', 'Ñuble', 'Biobío', 'La Araucanía', 'Los Ríos', 'Los Lagos', 'Aysén del General Carlos Ibáñez del Campo', 'Magallanes y de la Antártica Chilena'];
   const RM = 'Metropolitana de Santiago';
   const crit = Object.fromEntries(A.criterios.map((c) => [c.id, c]));
-  const niveles = (id) => crit[id].niveles.map(([p, l]) => ({ v: String(p), l, pts: p }));
+  // Las opciones guardan el nivel de la tabla de las bases como valor, pero no se muestra ningún puntaje
+  const niveles = (id) => crit[id].niveles.map(([p, l]) => ({ v: String(p), l }));
 
   // ---------- Validaciones ----------
   const limpiaRut = (s) => s.replace(/[^0-9kK]/g, '').toUpperCase();
@@ -51,7 +52,7 @@
         { v: 'Startup', l: 'Startup', d: 'Empresa innovadora con un modelo de negocio escalable.' },
         { v: 'EBCT', l: 'EBCT', d: 'Empresa cuyo producto o servicio se basa en conocimiento científico o tecnológico.' }] },
       { fila: [
-        { n: 'region', l: 'Región de la casa matriz', t: 'select', req: true, opts: REGIONES, ayuda: 'Una casa matriz fuera de la Región Metropolitana suma 10 puntos.' },
+        { n: 'region', l: 'Región de la casa matriz', t: 'select', req: true, opts: REGIONES, ayuda: 'Según el domicilio registrado en el SII.' },
         { n: 'trabajadores', l: 'Número de trabajadores', t: 'number', req: true, min: 0, max: 25, ayuda: 'Máximo 25. Si no tienes trabajadores contratados, escribe 0.' },
       ] },
       { n: 'direccion', l: 'Domicilio de la casa matriz', t: 'text', req: true, ph: 'Calle, número y comuna' },
@@ -59,7 +60,7 @@
         { n: 'web', l: 'Sitio web', t: 'url', valida: vUrl, ph: 'https://', ayuda: 'Si no tienes sitio web, tendrás que adjuntar una presentación en PDF.' },
         { n: 'correo_licencia', l: 'Correo corporativo para la licencia', t: 'email', req: true, ayuda: 'ElevenLabs asociará la licencia a este correo.' },
       ] },
-      { n: 'ambito', l: 'Ámbito de aplicación de la propuesta', t: 'select', req: true, opts: [...A.ambitos.map((a) => a.nombre), 'Otro'], ayuda: 'Los 5 primeros son prioritarios y se usan para desempatar.' },
+      { n: 'ambito', l: 'Ámbito de aplicación de la propuesta', t: 'select', req: true, opts: [...A.ambitos.map((a) => a.nombre), 'Otro'], ayuda: 'Elige el que mejor describe tu propuesta.' },
       { n: 'ambito_otro', l: '¿Cuál?', t: 'text', req: true, si: (v) => v.ambito === 'Otro' },
       { n: 'aviso_menores', t: 'html', si: (v) => v.ambito === 'Educación', html: '<p class="fx__aviso fx__aviso--rojo">Recuerda: no son elegibles los productos dirigidos a menores de 18 años, incluidos los educativos.</p>' },
     ] },
@@ -77,8 +78,8 @@
         { fila: [{ n: 'contacto_nombre', l: 'Nombre completo', t: 'text', req: true }, { n: 'contacto_correo', l: 'Correo', t: 'email', req: true }] },
       ] },
     ] },
-    { titulo: 'Puntaje', sec: 'C · Atributos para el puntaje', puntaje: true, campos: [
-      { n: 'intro_pts', t: 'html', html: '<p class="fx__ayuda">Declara solo lo que puedas acreditar. Un criterio sin su documento obtiene 0 puntos, pero no deja fuera la postulación.</p>' },
+    { titulo: 'Antecedentes', sec: 'C · Antecedentes de la startup/EBCT', campos: [
+      { n: 'intro_ant', t: 'html', html: '<p class="fx__ayuda">Declara solo lo que puedas acreditar y adjunta su respaldo cuando se pida (numeral 6 de las bases).</p>' },
       { n: 'producto', l: crit.producto.nombre, t: 'radio', req: true, opts: niveles('producto') },
       { si: (v) => Number(v.producto) > 0, fila: [
         { n: 'producto_enlace', l: 'Enlace al producto', t: 'url', valida: vUrl, ph: 'https://' },
@@ -89,17 +90,16 @@
         { n: 'fin_detalle', l: 'Instrumento, institución y año de cada adjudicación', t: 'text', req: true, ph: 'Ej.: Semilla Inicia, CORFO, 2024' },
         { n: 'fin_doc', l: 'Resolución de adjudicación, convenio o certificado (PDF)', t: 'archivo', req: true },
       ] },
-      { n: 'equipo', l: `${crit.equipo.nombre}: personas técnicas adicionales a la responsable`, t: 'equipo', ayuda: 'Desarrollo, datos o IA, con contrato en la empresa. 1 persona suma 8 puntos; 2 o más, 15.' },
+      { n: 'equipo', l: `${crit.equipo.nombre}: personas técnicas adicionales a la responsable`, t: 'equipo', ayuda: 'Personas de desarrollo, datos o IA con contrato en la startup/EBCT. Si no hay, deja la lista vacía.' },
       { n: 'ventas', l: crit.ventas.nombre, t: 'radio', req: true, opts: niveles('ventas'), ayuda: 'Se verifica con la Carpeta Tributaria que adjuntas en el paso 5.' },
       { n: 'mujeres', l: crit.mujeres.nombre, t: 'radio', req: true, opts: [
-        { v: 'No', l: 'No cumple', pts: 0 },
-        { v: 'Representante legal mujer', l: 'La representante legal es mujer', pts: 10, d: 'Se verifica con el certificado de vigencia.' },
-        { v: 'Propiedad 50 % o más', l: 'Al menos el 50 % de la propiedad está en manos de mujeres', pts: 10 }] },
+        { v: 'No', l: 'Ninguna de las dos' },
+        { v: 'Representante legal mujer', l: 'La representante legal es mujer', d: 'Se verifica con el certificado de vigencia.' },
+        { v: 'Propiedad 50 % o más', l: 'Al menos el 50 % de la propiedad está en manos de mujeres' }] },
       { n: 'mujeres_doc', l: 'Estatutos o certificado de socios (PDF)', t: 'archivo', req: true, si: (v) => v.mujeres === 'Propiedad 50 % o más' },
-      { n: 'region_info', t: 'html', html: '<p class="fx__aviso" data-region-info></p>' },
     ] },
     { titulo: 'Propuesta', sec: 'D · Propuesta de uso', campos: [
-      { n: 'intro_prop', t: 'html', html: '<p class="fx__ayuda">Las tres preguntas son obligatorias, con hasta 1.000 caracteres cada una. Con ellas el Ministerio decide si la propuesta es pertinente y le asigna hasta 10 puntos por calidad: sube a 10 si identificas el componente de ElevenLabs, cómo lo implementarás y un indicador cuantificable.</p>' },
+      { n: 'intro_prop', t: 'html', html: '<p class="fx__ayuda">Las tres preguntas son obligatorias, con hasta 1.000 caracteres cada una. Describe el componente de ElevenLabs que usarás, cómo lo implementarás y un indicador cuantificable para medir el resultado.</p>' },
       { n: 'p1', l: '¿Qué problema u oportunidad abordarán con IA de voz?', t: 'textarea', req: true, max: 1000 },
       { n: 'p2', l: '¿Qué harán con ElevenLabs y cómo lo integrarán a su producto u operación?', t: 'textarea', req: true, max: 1000, ayuda: 'Qué funcionalidad usarán y cómo se conecta con su producto: API, flujo, tipo de usuarios.' },
       { n: 'p3', l: '¿Qué resultado esperan y con qué indicador se medirán?', t: 'textarea', req: true, max: 1000, ayuda: 'Ej.: «bajar de 6 a 2 minutos el tiempo de espera en la línea de atención, medido con el registro de llamadas, a los 6 meses».' },
@@ -139,7 +139,7 @@
     if (c.t === 'html') return `<div class="fx__campo" data-campo="${c.n}">${c.html}</div>`;
     const req = c.req ? ' *' : '', desc = c.ayuda ? ` aria-describedby="${id(c.n)}-a"` : '';
     let control;
-    if (c.t === 'radio') control = `<div class="fx__opciones" role="radiogroup" aria-labelledby="${id(c.n)}-l">${c.opts.map((o) => `<label class="fx__op"><input type="radio" name="${c.n}" value="${esc(o.v)}"><span><b>${o.l}</b>${o.d ? `<small>${o.d}</small>` : ''}</span>${o.pts !== undefined ? `<span class="pts">${o.pts} pts</span>` : ''}</label>`).join('')}</div>`;
+    if (c.t === 'radio') control = `<div class="fx__opciones" role="radiogroup" aria-labelledby="${id(c.n)}-l">${c.opts.map((o) => `<label class="fx__op"><input type="radio" name="${c.n}" value="${esc(o.v)}"><span><b>${o.l}</b>${o.d ? `<small>${o.d}</small>` : ''}</span></label>`).join('')}</div>`;
     else if (c.t === 'checks') control = `<div class="fx__opciones">${c.opts.map((o) => `<label class="fx__op"><input type="checkbox" name="${c.n}" value="${esc(o)}"><span>${o}</span></label>`).join('')}</div>`;
     else if (c.t === 'select') control = `<select id="${id(c.n)}" name="${c.n}"${desc}><option value="">Elige una opción</option>${c.opts.map((o) => `<option>${esc(o)}</option>`).join('')}</select>`;
     else if (c.t === 'textarea') control = `<textarea id="${id(c.n)}" name="${c.n}" rows="5" maxlength="${c.max}"${desc}></textarea><small class="fx__cont" data-cont="${c.n}">0 / ${c.max.toLocaleString('es-CL')}</small>`;
@@ -156,7 +156,6 @@
       <div class="fx__cab"><p class="etiqueta">Postulación · ${A.nombre}</p><h3 id="pf-titulo">Formulario de postulación</h3>
         <ol class="fx__pasos">${PASOS.map((p) => `<li>${p.titulo}</li>`).join('')}</ol><p class="fx__cuenta" data-cuenta-paso></p></div>
       <div class="fx__cuerpo"><p class="fx__ayuda" style="margin-bottom:12px">Los campos con * son obligatorios.</p><p class="fx__aviso fx__aviso--rojo" role="alert" data-problemas hidden style="margin-bottom:14px"></p>${PASOS.map((p, i) => `<fieldset data-paso ${i ? 'hidden' : ''}><legend class="fx__sec" tabindex="-1">${p.sec}</legend>
-        ${p.puntaje ? '<div class="fx__puntaje" aria-live="polite"><span>Puntaje declarado</span><b data-pts-total>0</b><span>de 90 · más hasta 10 por calidad, que asigna el Ministerio</span></div>' : ''}
         ${p.campos.map(campo).join('')}</fieldset>`).join('')}
         <input class="fx__trampa" name="sitio_web_hp" tabindex="-1" autocomplete="off" aria-hidden="true"></div>
       <div class="fx__pie"><p class="fx__nota" data-nota></p><div class="fx__botones">
@@ -197,23 +196,13 @@
     return v;
   };
   const visible = (c, v) => !c.si || !!c.si(v);
-  const puntaje = (v) => ({
-    producto: Number(v.producto) || 0, financiamiento: Number(v.financiamiento) || 0,
-    equipo: v.equipo.length >= 2 ? 15 : v.equipo.length === 1 ? 8 : 0, ventas: Number(v.ventas) || 0,
-    mujeres: v.mujeres && v.mujeres !== 'No' ? 10 : 0, region: v.region && v.region !== RM ? 10 : 0,
-  });
-  const total = (p) => Object.values(p).reduce((a, b) => a + b, 0);
 
-  // ---------- Sincronizar condicionales, contadores y puntaje ----------
+  // ---------- Sincronizar condicionales y contadores ----------
   const sync = () => {
     const v = valores();
     todos.forEach((c) => { const el = form.querySelector(`[data-campo="${c.n}"]`); if (el && c.si) el.hidden = !visible(c, v); });
     gruposSi.forEach((g) => { if (g.el) g.el.hidden = !g.si(v); });
     form.querySelectorAll('[data-cont]').forEach((s) => { const n = (form.elements.namedItem(s.dataset.cont).value || '').length, max = 1000; s.textContent = `${n.toLocaleString('es-CL')} / ${max.toLocaleString('es-CL')}`; s.classList.toggle('is-excede', n >= max); });
-    const p = puntaje(v);
-    $('[data-pts-total]').textContent = total(p);
-    const ri = $('[data-region-info]');
-    ri.textContent = !v.region ? 'Casa matriz: elige la región en el paso 1.' : v.region === RM ? 'Casa matriz en la Región Metropolitana: 0 puntos en este criterio.' : `Casa matriz en ${v.region}: suma 10 puntos (se verifica con la Carpeta Tributaria).`;
     $('[data-agregar-equipo]').hidden = form.querySelectorAll('.fx__equipo-fila').length >= 8;
   };
 
@@ -298,18 +287,17 @@
   const muestra = (c, v) => {
     const x = v[c.n];
     if (c.t === 'checks') return x.join(' · ');
-    if (c.t === 'radio') { const o = c.opts.find((o) => o.v === x); return o ? `${o.l}${o.pts !== undefined ? ` (${o.pts} pts)` : ''}` : ''; }
+    if (c.t === 'radio') { const o = c.opts.find((o) => o.v === x); return o ? o.l : ''; }
     if (c.t === 'date' && x) return A.fmt(x, { day: 'numeric', month: 'long', year: 'numeric' });
     return x;
   };
   const rotulo = (c) => (c.bloque ? `${c.bloque} · ${c.l}` : c.l);
   const secciones = () => {
-    const v = valores(), p = puntaje(v);
+    const v = valores();
     return PASOS.slice(0, -1).map((paso, i) => {
       const items = todos.filter((c) => c.paso === i && c.t !== 'html' && visible(c, v) && c.l).map((c) => c.t === 'equipo'
-        ? [c.l, v.equipo.length ? v.equipo.map((x) => `${x.nombre} (${x.rol}) ${x.perfil}`).join('\n') : 'Sin personas adicionales (0 pts)']
+        ? [c.l, v.equipo.length ? v.equipo.map((x) => `${x.nombre} (${x.rol}) ${x.perfil}`).join('\n') : 'Sin personas adicionales']
         : [rotulo(c), muestra(c, v)]);
-      if (paso.puntaje) items.push(['Casa matriz fuera de la RM', `${p.region} pts`], ['Puntaje declarado', `${total(p)} de 90, más la calidad que asigna el Ministerio (hasta 10)`]);
       return [paso.sec, i, items];
     });
   };
@@ -396,10 +384,8 @@ ${puntos.map((p, i) => `<p>${i + 1}. ${p}</p>`).join('')}
     avisoProblemas('');
     if (!ENDPOINT) { terminar(''); return; }
     const err = $('[data-error-envio]'); err.hidden = true;
-    const v = valores(), p = puntaje(v), datos = new URLSearchParams();
+    const v = valores(), datos = new URLSearchParams();
     secciones().forEach(([, , items]) => items.forEach(([q, x]) => { if (!todos.find((c) => rotulo(c) === q && c.t === 'archivo')) datos.append(q, x); }));
-    datos.append('pts_total', String(total(p)));
-    Object.entries(p).forEach(([k, x]) => datos.append(`pts_${k}`, String(x)));
     datos.append('Enviado (navegador)', new Date().toISOString());
     const leer = (n, f) => new Promise((ok, ko) => { const r = new FileReader(); r.onload = () => ok({ campo: todos.find((c) => c.n === n).l, nombre: f.name, tipo: 'application/pdf', datos: String(r.result).split(',')[1] }); r.onerror = ko; r.readAsDataURL(f); });
     enviar.disabled = true; enviar.firstElementChild.textContent = 'Enviando…';

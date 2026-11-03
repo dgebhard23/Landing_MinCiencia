@@ -22,7 +22,7 @@ Mientras `data-endpoint` esté vacío, el formulario funciona en **modo demostra
 ## Qué queda guardado
 
 - **Una fila por postulación**, con el folio (`AS-2026-0001`…), la fecha y hora de recepción, «En plazo» o «Fuera de plazo» (según la hora de cierre, 16-11-2026 a las 15:00) y una columna por cada campo.
-  - Incluye el **puntaje declarado** total (`pts_total`) y por criterio (`pts_producto`, `pts_financiamiento`…), para ordenar el ranking. Es referencial hasta la verificación.
+  - El formulario no calcula ni muestra puntaje: guarda los antecedentes que declara cada startup/EBCT (producto, financiamiento, equipo, ventas, liderazgo femenino y región) para que el equipo asigne el puntaje al evaluar.
 - **Una subcarpeta en Drive por postulación**, con los PDF nombrados por documento. La fila guarda el enlace a la carpeta y a cada archivo.
 
 ## Límites
