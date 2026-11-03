@@ -27,12 +27,17 @@
       { id: 'region', nombre: 'Casa matriz fuera de la Región Metropolitana', max: 10, niveles: [[0, 'Casa matriz en la Región Metropolitana'], [10, 'Casa matriz en otra región']], prueba: 'Carpeta Tributaria Electrónica del SII (domicilio registrado).' },
     ],
     ambitos: [
-      { id: 'accesibilidad', nombre: 'Accesibilidad e inclusión', ej: 'Lectura en voz alta de documentos y sitios, interfaces habladas para personas ciegas o con baja visión, comunicación aumentativa para personas que perdieron el habla.', frase: 'Hola. Este documento tiene tres páginas. ¿Quieres que lo lea completo o solo el resumen?' },
-      { id: 'salud', nombre: 'Salud y cuidados', ej: 'Agentes de voz que recuerdan tratamientos, siguen a pacientes crónicos o confirman horas médicas; transcripción de consultas para la ficha clínica.', frase: 'Buenos días. Le recuerdo que hoy a las ocho le toca su control de presión. ¿Lo pudo registrar?' },
-      { id: 'educacion', nombre: 'Educación', ej: 'Tutorías por voz, doblaje de cursos y capacitaciones, audiolibros formativos. Solo para personas adultas: se excluyen los productos dirigidos a menores de 18 años.', frase: 'Retomemos la unidad tres. Antes de seguir, ¿me cuentas con tus palabras qué es una tasa de interés?' },
-      { id: 'servicios', nombre: 'Servicios y atención automatizada', ej: 'Mesas de ayuda con agentes conversacionales en tiempo real, atención telefónica sin esperas, transcripción y análisis de llamadas.', frase: 'Gracias por llamar. Ya encontré su pedido: llega mañana entre las diez y las dos. ¿Necesita algo más?' },
-      { id: 'creativas', nombre: 'Industrias creativas', ej: 'Doblaje multilingüe de series y documentales, narración de podcasts, efectos de sonido y música para videojuegos y producciones audiovisuales.', frase: 'Capítulo uno. En el extremo sur del mundo, donde el viento no se detiene, comienza esta historia.' },
+      { id: 'accesibilidad', corto: 'Lectura en voz alta e interfaces habladas.', foto: 'fotos/accesibilidad.jpg', nombre: 'Accesibilidad e inclusión', ej: 'Lectura en voz alta de documentos y sitios, interfaces habladas para personas ciegas o con baja visión, comunicación aumentativa para personas que perdieron el habla.', frase: 'Hola. Este documento tiene tres páginas. ¿Quieres que lo lea completo o solo el resumen?' },
+      { id: 'salud', corto: 'Recordatorios y seguimiento a pacientes por voz.', foto: 'fotos/salud.jpg', nombre: 'Salud y cuidados', ej: 'Agentes de voz que recuerdan tratamientos, siguen a pacientes crónicos o confirman horas médicas; transcripción de consultas para la ficha clínica.', frase: 'Buenos días. Le recuerdo que hoy a las ocho le toca su control de presión. ¿Lo pudo registrar?' },
+      { id: 'educacion', corto: 'Tutorías y cursos narrados, para personas adultas.', foto: 'fotos/educacion.jpg', nombre: 'Educación', ej: 'Tutorías por voz, doblaje de cursos y capacitaciones, audiolibros formativos. Solo para personas adultas: se excluyen los productos dirigidos a menores de 18 años.', frase: 'Retomemos la unidad tres. Antes de seguir, ¿me cuentas con tus palabras qué es una tasa de interés?' },
+      { id: 'servicios', corto: 'Agentes que atienden sin tiempos de espera.', foto: 'fotos/atencion.jpg', nombre: 'Servicios y atención automatizada', ej: 'Mesas de ayuda con agentes conversacionales en tiempo real, atención telefónica sin esperas, transcripción y análisis de llamadas.', frase: 'Gracias por llamar. Ya encontré su pedido: llega mañana entre las diez y las dos. ¿Necesita algo más?' },
+      { id: 'creativas', corto: 'Doblaje, narración y sonido para contenidos.', foto: 'fotos/creativas.jpg', nombre: 'Industrias creativas', ej: 'Doblaje multilingüe de series y documentales, narración de podcasts, efectos de sonido y música para videojuegos y producciones audiovisuales.', frase: 'Capítulo uno. En el extremo sur del mundo, donde el viento no se detiene, comienza esta historia.' },
     ],
+    // Numeral 1: quién hace qué en la colaboración (Memorando de Entendimiento)
+    colaboracion: {
+      ministerio: ['Diseña, publica y difunde la convocatoria.', 'Revisa admisibilidad e integridad.', 'Evalúa y selecciona a las empresas.'],
+      elevenlabs: ['Aporta licencias de hasta 44 millones de créditos por empresa, por 12 meses.', 'Habilita las licencias a las empresas seleccionadas.', 'Da apoyo técnico a la cohorte durante el año.'],
+    },
     // Numeral 4: requisitos y exclusiones, como preguntas de sí o no. «ok» es la respuesta que cumple.
     elegibilidad: [
       { p: '¿Es una persona jurídica con fines de lucro constituida en Chile?', ok: 'si' },
@@ -142,7 +147,7 @@
     const sel = {};
     ACTIVA.criterios.forEach((c) => { sel[c.id] = c.niveles[0][0]; });
     caja.classList.add('sim');
-    const colores = ['var(--blue-500)', 'var(--blue-400)', 'var(--blue-300)', '#7a9bd0', 'var(--red-400)', '#c98a12', '#6b7895'];
+    const colores = ['var(--azul)', 'var(--lila)', 'var(--azul-200)', 'var(--menta-300)', 'var(--lima)', '#ffffff', 'var(--n-450)'];
     caja.innerHTML = `<div class="sim__criterios">${ACTIVA.criterios.map((c) => `<div class="sim__c"><h3>${c.nombre}<span data-pts="${c.id}">0 / ${c.max}</span></h3>
       <div class="sim__ops" role="group" aria-label="${c.nombre}">${c.niveles.map(([p, t], k) => `<button type="button" data-c="${c.id}" data-p="${p}" aria-pressed="${k === 0}">${p} · ${t}</button>`).join('')}</div></div>`).join('')}</div>
       <aside class="sim__total" aria-live="polite"><p>Puntaje estimado</p><div class="sim__num"><span data-total>0</span><small> / 100</small></div>

@@ -2,7 +2,7 @@
 
 Convocatoria del Ministerio de Ciencia y ElevenLabs: hasta 100 startups y EBCT chilenas reciben, sin costo, una licencia de la plataforma de IA de voz de ElevenLabs por 12 meses.
 
-Este directorio reemplaza la propuesta hecha en Lovable (https://tomorrow-workshop-compass.lovable.app/). Usa como base la landing de Reglamentos TT y los módulos del repositorio.
+Este directorio reemplaza la propuesta hecha en Lovable (https://tomorrow-workshop-compass.lovable.app/). Toma la estructura y el movimiento de la landing de Reglamentos TT y los módulos del repositorio. Los colores, la tipografía (Poppins) y el logo vienen del design system MINCTCI 2026 (Figma), y los logos de ElevenLabs, de su kit oficial (https://elevenlabs.io/brand).
 
 **Para verlo:** abre `index.html`, que compara las 3 propuestas y enlaza a cada una. Sirve abrirlo directo desde el disco o con un servidor local:
 
@@ -21,21 +21,22 @@ comun/
   convocatoria.js               ← TODOS los datos: fechas, etapas, criterios, ámbitos, requisitos y FAQ
                                   + componentes: ¿Puedo postular?, simulador y tabla de puntaje, «Escuchar»
   postulacion.js                ← formulario de postulación en 6 pasos, armado desde las bases
-  activa.css                    ← identidad de Reglamentos (navy, azul gob.cl, rojo) sobre base/tokens.css
+  activa.css                    ← paleta MINCTCI 2026 (navy, azul #3053F9, lima #CDEDC9, lila #97A9FC), Poppins y componentes
+  graficos.js                   ← gráficos en código: patrón de Chladni, orbe de voz y grilla de cuadros
 propuesta-1-institucional/      ← la más cercana a Reglamentos
 propuesta-2-voz/                ← la más expresiva
 propuesta-3-panel/              ← la más útil para quien postula
 apps-script/                    ← backend: Sheets + Drive (subcarpeta por postulación) + folio + acuse de recibo
-img/                            ← logos MinCiencia
+img/                            ← logos MinCiencia y ElevenLabs, fotos (fotos/) y sus créditos (CREDITOS.md)
 ```
 
 ## Si cambian las bases
 
 Casi todo se cambia en `comun/convocatoria.js`:
 
-- **Fechas.** Están en `abre`, `consultas`, `cierre`, `resultados` y `etapas`. Las barras de aviso (`data-abre`, `data-cierra`), las cuentas regresivas (`data-cuenta`) y la Gantt de la propuesta 1 tienen sus propias fechas en el HTML.
+- **Fechas.** Están en `abre`, `consultas`, `cierre`, `resultados` y `etapas`. Las barras de aviso (`data-abre`, `data-cierra`), las cuentas regresivas (`data-cuenta`) y las agendas de las propuestas 1 y 3 tienen sus propias fechas en el HTML.
 - **Criterios de puntaje.** Están en `criterios` y alimentan la tabla, el simulador y el formulario.
-- **Requisitos, ámbitos y preguntas frecuentes.** Están en `elegibilidad`, `ambitos` y `faq`.
+- **Requisitos, ámbitos, alianza y preguntas frecuentes.** Están en `elegibilidad`, `ambitos` (con su foto y texto corto), `colaboracion` y `faq`.
 - **Campos del formulario.** Están en `PASOS`, al inicio de `comun/postulacion.js`. Cada campo dice si es obligatorio y cuándo se muestra.
 
 ## El formulario de postulación
@@ -53,7 +54,8 @@ Además, guarda un borrador en el navegador (sin los archivos), descarga una cop
 
 ## Pendientes
 
-- Logo oficial de ElevenLabs.
+- SVG oficial del logo «Ministerio CTCI» desde la página Logos del Figma (hoy es el PNG de la propuesta Lovable).
+- Fotos propias de startups chilenas para reemplazar las de Unsplash.
 - Plazo de activación: 10 o 15 días hábiles (las bases se contradicen).
 - Publicar el Apps Script y pegar la URL en `data-endpoint` de las 3 propuestas.
 - Revisión jurídica de las aceptaciones y del aviso de datos personales.
