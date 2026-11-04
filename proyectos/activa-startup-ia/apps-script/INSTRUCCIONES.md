@@ -21,9 +21,17 @@ Mientras `data-endpoint` esté vacío, el formulario funciona en **modo demostra
 
 ## Qué queda guardado
 
-- **Una fila por postulación**, con el folio (`AS-2026-0001`…), la fecha y hora de recepción, «En plazo» o «Fuera de plazo» (según la hora de cierre, 16-11-2026 a las 15:00) y una columna por cada campo.
+- **Una fila por postulación**, con el folio (`AS-2026-0001`…), la fecha y hora de recepción, «En plazo» o «Fuera de plazo» (según la hora de cierre, 30-11-2026 a las 15:00) y una columna por cada campo.
   - El formulario no calcula ni muestra puntaje: guarda los antecedentes que declara cada startup/EBCT (producto, financiamiento, equipo, ventas, liderazgo femenino y región) para que el equipo asigne el puntaje al evaluar.
 - **Una subcarpeta en Drive por postulación**, con los PDF nombrados por documento. La fila guarda el enlace a la carpeta y a cada archivo.
+- **Las declaraciones aceptadas**, en la columna «Declaraciones aceptadas».
+- Lo que escribe el público se guarda como texto: una fórmula no se ejecuta y un teléfono con `+` no se vuelve número.
+
+## Mientras la convocatoria esté abierta
+
+- **No borres filas ni las reordenes.** El folio sale del número de filas: si borras una, se puede repetir un folio. Para trabajar con los datos, usa una copia o una hoja aparte.
+- Una carpeta llamada «Sin folio · …» es un envío que no alcanzó a guardarse en la planilla. El postulante vio un error y puede haber reintentado: revisa si tiene otra postulación antes de borrarla.
+- Si falla un correo, la postulación igual queda guardada. El detalle aparece en *Apps Script → Ejecuciones*.
 
 ## Límites
 

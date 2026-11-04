@@ -84,12 +84,11 @@ h1, h2, h3, h4 { font-family: var(--f-titulo); letter-spacing: -.02em; }
 /* ---------- Barra de aviso (módulo 01) y encabezado (módulo 02) ---------- */
 .aviso { position: fixed; inset: 0 0 auto; z-index: 60; background: var(--lima); color: var(--navy-900); font: 600 13px/1.4 var(--f-texto); padding: 9px var(--margen); }
 .cab { top: 38px; color: #fff; }
-.cab.is-oculto { transform: translateY(calc(-100% - 38px)); }
+.cab.is-oculto { transform: translateY(calc(-100% - 56px)); }
 .cab.is-solido { background: rgba(19, 19, 50, .92); color: #fff; backdrop-filter: blur(12px); box-shadow: 0 1px 0 rgba(255,255,255,.08); }
 .cab__fila { height: 80px; max-width: calc(var(--contenedor) + var(--margen) * 2); gap: 20px; }
-.cab__logo { display: flex; align-items: center; gap: 14px; }
-.cab__logo .escudo { height: 46px; width: auto; }
-.cab__logo .ctci { height: 30px; width: auto; }
+.cab__logo { align-self: flex-start; display: flex; align-items: center; gap: 14px; }
+.cab__logo .ctci { height: 92px; width: auto; }
 .cab__logo .x { width: 1px; height: 30px; background: rgba(255,255,255,.3); }
 .cab__logo .el { height: 15px; width: auto; }
 .cab__nav { background: transparent; gap: 2px; padding: 0; }
@@ -100,7 +99,8 @@ h1, h2, h3, h4 { font-family: var(--f-titulo); letter-spacing: -.02em; }
 .cab__burger { background: var(--lima); }
 .cab__burger span { background: var(--navy-900); }
 @media (max-width: 1180px) { .cab__nav, .cab__cta { display: none; } .cab__burger { display: block; } }
-@media (max-width: 560px) { .cab__logo .escudo { height: 38px; } .cab__logo .ctci { height: 24px; } .cab__logo .el { height: 11px; } .cab__logo { gap: 10px; } }
+@media (max-width: 720px) { .cab__logo .ctci { height: 76px; } }
+@media (max-width: 560px) { .cab { top: 48px; } .cab.is-oculto { transform: translateY(calc(-100% - 66px)); } .cab__logo .el { height: 11px; } .cab__logo { gap: 10px; } }
 
 /* ---------- Portada ---------- */
 .portada { min-height: 100svh; background: var(--navy-975); color: #fff; position: relative; overflow: hidden; }
@@ -111,7 +111,7 @@ h1, h2, h3, h4 { font-family: var(--f-titulo); letter-spacing: -.02em; }
 .portada__acciones { display: flex; gap: 10px; flex-wrap: wrap; }
 .sello-colab { display: inline-flex; align-items: center; gap: 14px; padding: 8px 16px 8px 10px; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); margin-bottom: 22px; font: 500 12.5px var(--f-texto); color: var(--n-350); }
 .sello-colab img { height: 13px; width: auto; }
-.sello-colab .ctci { height: 20px; }
+.sello-colab .ctci { height: 44px; }
 .sello-colab b { color: #fff; font-weight: 600; }
 @media (max-width: 560px) { .sello-colab b { display: none; } .aviso { font-size: 12px; padding-block: 7px; } }
 
@@ -134,7 +134,7 @@ h1, h2, h3, h4 { font-family: var(--f-titulo); letter-spacing: -.02em; }
 @media (max-width: 960px) { .bento { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .bento { grid-template-columns: 1fr; } .bento__ancho { grid-column: auto; } .bento__alto { grid-row: auto; } }
 
-/* ---------- Colaboración MinCiencia × ElevenLabs ---------- */
+/* ---------- Colaboración MinCTCI × ElevenLabs ---------- */
 .colab__logos { display: flex; align-items: center; justify-content: center; gap: clamp(20px, 4vw, 56px); flex-wrap: wrap; }
 .colab__logos .ctci { height: clamp(52px, 6vw, 80px); width: auto; }
 .colab__logos .el { height: clamp(22px, 2.6vw, 34px); width: auto; }
@@ -194,7 +194,7 @@ h1, h2, h3, h4 { font-family: var(--f-titulo); letter-spacing: -.02em; }
 /* ---------- Pie ---------- */
 .pie { background: var(--navy-900); color: #fff; padding: 56px 0 32px; }
 .pie__colab { display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: center; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,.12); margin-bottom: 24px; }
-.pie__colab .escudo { height: 60px; } .pie__colab .ctci { height: 38px; } .pie__colab .el { height: 18px; }
+.pie__colab .ctci { height: 96px; } .pie__colab .el { height: 18px; }
 .pie p { margin: 0 0 6px; color: var(--n-350); font-size: 13.5px; }
 .pie a:not(.btn) { color: var(--lima); }
 

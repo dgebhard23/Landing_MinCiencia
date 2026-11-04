@@ -1,7 +1,7 @@
 # Revisión: formulario de la propuesta Lovable vs. bases
 
 **Propuesta revisada:** https://tomorrow-workshop-compass.lovable.app/ (formulario de 4 pasos)
-**Bases de referencia:** `bases/Bases_Activa_Startup_con_IA_2026-11-02.docx`, del 2 de noviembre de 2026 (copia legible en `bases/bases.md`)
+**Bases de referencia:** `bases/Bases_Activa_Startup_EBCT_con_IA.pdf`, versión de noviembre de 2026 con el calendario del 11 de noviembre (copia legible en `bases/bases.md`)
 **Fecha de revisión:** 3 de noviembre de 2026
 
 ## Conclusión

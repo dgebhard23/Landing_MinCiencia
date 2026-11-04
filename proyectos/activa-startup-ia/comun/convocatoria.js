@@ -1,28 +1,29 @@
-/* Activa Startup con IA: datos de la convocatoria (bases del 2 de noviembre de 2026) y componentes compartidos.
+/* Activa Startup con IA: datos de la convocatoria (bases de noviembre de 2026) y componentes compartidos.
    Cárgalo ANTES de los modulo.js: calcula el estado de cada etapa y lo deja en el JSON que lee el módulo 09.
    Todo lo que cambia con las bases está en ACTIVA: fechas, criterios y textos. */
 (() => {
   const ACTIVA = {
-    nombre: 'Activa Startup con IA',
-    abre: '2026-11-03',
-    consultas: '2026-11-10',
-    cierre: '2026-11-16T15:00:00-03:00',   // numeral 11: lunes 16 de noviembre, 15:00
-    resultados: '2026-12-03',
-    contacto: 'https://siac.minciencia.gob.cl/web',
+    nombre: 'Activa Startup/EBCT con IA',
+    nombrePublico: 'Activa Startup/EBCT con IA',
+    abre: '2026-11-11',
+    consultas: '2026-11-25',
+    cierre: '2026-11-30T15:00:00-03:00',   // numeral 11: lunes 30 de noviembre, 15:00
+    resultados: '2026-12-17',
+    contacto: 'contacto@minciencia.gob.cl',
     // Etapas del numeral 11. Fechas AAAA-MM-DD, hora de Chile.
     etapas: [
-      { n: '1', nombre: 'Postulación', desde: '2026-11-03', hasta: '2026-11-16', texto: 'Completa el formulario en línea y adjunta los documentos. Cierra el lunes 16 de noviembre a las 15:00.', participa: true },
-      { n: '2', nombre: 'Admisibilidad', desde: '2026-11-17', hasta: '2026-11-20', texto: 'Lista de chequeo del formulario y los documentos. Se puede pedir, por una sola vez, subsanar errores formales en 2 días hábiles.' },
-      { n: '3', nombre: 'Evaluación', desde: '2026-11-23', hasta: '2026-12-02', texto: 'Pertinencia de la propuesta, puntaje según los 7 criterios y verificación documental. ElevenLabs revisa la nómina con su análisis de fraude.' },
-      { n: '4', nombre: 'Resultados y activación', desde: '2026-12-03', hasta: '2026-12-31', texto: 'Publicación y aviso por correo el 3 de diciembre. Cada startup/EBCT seleccionada completa el formulario de activación de ElevenLabs y comienza sus 12 meses.', participa: true },
+      { n: '1', nombre: 'Postulación', desde: '2026-11-11', hasta: '2026-11-30', texto: 'Completa el formulario en línea y adjunta los documentos. Cierra el lunes 30 de noviembre a las 15:00.', participa: true },
+      { n: '2', nombre: 'Admisibilidad', desde: '2026-12-01', hasta: '2026-12-16', texto: 'Lista de chequeo del formulario y los documentos. Se puede pedir, por una sola vez, subsanar errores formales en 2 días hábiles.' },
+      { n: '3', nombre: 'Evaluación', desde: '2026-12-01', hasta: '2026-12-16', texto: 'Pertinencia de la propuesta, puntaje según los 7 criterios y verificación documental. ElevenLabs revisa la nómina con su análisis de fraude.' },
+      { n: '4', nombre: 'Resultados y activación', desde: '2026-12-17', hasta: '2027-01-08', texto: 'Publicación y aviso por correo el 17 de diciembre. Cada startup/EBCT seleccionada completa el formulario de activación de ElevenLabs y comienza sus 12 meses.', participa: true },
     ],
-    // Numeral 8: criterios y niveles. La región se deduce de la casa matriz; la calidad la asigna el Ministerio.
+    // Numeral 8: criterios y niveles. La región se deduce de la casa matriz; la calidad la asigna ElevenLabs.
     criterios: [
       { id: 'producto', nombre: 'Producto en el mercado o piloto con clientes', max: 20, niveles: [[0, 'MVP o prototipo funcional sin usuarios'], [10, 'Piloto con al menos 1 cliente o socio'], [20, 'Producto en el mercado con clientes que pagan']], prueba: 'Carta del cliente o socio del piloto; factura o enlace al producto.' },
       { id: 'financiamiento', nombre: 'Financiamiento público previo de I+D+i o emprendimiento', max: 20, niveles: [[0, 'Sin adjudicaciones'], [10, 'Una adjudicación de emprendimiento o innovación (CORFO Semilla, SERCOTEC, Start-Up Chile…)'], [20, 'Una adjudicación de I+D (ANID, CORFO I+D) o dos o más adjudicaciones']], prueba: 'Resolución de adjudicación, convenio o certificado de la institución.' },
       { id: 'equipo', nombre: 'Equipo técnico propio', max: 15, niveles: [[0, 'Solo la persona responsable técnica, o equipo externo'], [8, 'Una persona técnica propia adicional'], [15, 'Dos o más personas técnicas propias adicionales']], prueba: 'Nombre, rol y enlace al perfil de cada integrante, en el formulario.' },
       { id: 'ventas', nombre: 'Ventas en el último año tributario', max: 15, niveles: [[0, 'Sin ventas'], [8, 'Hasta 2.400 UF'], [15, 'Más de 2.400 UF']], prueba: 'Carpeta Tributaria Electrónica del SII.' },
-      { id: 'calidad', nombre: 'Calidad de la propuesta', max: 10, niveles: [[5, 'Integración descrita en general, sin detalle técnico o sin indicador verificable'], [10, 'Identifica el componente de ElevenLabs, cómo se implementa y un indicador cuantificable']], prueba: 'La evalúa el Ministerio con las 3 respuestas de la propuesta de uso.' },
+      { id: 'calidad', nombre: 'Calidad de la propuesta', max: 10, niveles: [[5, 'Integración descrita en general, sin detalle técnico o sin indicador verificable'], [10, 'Identifica el componente de ElevenLabs, cómo se implementa y un indicador cuantificable']], prueba: 'La evalúa ElevenLabs con las 3 respuestas de la propuesta de uso del formulario.' },
       { id: 'mujeres', nombre: 'Liderazgo femenino', max: 10, niveles: [[0, 'No cumple'], [10, 'Representante legal mujer o al menos 50 % de la propiedad en manos de mujeres']], prueba: 'Certificado de vigencia, estatutos o certificado de socios.' },
       { id: 'region', nombre: 'Casa matriz fuera de la Región Metropolitana', max: 10, niveles: [[0, 'Casa matriz en la Región Metropolitana'], [10, 'Casa matriz en otra región']], prueba: 'Carpeta Tributaria Electrónica del SII (domicilio registrado).' },
     ],
@@ -33,21 +34,21 @@
       { id: 'servicios', audio: 'audio/servicios.mp3', corto: 'Agentes que atienden sin tiempos de espera.', foto: 'fotos/atencion.jpg', nombre: 'Servicios y atención automatizada', ej: 'Mesas de ayuda con agentes conversacionales en tiempo real, atención telefónica sin esperas, transcripción y análisis de llamadas.', frase: 'Gracias por llamar. Ya encontré su pedido: llega mañana entre las diez y las dos. ¿Necesita algo más?' },
       { id: 'creativas', audio: 'audio/creativas.mp3', corto: 'Doblaje, narración y sonido para contenidos.', foto: 'fotos/creativas.jpg', nombre: 'Industrias creativas', ej: 'Doblaje multilingüe de series y documentales, narración de podcasts, efectos de sonido y música para videojuegos y producciones audiovisuales.', frase: 'Capítulo uno. En el extremo sur del mundo, donde el viento no se detiene, comienza esta historia.' },
     ],
-    // Numeral 1: quién hace qué en la colaboración (Memorando de Entendimiento)
+    // Numeral 1: distribución de tareas
     colaboracion: {
-      ministerio: ['Diseña, publica y difunde la convocatoria.', 'Revisa admisibilidad e integridad.', 'Evalúa y selecciona a las startups/EBCT.'],
-      elevenlabs: ['Aporta licencias de hasta 44.000.000 créditos por startup/EBCT (54.000 minutos de procesamiento), por 12 meses.', 'Habilita las licencias a las startups/EBCT seleccionadas.', 'Da apoyo técnico a la cohorte durante el año.'],
+      ministerio: ['Difunde y promueve la convocatoria entre los actores del ecosistema de innovación, dentro del ámbito de sus competencias.'],
+      elevenlabs: ['Convoca y administra la convocatoria. Aporta licencias de hasta 44.000.000 créditos por startup/EBCT (aprox. 54.000 minutos de procesamiento), por 12 meses. Además de apoyo técnico.', 'Revisa admisibilidad e integridad, evalúa y selecciona a las startups/EBCT.', 'Habilita las licencias a las startups/EBCT seleccionadas.'],
     },
     // Numeral 4: requisitos y exclusiones, como preguntas de sí o no. «ok» es la respuesta que cumple.
     elegibilidad: [
       { p: '¿Tu empresa es una persona jurídica con fines de lucro constituida en Chile?', ok: 'si' },
       { p: '¿Tu empresa es startup o EBCT?', d: 'Startup: empresa innovadora con modelo escalable. EBCT: producto o servicio basado en conocimiento científico o tecnológico.', ok: 'si' },
-      { p: '¿El inicio de actividades de tu empresa ante el SII tiene entre 6 meses y 10 años al 16 de noviembre de 2026?', ok: 'si' },
+      { p: '¿El inicio de actividades de tu empresa ante el SII tiene entre 6 meses y 10 años al 30 de noviembre de 2026?', ok: 'si' },
       { p: '¿Tu empresa tiene 25 trabajadores o menos?', ok: 'si' },
       { p: '¿Tienes un MVP, prototipo funcional o software en operación donde integrar ElevenLabs?', ok: 'si' },
       { p: '¿Tienes al menos una persona responsable de la implementación técnica?', ok: 'si' },
-      { p: '¿Tu empresa cumple las condiciones de integridad definidas en las bases?', d: 'Numeral 5: entre otras, sin condenas por delitos económicos ni términos anticipados de convenios con ANID o CORFO en los últimos 3 años.', ok: 'si' },
-      { p: '¿Tu empresa está al día en obligaciones laborales y previsionales?', d: 'Se acredita con el certificado F30.', ok: 'si' },
+      { p: '¿Tu empresa cumple las condiciones de integridad definidas en las bases?', d: 'Numeral 5 y Anexo N° 1: entre otras, sin condenas por delitos económicos ni términos anticipados de convenios con ANID o CORFO en los últimos 3 años.', ok: 'si' },
+      { p: '¿Tu empresa está al día en obligaciones laborales y previsionales?', d: 'Se acredita con el certificado F30 y la declaración del Anexo N° 1.', ok: 'si' },
       { p: '¿Tu producto está dirigido a menores de 18 años?', d: 'Incluye productos educativos para escolares.', ok: 'no' },
       { p: '¿Tu empresa es agencia, consultora o pyme sin desarrollo tecnológico propio?', ok: 'no' },
       { p: '¿Desarrollas productos que compiten con los de ElevenLabs?', ok: 'no' },
@@ -55,7 +56,7 @@
     ],
     // Preguntas frecuentes: [tema, pregunta, respuesta]. Todo sale de las bases.
     faq: [
-      ['beneficio', '¿Qué recibe cada startup/EBCT seleccionada?', 'Una licencia de la plataforma ElevenLabs de hasta 44.000.000 créditos por startup/EBCT (54.000 minutos de procesamiento) para usar durante 12 meses desde la activación. Incluye síntesis de voz, transcripción, generación de música y agentes conversacionales de voz, según la licencia y las condiciones técnicas de ElevenLabs. Además, la cohorte recibe una sesión introductoria, un correo dedicado para consultas técnicas y una sesión trimestral de preguntas y respuestas.'],
+      ['beneficio', '¿Qué recibe cada startup/EBCT seleccionada?', 'Una licencia de la plataforma ElevenLabs de hasta 44.000.000 créditos por startup/EBCT (aprox. 54.000 minutos de procesamiento) para usar durante 12 meses desde la activación. Incluye síntesis de voz, transcripción, generación de música y agentes conversacionales de voz, según la licencia y las condiciones técnicas de ElevenLabs. Además, la cohorte recibe una sesión introductoria, un correo dedicado para consultas técnicas y una sesión trimestral de preguntas y respuestas.'],
       ['beneficio', '¿Se entrega dinero?', 'No. El beneficio es una licencia de uso: es intransferible y no se puede canjear por dinero.'],
       ['beneficio', '¿Cuántas startups/EBCT se seleccionan?', 'Hasta 100. Las postulaciones pertinentes que no queden entre las 100 primeras forman una lista de espera, en orden de puntaje, por si se libera un cupo.'],
       ['requisitos', '¿Quién puede postular?', 'Startups o EBCT: personas jurídicas con fines de lucro constituidas en Chile, con inicio de actividades de entre 6 meses y 10 años al cierre, hasta 25 trabajadores, una persona responsable de la implementación técnica, un MVP, prototipo funcional o software en operación, y sin deudas laborales ni previsionales.'],
@@ -64,18 +65,18 @@
       ['requisitos', '¿Puedo postular con un producto educativo?', 'Sí, si está dirigido a personas mayores de 18 años. Se excluyen los proyectos y productos para menores de edad, incluidos los del ámbito educativo.'],
       ['requisitos', '¿Qué usos están excluidos?', 'Los proyectos o productos dirigidos a menores de 18 años, incluidos los educativos; las agencias, consultoras o pymes sin desarrollo tecnológico propio; clonar voces sin consentimiento expreso de su titular, suplantar identidades o generar contenido engañoso; desarrollar productos que compitan con los de ElevenLabs, y ser cliente enterprise vigente de ElevenLabs o haber recibido antes un grant de ElevenLabs. Los clientes de pago de autoservicio sí pueden postular.'],
       ['beneficio', '¿Qué acompañamiento declara la empresa?', 'ElevenLabs entrega a la cohorte una sesión introductoria, un correo dedicado para consultas técnicas y una sesión trimestral de preguntas y respuestas. Las startups/EBCT seleccionadas deben participar en estas instancias.'],
-      ['beneficio', '¿Cuánto dura el acceso?', '12 meses desde la activación del servicio.'],
+      ['beneficio', '¿Cuánto dura el acceso?', '12 meses de la activación del servicio.'],
       ['postulación', '¿Cuántas postulaciones puede presentar una empresa?', 'Una. Tampoco se admiten postulaciones de dos o más empresas con los mismos socios mayoritarios o el mismo representante legal.'],
       ['postulación', '¿Qué documentos necesito?', 'Certificado de vigencia (de hasta 60 días), Carpeta Tributaria Electrónica (de hasta 30 días), certificado F30, planilla de cotizaciones del último mes (si tienes trabajadores), Anexo N° 1 firmado, presentación en PDF (si no tienes sitio web) y el enlace a la demo o a un video de hasta 2 minutos. Para sumar puntaje, también los respaldos de cada criterio que declares.'],
-      ['postulación', '¿Qué pasa si me falta un documento?', 'Si es un documento obligatorio, la postulación es inadmisible. El Ministerio puede pedir, por una sola vez, corregir errores u omisiones formales en 2 días hábiles. Si falta el respaldo de un criterio de puntaje, ese criterio queda en 0 puntos y la postulación sigue en concurso.'],
-      ['postulación', '¿Puedo cambiar mi postulación después de enviarla?', 'No. Una vez enviada no se puede modificar. Solo se aceptan las aclaraciones formales que pida el Ministerio. El formulario guarda un borrador en tu navegador para que no tengas que enviarla apurado.'],
-      ['postulación', '¿Hasta cuándo puedo postular?', 'Hasta el lunes 16 de noviembre de 2026 a las 15:00, hora de Chile. Las consultas se reciben hasta el martes 10 de noviembre en siac.minciencia.gob.cl.'],
-      ['evaluación', '¿Cómo se evalúan las postulaciones?', 'En tres pasos. Primero, el Ministerio califica la propuesta como pertinente o no pertinente: es pertinente si describe un uso concreto y realizable de la plataforma, vinculado al negocio de la empresa. Después, las pertinentes se ordenan por puntaje según 7 criterios, con un máximo de 100 puntos. Por último, las 100 primeras se verifican con sus documentos y ElevenLabs revisa la nómina con su propio análisis de fraude.'],
+      ['postulación', '¿Qué pasa si me falta un documento?', 'Si es un documento obligatorio, la postulación es inadmisible. ElevenLabs puede pedir, por una sola vez, corregir errores u omisiones formales en 2 días hábiles. Si falta el respaldo de un criterio de puntaje, ese criterio queda en 0 puntos y la postulación sigue en concurso.'],
+      ['postulación', '¿Puedo cambiar mi postulación después de enviarla?', 'No. Una vez enviada no se puede modificar. Solo se aceptan las aclaraciones formales que sean solicitadas. El formulario guarda un borrador en tu navegador para que no tengas que enviarla apurado.'],
+      ['postulación', '¿Hasta cuándo puedo postular?', 'Hasta el lunes 30 de noviembre de 2026 a las 15:00, hora de Chile. Las consultas se reciben hasta el miércoles 25 de noviembre en contacto@minciencia.gob.cl.'],
+      ['evaluación', '¿Cómo se evalúan las postulaciones?', 'En tres pasos. Primero, se califica la propuesta como pertinente o no pertinente: es pertinente si describe un uso concreto y realizable de la plataforma, vinculado al negocio de la empresa. Después, las pertinentes se evalúan según 7 criterios, con un máximo de 100 puntos. Por último, las 100 primeras se verifican con sus documentos y ElevenLabs revisa la nómina con su propio análisis de fraude.'],
       ['evaluación', '¿Qué da puntaje?', 'Siete criterios, con un máximo de 100 puntos: producto en el mercado o piloto con clientes (20), financiamiento público previo (20), equipo técnico propio (15), ventas del último año tributario (15), calidad de la propuesta (10), liderazgo femenino (10) y casa matriz fuera de la Región Metropolitana (10). Cada criterio vale solo si lo acreditas con su documento. El detalle está en el numeral 8 de las bases.'],
       ['evaluación', '¿Cómo se resuelven los empates?', 'En este orden: propuesta en un ámbito prioritario, mayor puntaje en calidad de la propuesta, mayor puntaje en financiamiento público previo, mayor puntaje en liderazgo femenino y, por último, la postulación enviada primero.'],
-      ['resultados', '¿Cuándo se conocen los resultados?', 'El 3 de diciembre de 2026. Se publican en el sitio web y se avisa por correo a cada empresa.'],
-      ['resultados', 'Si me seleccionan, ¿qué tengo que hacer?', 'Completar el formulario de activación de ElevenLabs y las gestiones a tu cargo dentro de 10 días hábiles desde la notificación (numeral 3 de las bases). Si no lo haces, puedes perder el cupo. Después, debes usar la licencia según tu propuesta, participar en las sesiones de acompañamiento y, si se te pide, colaborar en una actividad de difusión.'],
-      ['datos', '¿Qué pasa con mis datos?', 'El Ministerio los usa para gestionar la convocatoria. Para habilitar la licencia puede comunicar a ElevenLabs solo los datos necesarios: razón social, RUT, nombre, cargo y correo de las personas responsables, y la condición de seleccionada. El tratamiento se ajusta a la Ley N° 19.628 y a la Ley N° 21.719.'],
+      ['resultados', '¿Cuándo se conocen los resultados?', 'El 17 de diciembre de 2026. ElevenLabs los publica en el sitio web y avisa por correo a cada empresa.'],
+      ['resultados', 'Si me seleccionan, ¿qué tengo que hacer?', 'Completar el formulario de activación de ElevenLabs y las gestiones a tu cargo dentro de 10 días hábiles desde la notificación (numerales 3 y 10 de las bases). Si no lo haces, puedes perder el cupo. Después, debes usar la licencia según tu propuesta, participar en las sesiones de acompañamiento y, si se te pide, colaborar de forma voluntaria en una actividad de difusión.'],
+      ['datos', '¿Qué pasa con mis datos?', 'ElevenLabs los trata, en calidad de responsable, para gestionar la postulación, admisibilidad, evaluación, verificación, selección, habilitación del beneficio y seguimiento de esta convocatoria. Los datos pueden ser transferidos a ElevenLabs, Inc., en los Estados Unidos de América. El tratamiento se ajusta a la Ley N° 19.628 (numeral 12 de las bases).'],
     ],
   };
 
@@ -220,13 +221,13 @@
     caja.innerHTML = `<form class="preg__form" role="search"><label class="sr-only" for="preg-q">Escribe tu pregunta</label>
       <input id="preg-q" type="search" placeholder="¿Qué quieres saber? Por ejemplo: ¿puedo postular sin trabajadores?" autocomplete="off"><button class="btn btn--lima" type="submit">Preguntar</button></form>
       <div class="preg__chips" data-chips></div><div class="preg__hilo" aria-live="polite" data-hilo></div>
-      <p class="preg__pie">¿No está tu pregunta? <button class="preg__todas" type="button" data-todas>Ver las ${ACTIVA.faq.length} preguntas</button> o consulta en <a href="${ACTIVA.contacto}" target="_blank" rel="noopener">siac.minciencia.gob.cl</a> hasta el 10 de noviembre.</p>`;
+      <p class="preg__pie">¿No está tu pregunta? <button class="preg__todas" type="button" data-todas>Ver las ${ACTIVA.faq.length} preguntas</button> o consulta en <a href="mailto:${ACTIVA.contacto}">${ACTIVA.contacto}</a> hasta el 25 de noviembre.</p>`;
     const chips = caja.querySelector('[data-chips]'), hilo = caja.querySelector('[data-hilo]'), input = caja.querySelector('input');
     const ponerChips = (lista) => { chips.innerHTML = lista.map((e) => `<button type="button" data-q="${e.i}">${e.q}</button>`).join(''); };
     const responder = (pregunta, e, otras) => {
       hilo.innerHTML = `<p class="preg__yo">${pregunta.replace(/</g, '&lt;')}</p>` + (e
         ? `<div class="preg__resp"><b>${e.q}</b><p>${e.r}</p></div>`
-        : `<div class="preg__resp"><p>No encontré una respuesta para eso en las preguntas frecuentes. Revisa las bases o consulta en <a href="${ACTIVA.contacto}" target="_blank" rel="noopener">siac.minciencia.gob.cl</a>.</p></div>`);
+        : `<div class="preg__resp"><p>No encontré una respuesta para eso en las preguntas frecuentes. Revisa las bases o consulta en <a href="mailto:${ACTIVA.contacto}">${ACTIVA.contacto}</a>.</p></div>`);
       ponerChips(otras.length ? otras : populares.map((k) => indice[k]));
     };
     ponerChips(populares.map((k) => indice[k]));

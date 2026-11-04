@@ -32,8 +32,8 @@
   const vUrl = (x) => (!x || /^https?:\/\/[^\s.]+\.[^\s]+$/i.test(x) ? '' : 'Escribe un enlace completo, que empiece con https://');
   const vTel = (x) => (/^\+?[\d\s()-]{8,16}$/.test(x) ? '' : 'Escribe un teléfono con código, por ejemplo +56 9 1234 5678.');
   // Inicio de actividades: entre 6 meses y 10 años al cierre (16-11-2026)
-  const vInicio = (x) => (!x ? '' : x > '2026-05-16' ? 'Debe tener al menos 6 meses al cierre: inicio de actividades hasta el 16 de mayo de 2026.'
-    : x < '2016-11-16' ? 'No puede tener más de 10 años al cierre: inicio de actividades desde el 16 de noviembre de 2016.' : '');
+  const vInicio = (x) => (!x ? '' : x > '2026-05-30' ? 'Debe tener al menos 6 meses al cierre: inicio de actividades hasta el 30 de mayo de 2026.'
+    : x < '2016-11-30' ? 'No puede tener más de 10 años al cierre: inicio de actividades desde el 30 de noviembre de 2016.' : '');
 
   // ---------- Definición de los pasos ----------
   // Tipos: text, email, url, tel, date, number, select, radio, checks, textarea, archivo, equipo, html.
@@ -46,7 +46,7 @@
       ] },
       { fila: [
         { n: 'fantasia', l: 'Nombre de fantasía o marca', t: 'text' },
-        { n: 'inicio', l: 'Fecha de inicio de actividades ante el SII', t: 'date', req: true, valida: vInicio, ayuda: 'Debe tener entre 6 meses y 10 años al 16 de noviembre de 2026.' },
+        { n: 'inicio', l: 'Fecha de inicio de actividades ante el SII', t: 'date', req: true, valida: vInicio, ayuda: 'Debe tener entre 6 meses y 10 años al 30 de noviembre de 2026.' },
       ] },
       { n: 'tipo', l: '¿Qué tipo de empresa es?', t: 'radio', req: true, opts: [
         { v: 'Startup', l: 'Startup', d: 'Empresa innovadora con un modelo de negocio escalable.' },
@@ -103,7 +103,7 @@
       { n: 'p1', l: '¿Qué problema u oportunidad abordarán con IA de voz?', t: 'textarea', req: true, max: 1000 },
       { n: 'p2', l: '¿Qué harán con ElevenLabs y cómo lo integrarán a su producto u operación?', t: 'textarea', req: true, max: 1000, ayuda: 'Qué funcionalidad usarán y cómo se conecta con su producto: API, flujo, tipo de usuarios.' },
       { n: 'p3', l: '¿Qué resultado esperan y con qué indicador se medirán?', t: 'textarea', req: true, max: 1000, ayuda: 'Ej.: «bajar de 6 a 2 minutos el tiempo de espera en la línea de atención, medido con el registro de llamadas, a los 6 meses».' },
-      { n: 'funciones', l: 'Funcionalidades de ElevenLabs que usarán', t: 'checks', opts: ['Síntesis de voz', 'Transcripción', 'Agentes conversacionales de voz', 'Generación de música'] },
+      { n: 'funciones', l: 'Funcionalidades de ElevenLabs que usarán', t: 'checks', req: true, opts: ['Síntesis de voz', 'Transcripción', 'Agentes conversacionales de voz', 'Generación de música'] },
       { n: 'demo', l: 'Enlace a la demostración del producto o a un video de hasta 2 minutos', t: 'url', req: true, valida: vUrl, ph: 'https://', ayuda: 'Acredita que tienes un MVP, prototipo funcional o software en operación.' },
     ] },
     { titulo: 'Documentos', sec: 'E · Documentos obligatorios', campos: [
@@ -124,8 +124,8 @@
         'La startup/EBCT no es cliente enterprise vigente de ElevenLabs ni ha recibido antes un grant de ElevenLabs.',
         'La información y los documentos son fidedignos y están vigentes. Entiendo que, una vez enviada, la postulación no se puede modificar y que se admite una por empresa.',
         'Usaremos la licencia conforme a los Términos de Servicio y la Política de Uso Prohibido de ElevenLabs: sin clonar voces sin consentimiento expreso, sin suplantar identidades ni generar contenido engañoso.',
-        'Recibí la información sobre el tratamiento de datos personales: el Ministerio los usa para gestionar esta convocatoria y podrá comunicar a ElevenLabs los estrictamente necesarios para habilitar la licencia, lo que puede implicar una transferencia internacional (numeral 12).'] },
-      { n: 'cerrado', t: 'html', html: '<p class="fx__aviso fx__aviso--rojo" data-cerrado hidden>El plazo de postulación cerró el lunes 16 de noviembre de 2026 a las 15:00. Ya no se reciben postulaciones.</p>' },
+        'Recibí la información sobre el tratamiento de datos personales: ElevenLabs los trata, en calidad de responsable, para gestionar esta convocatoria, lo que puede implicar su transferencia a ElevenLabs, Inc. en los Estados Unidos de América (numeral 12).'] },
+      { n: 'cerrado', t: 'html', html: '<p class="fx__aviso fx__aviso--rojo" data-cerrado hidden>El plazo de postulación cerró el lunes 30 de noviembre de 2026 a las 15:00. Ya no se reciben postulaciones.</p>' },
       { n: 'error', t: 'html', html: '<p class="fx__error" data-error-envio hidden></p>' },
     ] },
   ];
@@ -153,7 +153,7 @@
   dlg.className = 'fx'; dlg.id = 'postulacion'; dlg.setAttribute('aria-labelledby', 'pf-titulo');
   dlg.innerHTML = `<button class="fx__x" type="button" data-cerrar aria-label="Cerrar">×</button>
     <form novalidate>
-      <div class="fx__cab"><p class="etiqueta">Postulación · ${A.nombre}</p><h3 id="pf-titulo">Formulario de postulación</h3>
+      <div class="fx__cab"><p class="etiqueta">Postulación · ${A.nombrePublico}</p><h3 id="pf-titulo">Formulario de postulación</h3>
         <ol class="fx__pasos">${PASOS.map((p) => `<li>${p.titulo}</li>`).join('')}</ol><p class="fx__cuenta" data-cuenta-paso></p></div>
       <div class="fx__cuerpo"><p class="fx__ayuda" style="margin-bottom:12px">Los campos con * son obligatorios.</p><p class="fx__aviso fx__aviso--rojo" role="alert" data-problemas hidden style="margin-bottom:14px"></p>${PASOS.map((p, i) => `<fieldset data-paso ${i ? 'hidden' : ''}><legend class="fx__sec" tabindex="-1">${p.sec}</legend>
         ${p.campos.map(campo).join('')}</fieldset>`).join('')}
@@ -315,7 +315,7 @@
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
   };
   const slug = (s) => (s || 'empresa').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\W+/g, '_').slice(0, 40);
-  const copia = () => { const v = valores(); word(`Postulacion_${slug(v.razon_social)}`, `<h1>${A.nombre} · Copia de la postulación</h1><p>Generada el ${new Date().toLocaleString('es-CL')}</p>${
+  const copia = () => { const v = valores(); word(`Postulacion_${slug(v.razon_social)}`, `<h1>${A.nombrePublico} · Copia de la postulación</h1><p>Generada el ${new Date().toLocaleString('es-CL')}</p>${
     secciones().map(([t, , items]) => `<h2>${esc(t)}</h2><table>${items.map(([q, x]) => `<tr><th>${esc(q)}</th><td>${esc(x || '—').replace(/\n/g, '<br>')}</td></tr>`).join('')}</table>`).join('')}`); };
   const anexo = () => {
     const v = valores(), h = new Date(), mes = h.toLocaleDateString('es-CL', { month: 'long' }), _ = (x, ph) => esc(x) || `[${ph}]`;
@@ -325,14 +325,14 @@
       'Ni la empresa, ni sus socios, ni su representante legal han sido condenados por delitos económicos, fraude, estafa, lavado de activos o delitos informáticos.',
       'La empresa no registra término anticipado de convenios por incumplimiento, ni rendiciones pendientes, con ANID, CORFO u otro organismo público de fomento en los últimos 3 años.',
       'La empresa no presenta otra postulación a esta convocatoria, directamente ni a través de otra sociedad con los mismos socios mayoritarios o el mismo representante legal.',
-      'Entre los socios, administradores y representantes de la empresa no hay funcionarios del Ministerio de Ciencia, Tecnología, Conocimiento e Innovación que participen en esta convocatoria, ni sus cónyuges, convivientes civiles o parientes hasta el tercer grado de consanguinidad y segundo de afinidad inclusive.',
+      'Entre los socios, administradores y representantes de la empresa no hay trabajadores de ElevenLabs que intervengan en esta convocatoria, ni funcionarios del Ministerio de Ciencia, Tecnología, Conocimiento e Innovación que hayan intervenido en el MdE o en la difusión de esta convocatoria, ni sus cónyuges, convivientes civiles o parientes hasta el tercer grado de consanguinidad y segundo de afinidad inclusive.',
       'La empresa usará la licencia conforme a los Términos de Servicio y la Política de Uso Prohibido de ElevenLabs, sin clonar voces sin consentimiento expreso de su titular, suplantar identidades ni generar contenido engañoso.',
-      'Declaro haber recibido la información relativa al tratamiento de datos personales asociado a la convocatoria. Los datos estrictamente necesarios podrán ser comunicados a ElevenLabs para verificar la elegibilidad y habilitar la licencia, con sujeción a la normativa aplicable y a las condiciones informadas en las bases.',
+      'Declaro haber recibido la información relativa al tratamiento de datos personales asociado a la convocatoria. Los datos serán tratados por ElevenLabs, en calidad de responsable, para verificar la elegibilidad y habilitar la licencia, incluida su eventual transferencia a ElevenLabs, Inc. en los Estados Unidos de América, con sujeción a la normativa aplicable y a las condiciones informadas en las bases.',
       'La empresa tiene un máximo de 25 trabajadores a la fecha de postulación.',
       'La empresa no desarrolla proyectos ni productos dirigidos a personas menores de 18 años (incluidos los del ámbito educativo); no es agencia, consultora ni pyme sin desarrollo tecnológico propio; no desarrolla productos que compitan con los de ElevenLabs; no es cliente enterprise vigente de ElevenLabs y no ha recibido antes un grant de ElevenLabs.',
       `La empresa no registra deudas laborales exigibles e impagas ni deudas previsionales a la fecha de postulación.${Number(v.trabajadores) === 0 ? ' La empresa no cuenta con trabajadores contratados, lo que declaro para los efectos de los medios de verificación que correspondan.' : ' Si no cuenta con trabajadores contratados, así lo declaro para los efectos de los medios de verificación que correspondan.'}`,
     ];
-    word(`Anexo_1_${slug(v.razon_social)}`, `<p style="text-align:center"><b>ANEXO N°1</b><br><b>DECLARACIÓN JURADA SIMPLE</b><br>Convocatoria "${A.nombre}"</p>
+    word(`Anexo_1_${slug(v.razon_social)}`, `<p style="text-align:center"><b>ANEXO N°1</b><br><b>DECLARACIÓN JURADA SIMPLE</b><br>Convocatoria "${A.nombre}" de ElevenLabs</p>
 <p>En [ciudad], a ${h.getDate()} de ${mes} de ${h.getFullYear()}, ${_(v.rep_nombre, 'nombre completo')}, cédula nacional de identidad N° ${_(v.rep_rut, 'RUT')}, en representación de ${_(v.razon_social, 'razón social')}, RUT N° ${_(v.rut, 'RUT empresa')}, ambos domiciliados en ${_(v.direccion, 'domicilio')}, declaro bajo juramento que:</p>
 ${puntos.map((p, i) => `<p>${i + 1}. ${p}</p>`).join('')}
 <p>Declaro conocer que la falsedad de esta declaración podrá ocasionar la inadmisibilidad de la postulación o la revocación del beneficio, sin perjuicio de las responsabilidades legales que puedan corresponder conforme a la normativa vigente.</p>
@@ -366,7 +366,7 @@ ${puntos.map((p, i) => `<p>${i + 1}. ${p}</p>`).join('')}
     form.hidden = true; listo.hidden = false;
     listo.innerHTML = folio
       ? `<h3 tabindex="-1">Recibimos tu postulación</h3><p>Tu número de folio es</p><p class="fx__folio">${esc(folio)}</p>
-         <p>Te enviaremos un aviso de recepción al correo del representante legal. Los resultados se publican el ${A.fmt(A.resultados)}. Consultas en <a href="${A.contacto}" target="_blank" rel="noopener">siac.minciencia.gob.cl</a>.</p>
+         <p>Te enviaremos un aviso de recepción al correo del representante legal. Los resultados se publican el ${A.fmt(A.resultados)}. Consultas en <a href="mailto:${A.contacto}">${A.contacto}</a>.</p>
          <p><button class="btn btn--linea" type="button" data-copia>Descargar copia</button></p>`
       : `<h3 tabindex="-1">Modo demostración</h3><p>El envío está desconectado: no se mandó ningún dato. Al publicar la landing, aquí aparecerá el folio de la postulación.</p>
          <p><button class="btn btn--linea" type="button" data-copia>Descargar copia</button> <button class="btn btn--linea" type="button" data-volver>Volver al formulario</button></p>`;
@@ -386,6 +386,7 @@ ${puntos.map((p, i) => `<p>${i + 1}. ${p}</p>`).join('')}
     const err = $('[data-error-envio]'); err.hidden = true;
     const v = valores(), datos = new URLSearchParams();
     secciones().forEach(([, , items]) => items.forEach(([q, x]) => { if (!todos.find((c) => rotulo(c) === q && c.t === 'archivo')) datos.append(q, x); }));
+    datos.append('Declaraciones aceptadas', v.acepta.join(' | '));
     datos.append('Enviado (navegador)', new Date().toISOString());
     const leer = (n, f) => new Promise((ok, ko) => { const r = new FileReader(); r.onload = () => ok({ campo: todos.find((c) => c.n === n).l, nombre: f.name, tipo: 'application/pdf', datos: String(r.result).split(',')[1] }); r.onerror = ko; r.readAsDataURL(f); });
     enviar.disabled = true; enviar.firstElementChild.textContent = 'Enviando…';
@@ -394,7 +395,7 @@ ${puntos.map((p, i) => `<p>${i + 1}. ${p}</p>`).join('')}
       datos.append('adjuntos', JSON.stringify(await Promise.all(vigentes.map(([n, f]) => leer(n, f)))));
       const r = await fetch(ENDPOINT, { method: 'POST', body: datos }); // urlencoded: Apps Script lo recibe sin preflight CORS
       const res = await r.json().catch(() => ({}));
-      if (!r.ok || res.ok === false) throw new Error(res.error || r.status);
+      if (!r.ok || res.ok !== true) throw new Error(res.error || `respuesta inesperada del servidor, ${r.status}`); // sin confirmación no se da por recibida
       try { localStorage.removeItem(CLAVE); } catch { /* */ }
       terminar(res.folio || 'Recibida');
     } catch (x) { err.textContent = `No pudimos enviar la postulación (${x.message}). Revisa tu conexión e inténtalo otra vez. Si el problema sigue, descarga la copia y escríbenos a ${A.contacto}.`; err.hidden = false; }

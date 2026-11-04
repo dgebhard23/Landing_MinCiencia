@@ -57,7 +57,7 @@ def armar() -> None:
     html = re.sub(r'((?:src|href)=")((?:\.\./)+(?:img|bases)/[^"$]+\.(?:png|svg|jpg|pdf))(")', archivo, html)
 
     # El atributo download necesita un nombre cuando el enlace es un data URI
-    html = html.replace('" download>', '" download="Bases_Activa_Startup_con_IA.pdf">')
+    html = html.replace('" download>', '" download="Bases_Activa_Startup_EBCT_con_IA.pdf">')
 
     restos = sorted(set(re.findall(r'(?:src|href)="(\.\./[^"]+)"', html)))
     DESTINO.parent.mkdir(exist_ok=True)

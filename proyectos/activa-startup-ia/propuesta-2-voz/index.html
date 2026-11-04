@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Activa Startup/EBCT con IA · MinCiencia y ElevenLabs</title>
-<meta name="description" content="MinCiencia y ElevenLabs entregan sin costo licencias de IA de voz a hasta 100 startups y EBCT chilenas por 12 meses. Postulaciones hasta el 16 de noviembre de 2026.">
+<title>Activa Startup/EBCT con IA · Ministerio de Ciencia, Tecnología, Conocimiento e Innovación y ElevenLabs</title>
+<meta name="description" content="ElevenLabs, en alianza con el Ministerio de Ciencia, Tecnología, Conocimiento e Innovación, entrega sin costo licencias de IA de voz a hasta 100 startups y EBCT chilenas por 12 meses. Postulaciones hasta el 30 de noviembre de 2026.">
 <meta name="theme-color" content="#131332">
 <script>document.documentElement.classList.add('js')</script>
 <!-- Propuesta 2 · La voz. La más expresiva: la voz se vuelve forma.
@@ -31,6 +31,7 @@
 .onda-portada::after { content: ""; position: absolute; inset: auto 0 0; height: 40%; background: linear-gradient(transparent, var(--navy-975)); pointer-events: none; }
 .onda-portada .contenedor { position: relative; z-index: 1; width: 100%; padding-top: 150px; padding-bottom: clamp(40px, 8vh, 96px); max-width: calc(var(--contenedor) + var(--margen) * 2); }
 .onda-portada h1 { font-size: clamp(48px, 8.6vw, 128px); letter-spacing: -.04em; line-height: .96; }
+.onda-portada h1 em { color: var(--lima); }
 @media (max-width: 560px) { .onda-portada h1 { font-size: clamp(34px, 11vw, 48px); } .onda-portada h1 .sangria { padding-left: 0; } }
 /* Beneficio: credencial de la licencia + equivalencias */
 .licencia-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
@@ -40,7 +41,7 @@
 .licencia canvas { position: absolute; right: -20%; top: -30%; width: 90%; aspect-ratio: 1; z-index: -1; opacity: .9; }
 .licencia::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(80% 90% at 0% 100%, rgba(48,83,249,.55), transparent 60%); }
 .licencia__top { display: flex; align-items: center; gap: 14px; }
-.licencia__top .ctci { height: 40px; } .licencia__top .el { height: 15px; } .licencia__top i { width: 1px; height: 26px; background: rgba(255,255,255,.35); }
+.licencia__top .ctci { height: 60px; } .licencia__top .el { height: 15px; } .licencia__top i { width: 1px; height: 26px; background: rgba(255,255,255,.35); }
 .licencia__num b { display: block; font: 700 clamp(36px, 4.6vw, 62px)/1 var(--f-titulo); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
 .licencia__num span { color: var(--azul-200); font-size: 14px; }
 .licencia__pie { display: flex; justify-content: space-between; gap: 12px; font: 600 11px var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--lima); }
@@ -61,12 +62,11 @@
 .alianza { display: grid; grid-template-columns: 1fr minmax(240px, 380px) 1fr; gap: clamp(20px, 4vw, 56px); align-items: center; }
 .alianza .orbe { width: 100%; }
 .alianza__lado { display: grid; gap: 18px; }
-.alianza__lado img { height: 40px; width: auto; }
+.alianza__lado img { height: 92px; width: auto; }
 .alianza__lado .el { height: 24px; }
 .alianza__lado--der { text-align: right; justify-items: end; }
 .alianza__lado ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; color: var(--n-350); font-size: 15px; }
 .alianza__lado h3 { font: 700 12px var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--lima); margin: 0; }
-.alianza__pie { text-align: center; margin: 40px auto 0; max-width: 60ch; color: var(--n-350); }
 @media (max-width: 860px) { .alianza { grid-template-columns: 1fr; text-align: center; } .alianza .orbe { width: min(260px, 70vw); margin: 0 auto; order: -1; } .alianza__lado, .alianza__lado--der { justify-items: center; text-align: center; } }
 
 /* Beneficio: tarjetas con foto que se expanden (productos reales de ElevenLabs) */
@@ -171,8 +171,8 @@
 .req li { position: relative; padding: 9px 12px 9px 38px; border-radius: 12px; background: rgba(255,255,255,.06); font-size: 14.5px; line-height: 1.45; color: #e6e8f2; }
 .req li::before { content: "✓"; position: absolute; left: 10px; top: 9px; width: 18px; height: 18px; border-radius: 5px; display: grid; place-items: center; background: var(--lima); color: var(--navy-900); font: 700 11px var(--f-texto); }
 
-/* Fechas de la convocatoria: calendario de 31 días con escala real (skill diagram-design: timeline + Gantt) */
-.cal { --n: 31; position: relative; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); column-gap: 4px; row-gap: 8px; margin-bottom: 18px; }
+/* Fechas de la convocatoria: calendario de 37 días con escala real (skill diagram-design: timeline + Gantt) */
+.cal { --n: 37; position: relative; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); column-gap: 4px; row-gap: 8px; margin-bottom: 18px; }
 .cal__mes { grid-row: 2; font: 600 11px var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--n-350); border-left: 1px solid rgba(255,255,255,.25); padding: 0 0 4px 8px; }
 .cal__dia { grid-row: 3; aspect-ratio: 1; border: 0; padding: 0; border-radius: 4px; cursor: pointer; font: 600 11px var(--f-texto); color: var(--navy-900); display: grid; place-items: center; transition: transform .2s var(--ease), box-shadow .2s; font-variant-numeric: tabular-nums; }
 .cal__dia.ph-post { background: var(--lila); }
@@ -229,24 +229,24 @@
 <body>
 <a class="saltar" href="#contenido">Ir al contenido</a>
 
-<p class="aviso" data-aviso data-abre="2026-11-03" data-cierra="2026-11-16"
+<p class="aviso" data-aviso data-abre="2026-11-11" data-cierra="2026-11-30"
    data-antes="Postulaciones del {abre} al {cierra} ({faltan})."
    data-durante="Postulaciones abiertas hasta el {cierra} a las 15:00 ({quedan})."
-   data-despues="Postulaciones cerradas el {cierra}. Resultados el 3 de diciembre."></p>
+   data-despues="Postulaciones cerradas el {cierra}. Resultados el 17 de diciembre."></p>
 
 <header class="cab" data-cab>
   <div class="contenedor cab__fila">
-    <a class="cab__logo" href="#inicio" aria-label="Activa Startup/EBCT con IA: Ministerio de Ciencia y ElevenLabs, inicio">
-      <img class="escudo" src="../img/minciencia-blanco.png" alt="Gobierno de Chile"><img class="ctci" src="../img/minciencia-ctci-blanco.png" alt="Ministerio CTCI"><span class="x" aria-hidden="true"></span><img class="el" src="../img/elevenlabs-blanco.svg" alt="ElevenLabs">
+    <a class="cab__logo" href="#inicio" aria-label="Activa Startup/EBCT con IA: Ministerio de Ciencia, Tecnología, Conocimiento e Innovación y ElevenLabs, inicio">
+      <img class="ctci" src="../img/ministerio-ctci-logo.png" alt="Ministerio de Ciencia, Tecnología, Conocimiento e Innovación"><span class="x" aria-hidden="true"></span><img class="el" src="../img/elevenlabs-blanco.svg" alt="ElevenLabs">
     </a>
     <nav class="cab__nav" aria-label="Secciones">
-      <a href="#alianza">La alianza</a><a href="#beneficio">Beneficio</a><a href="#fundamentos">Fundamentos</a><a href="#casos">Casos</a><a href="#pasos">Cómo postular</a><a href="#fechas">Fechas</a><a href="#preguntas">Preguntas</a>
+      <a href="#alianza">La alianza</a><a href="#beneficio">Beneficio</a><a href="#fundamentos">Fundamentos</a><a href="#casos">Casos</a><a href="#pasos">Cómo postular</a><a href="#fechas">Agenda</a><a href="#preguntas">Preguntas</a>
     </nav>
     <button class="btn btn--lima cab__cta" type="button" data-abrir-ficha>Postula <span class="flecha"></span></button>
     <button class="cab__burger" type="button" aria-expanded="false" aria-controls="menu-movil" aria-label="Abrir menú" data-burger><span></span><span></span></button>
   </div>
   <div class="cab__movil" id="menu-movil" hidden data-menu-movil>
-    <a href="#alianza">La alianza</a><a href="#beneficio">Beneficio</a><a href="#fundamentos">Fundamentos</a><a href="#casos">Casos</a><a href="#pasos">Cómo postular</a><a href="#fechas">Fechas</a><a href="#preguntas">Preguntas</a>
+    <a href="#alianza">La alianza</a><a href="#beneficio">Beneficio</a><a href="#fundamentos">Fundamentos</a><a href="#casos">Casos</a><a href="#pasos">Cómo postular</a><a href="#fechas">Agenda</a><a href="#preguntas">Preguntas</a>
     <button class="btn btn--lima" type="button" data-abrir-ficha>Postula <span class="flecha"></span></button>
   </div>
 </header>
@@ -256,14 +256,14 @@
   <section class="onda-portada" id="inicio">
     <canvas data-onda aria-hidden="true"></canvas>
     <div class="contenedor">
-      <p class="sello-colab" data-aparecer><img class="ctci" src="../img/minciencia-ctci-blanco.png" alt=""><span>×</span><img src="../img/elevenlabs-blanco.svg" alt=""><b>Activa Startup/EBCT con IA</b></p>
-      <h1 class="display" data-lineas><span>Dale voz a tu</span><span class="sangria"><em>startup/<wbr>EBCT</em></span></h1>
+      <p class="sello-colab" data-aparecer><img class="ctci" src="../img/ministerio-ctci-logo.png" alt=""><span>×</span><img src="../img/elevenlabs-blanco.svg" alt=""><b>Convocatoria Nacional</b></p>
+      <h1 class="display" data-lineas><span>Activa</span><span class="sangria"><em>Startup/EBCT</em></span><span>con IA</span></h1>
       <div class="portada__pie">
-        <p class="lead" data-aparecer>Hasta 100 startups y EBCT chilenas usarán sin costo, por 12 meses, la IA de voz de ElevenLabs en su producto. Postula hasta el lunes 16 de noviembre a las 15:00.</p>
+        <p class="lead" data-aparecer>Habilitamos modelos avanzados de IA de voz para que startups chilenas desarrollen soluciones propias, reduzcan costos de validación técnica e integren capacidades de frontera en áreas estratégicas del país.</p>
         <div class="portada__acciones" data-aparecer>
           <button class="btn btn--lima" type="button" data-abrir-ficha>Postula <span class="flecha"></span></button>
           <a class="btn btn--fantasma" href="#pasos">Cómo postular</a>
-          <a class="btn btn--fantasma btn--bases" href="../bases/Bases_Activa_Startup_con_IA_2026-11-02.pdf" download>Bases del concurso <span class="descarga" aria-hidden="true"></span><span class="sr-only">(PDF, 330 KB)</span></a>
+          <a class="btn btn--fantasma btn--bases" href="../bases/Bases_Activa_Startup_EBCT_con_IA.pdf" download>Bases del concurso <span class="descarga" aria-hidden="true"></span><span class="sr-only">(PDF, 199 KB)</span></a>
         </div>
       </div>
     </div>
@@ -274,11 +274,10 @@
     <div class="contenedor">
       <div class="cabeza" style="justify-content:center;text-align:center"><div style="flex:0 1 auto"><p class="etiqueta">La alianza</p><h2 class="display" data-lineas><span>Dos voces,</span><span>una <em>convocatoria</em></span></h2></div></div>
       <div class="alianza">
-        <div class="alianza__lado" data-aparecer><img src="../img/minciencia-ctci-blanco.png" alt="Ministerio de Ciencia, Tecnología, Conocimiento e Innovación"><h3>Convoca, evalúa y selecciona</h3><ul data-rol-min></ul></div>
+        <div class="alianza__lado" data-aparecer><img class="ctci" src="../img/ministerio-ctci-logo.png" alt="Ministerio de Ciencia, Tecnología, Conocimiento e Innovación"><h3>Difunde y promueve</h3><ul data-rol-min></ul></div>
         <div class="orbe" aria-hidden="true"></div>
-        <div class="alianza__lado alianza__lado--der" data-aparecer><img class="el" src="../img/elevenlabs-blanco.svg" alt="ElevenLabs"><h3>Aporta la tecnología</h3><ul data-rol-el></ul></div>
+        <div class="alianza__lado alianza__lado--der" data-aparecer><img class="el" src="../img/elevenlabs-blanco.svg" alt="ElevenLabs"><h3>Convoca, evalúa y aporta la tecnología</h3><ul data-rol-el></ul></div>
       </div>
-      <p class="alianza__pie" data-aparecer>Esta convocatoria nace del Memorando de Entendimiento que firmaron el Ministerio de Ciencia y ElevenLabs.</p>
     </div>
   </section>
 
@@ -286,10 +285,10 @@
   <section class="claro seccion" id="beneficio">
     <div class="contenedor">
       <div class="licencia-wrap">
-        <div class="licencia" aria-label="Licencia ElevenLabs de hasta 44.000.000 créditos por startup/EBCT, 54.000 minutos de procesamiento, por 12 meses" data-aparecer>
+        <div class="licencia" aria-label="Licencia ElevenLabs de hasta 44.000.000 créditos por startup/EBCT, aproximadamente 54.000 minutos de procesamiento, por 12 meses" data-aparecer>
           <canvas data-chladni data-color="#97A9FC" data-particulas="1800" aria-hidden="true"></canvas>
-          <div class="licencia__top"><img class="ctci" src="../img/minciencia-ctci-blanco.png" alt=""><i></i><img class="el" src="../img/elevenlabs-blanco.svg" alt=""></div>
-          <div class="licencia__num"><b data-contar="44000000">44.000.000</b><span>créditos por startup/EBCT (54.000 minutos de procesamiento)</span></div>
+          <div class="licencia__top"><img class="ctci" src="../img/ministerio-ctci-logo.png" alt=""><i></i><img class="el" src="../img/elevenlabs-blanco.svg" alt=""></div>
+          <div class="licencia__num"><b data-contar="44000000">44.000.000</b><span>créditos por startup/EBCT (aprox. 54.000 minutos de procesamiento)</span></div>
           <div class="licencia__pie"><span>Activa Startup/EBCT con IA</span><span>12 meses</span></div>
         </div>
         <div>
@@ -298,9 +297,9 @@
           <ul class="equiv">
             <li data-aparecer><b data-contar="100">100</b><span>startups/EBCT seleccionadas, como máximo</span></li>
             <li data-aparecer><b data-contar="12">12</b><span>meses de acceso desde la activación</span></li>
-            <li data-aparecer><b data-contar="900">900</b><span>horas de audio (54.000 minutos)</span></li>
+            <li data-aparecer><b data-contar="900">900</b><span>horas de audio (aprox. 54.000 minutos)</span></li>
           </ul>
-          <p class="suave" style="margin:0">Acceso a herramientas de IA generativa de voz/audio: síntesis multilingüe ultrarrealista, transcripción, agentes conversacionales autónomos y diseño sonoro, con 54.000 minutos de procesamiento durante 12 meses a través de la plataforma ElevenLabs. Sin costo e intransferible.</p>
+          <p class="suave" style="margin:0">Acceso a herramientas de IA generativa de voz/audio: síntesis multilingüe ultrarrealista, transcripción, agentes conversacionales autónomos y diseño sonoro, con aprox. 54.000 minutos de procesamiento durante 12 meses a través de la plataforma ElevenLabs. Sin costo e intransferible.</p>
         </div>
       </div>
       <div class="cabeza" style="margin-top: clamp(56px, 7vw, 96px)">
@@ -359,8 +358,8 @@
             <p class="req__tit">Requisitos para postular</p>
             <ul class="req"><li>Ser startup o EBCT.</li><li>Tener inicio de actividades ante el SII con una antigüedad de al menos 6 meses y no más de 10 años al cierre de la convocatoria.</li><li>Tener un máximo de 25 trabajadores al momento de postular.</li><li>Contar con al menos una persona responsable de la implementación técnica.</li><li>No registrar deudas laborales exigibles e impagas ni deudas previsionales al momento de postular, acreditándolo en la forma indicada en la tabla de medios de verificación.</li><li>Cumplir las condiciones de integridad definidas en las bases.</li><li>Contar con un producto mínimo viable (MVP), prototipo funcional o software en operación en el cual se integrarán funcionalidades de ElevenLabs.</li></ul>
             <p>¿Dudas? Responde 12 preguntas de sí o no y sabrás si tu startup/EBCT puede postular.</p>
-            <button class="btn btn--lima btn--chico" type="button" data-abrir="verificar">Responder las 12 preguntas <span class="flecha"></span></button> <a class="btn btn--fantasma btn--chico" href="../bases/Bases_Activa_Startup_con_IA_2026-11-02.pdf" download>Bases (PDF)</a></article>
-          <article class="paso" data-paso-rec="Completa el formulario"><small>Paso 2 · Hasta el 16 de noviembre, 15:00</small><h3>Completa el formulario</h3>
+            <button class="btn btn--lima btn--chico" type="button" data-abrir="verificar">Responder las 12 preguntas <span class="flecha"></span></button> <a class="btn btn--fantasma btn--chico" href="../bases/Bases_Activa_Startup_EBCT_con_IA.pdf" download>Bases (PDF)</a></article>
+          <article class="paso" data-paso-rec="Completa el formulario"><small>Paso 2 · Hasta el 30 de noviembre, 15:00</small><h3>Completa el formulario</h3>
             <p>Reúne tus documentos (marca lo que ya tienes; queda guardado en este navegador) y postula en línea. El formulario guarda un borrador y genera el Anexo N° 1 con tus datos, listo para firmar.</p>
             <ul class="prep" data-prep>
               <li><label><input type="checkbox"><span>Certificado de vigencia (hasta 60 días)</span></label></li>
@@ -374,10 +373,10 @@
             </ul>
             <p class="prep__cuenta" data-prep-cuenta aria-live="polite"></p>
             <button class="btn btn--lima btn--chico" type="button" data-abrir-ficha>Abrir el formulario <span class="flecha"></span></button></article>
-          <article class="paso" data-paso-rec="Admisibilidad"><small>Paso 3 · Desde el 17 de noviembre</small><h3>Admisibilidad</h3>
-            <p>El equipo revisa cada postulación según los requisitos y los criterios de exclusión. Puede pedir, por una sola vez, corregir errores formales en 2 días hábiles.</p></article>
-          <article class="paso" data-paso-rec="Evaluación y selección"><small>Paso 4 · Hasta el 2 de diciembre</small><h3>Evaluación y selección</h3>
-            <p>Evaluación de las postulaciones admisibles y selección de hasta 100 startup/EBCT. Los resultados se publican el 3 de diciembre y cada startup/EBCT seleccionada activa su licencia con ElevenLabs dentro de 10 días hábiles.</p></article>
+          <article class="paso" data-paso-rec="Admisibilidad"><small>Paso 3 · Desde el 1 de diciembre</small><h3>Admisibilidad</h3>
+            <p>ElevenLabs revisa cada postulación según los requisitos y los criterios de exclusión. Puede pedir, por una sola vez, corregir errores formales en 2 días hábiles.</p></article>
+          <article class="paso" data-paso-rec="Evaluación y selección"><small>Paso 4 · Hasta el 16 de diciembre</small><h3>Evaluación y selección</h3>
+            <p>Evaluación de las postulaciones admisibles y selección de hasta 100 startup/EBCT, a cargo de un comité evaluador designado por ElevenLabs. Los resultados se publican el 17 de diciembre y cada startup/EBCT seleccionada activa su licencia con ElevenLabs dentro de 10 días hábiles.</p></article>
         </div>
       </div>
     </div>
@@ -389,12 +388,12 @@
   <!-- Fechas de la convocatoria y cuenta regresiva -->
   <section class="tema-oscuro" id="fechas" style="padding-bottom: var(--seccion)">
     <div class="contenedor">
-      <div class="cabeza"><div><p class="etiqueta">Calendario</p><h2 class="h2">Fechas de la <span class="acento">convocatoria</span></h2></div><p class="cabeza__lado">Un mes, del 3 de noviembre al 3 de diciembre. Cada cuadro es un día: toca uno para ver qué pasa.</p></div>
+      <div class="cabeza"><div><p class="etiqueta">Calendario</p><h2 class="h2">Agenda del <span class="acento">programa</span></h2></div><p class="cabeza__lado">Del 11 de noviembre al 17 de diciembre. Cada cuadro es un día: toca uno para ver qué pasa.</p></div>
       <div class="cal" data-cal></div>
       <ol class="fechas" data-fechas></ol>
       <div class="cierre" data-aparecer>
-        <div><h2>Cierre de postulaciones</h2><p>Lunes 16 de noviembre de 2026, 15:00 hora de Chile.</p><button class="btn" type="button" data-abrir-ficha>Postula ahora <span class="flecha"></span></button></div>
-        <div class="reloj" data-cuenta="2026-11-16T15:00:00-03:00" role="timer" aria-label="Tiempo para el cierre">
+        <div><h2>Cierre de postulaciones</h2><p>Lunes 30 de noviembre de 2026, 15:00 hora de Chile.</p><button class="btn" type="button" data-abrir-ficha>Postula ahora <span class="flecha"></span></button></div>
+        <div class="reloj" data-cuenta="2026-11-30T15:00:00-03:00" role="timer" aria-label="Tiempo para el cierre">
           <div><b data-u="d"></b><small>días</small></div><div><b data-u="h"></b><small>horas</small></div><div><b data-u="m"></b><small>min</small></div><div><b data-u="s"></b><small>seg</small></div>
         </div>
       </div>
@@ -421,10 +420,10 @@
 <footer class="pie">
   <div class="contenedor">
     <div class="pie__colab">
-      <img class="escudo" src="../img/minciencia-blanco.png" alt="Gobierno de Chile"><img class="ctci" src="../img/minciencia-ctci-blanco.png" alt="Ministerio CTCI"><img class="el" src="../img/elevenlabs-blanco.svg" alt="ElevenLabs">
+      <img class="ctci" src="../img/ministerio-ctci-logo.png" alt="Ministerio de Ciencia, Tecnología, Conocimiento e Innovación"><img class="el" src="../img/elevenlabs-blanco.svg" alt="ElevenLabs">
     </div>
-    <p>Activa Startup/EBCT con IA · Ministerio de Ciencia, Tecnología, Conocimiento e Innovación y ElevenLabs · <a href="../bases/Bases_Activa_Startup_con_IA_2026-11-02.pdf" download>Bases del concurso (PDF)</a> · <a href="https://siac.minciencia.gob.cl/web" target="_blank" rel="noopener">Consultas</a></p>
-    <p>Los datos personales se tratan conforme a la Ley N° 19.628 y la Ley N° 21.719.</p>
+    <p>Activa Startup/EBCT con IA · Ministerio de Ciencia, Tecnología, Conocimiento e Innovación y ElevenLabs · <a href="../bases/Bases_Activa_Startup_EBCT_con_IA.pdf" download>Bases del concurso (PDF)</a> · <a href="mailto:contacto@minciencia.gob.cl">Consultas: contacto@minciencia.gob.cl</a></p>
+    <p>ElevenLabs trata los datos personales en calidad de responsable, conforme a la Ley N° 19.628 (numeral 12 de las bases).</p>
   </div>
 </footer>
 
@@ -541,39 +540,39 @@
   lista.addEventListener('keydown', (e) => { const bs = [...lista.children], act = bs.findIndex((b) => b.getAttribute('aria-selected') === 'true'); const d = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1, Home: -act, End: bs.length - 1 - act }[e.key]; if (d === undefined) return; e.preventDefault(); const i = (act + d + bs.length) % bs.length; mostrar(i); bs[i].focus(); });
   mostrar(0);
 
-  // Fechas de la convocatoria (numeral 11 de las bases): un cuadro por día, del 3 de noviembre al 3 de diciembre.
+  // Fechas de la convocatoria (numeral 11 de las bases): un cuadro por día, del 11 de noviembre al 17 de diciembre.
   // Escala de tiempo real: cada día ocupa lo mismo, así los plazos se ven con su largo verdadero.
   const cal = document.querySelector('[data-cal]'), leyenda = document.querySelector('[data-fechas]');
-  const D0 = new Date('2026-11-03T12:00:00-03:00'), ND = 31, DIA = 864e5;
+  const D0 = new Date('2026-11-11T12:00:00-03:00'), ND = 37, DIA = 864e5;
   const iso = (k) => new Date(D0.getTime() + k * DIA).toISOString().slice(0, 10);
   const col = (d) => Math.round((new Date(`${d}T12:00:00-03:00`) - D0) / DIA) + 1;
   const fDia = new Intl.DateTimeFormat('es-CL', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'America/Santiago' });
   const HITOS = {
-    '2026-11-03': ['Apertura de la convocatoria', 'Publicación de las bases y apertura de postulaciones.'],
-    '2026-11-10': ['Plazo para consultas', 'Último día para enviar consultas en siac.minciencia.gob.cl.'],
-    '2026-11-16': ['Cierre de postulaciones, 15:00 horas', 'Hora de Chile. Después no se reciben postulaciones.'],
-    '2026-12-03': ['Publicación de resultados y notificación', 'Publicación de las startups/EBCT seleccionadas y aviso por correo.'],
+    '2026-11-11': ['Fechas de la convocatoria', 'Publicación de las bases y apertura de postulaciones.'],
+    '2026-11-25': ['Plazo para consultas', 'Último día para enviar consultas a contacto@minciencia.gob.cl.'],
+    '2026-11-30': ['Cierre de postulaciones, 15:00 horas', 'Hora de Chile. Después no se reciben postulaciones.'],
+    '2026-12-17': ['Publicación de resultados y notificación', 'Publicación de las startups/EBCT seleccionadas y aviso por correo.'],
   };
-  const fase = (d) => (d <= '2026-11-15' ? 'post' : d === '2026-11-16' ? 'cierre' : d <= '2026-12-02' ? 'eval' : 'res');
-  const que = (d) => HITOS[d] || (d <= '2026-11-15'
-    ? ['Postulaciones abiertas', d <= '2026-11-10' ? 'Se reciben postulaciones y consultas.' : 'Se reciben postulaciones. El plazo de consultas ya cerró.']
-    : ['Admisibilidad, evaluación, selección y verificación documental', 'Del 17 de noviembre al 2 de diciembre de 2026.']);
+  const fase = (d) => (d <= '2026-11-29' ? 'post' : d === '2026-11-30' ? 'cierre' : d <= '2026-12-16' ? 'eval' : 'res');
+  const que = (d) => HITOS[d] || (d <= '2026-11-29'
+    ? ['Postulaciones abiertas', d <= '2026-11-25' ? 'Se reciben postulaciones y consultas.' : 'Se reciben postulaciones. El plazo de consultas ya cerró.']
+    : ['Admisibilidad, evaluación y selección', 'Del 1 al 16 de diciembre de 2026.']);
   const hoyIso = new Date(ACTIVA.ahora() - 3 * 36e5).toISOString().slice(0, 10), hoyCol = col(hoyIso);
   const faltan = (d) => { const n = Math.round((new Date(`${d}T12:00:00-03:00`) - new Date(`${hoyIso}T12:00:00-03:00`)) / DIA); return n === 0 ? 'Hoy' : n > 0 ? `En ${n} ${n === 1 ? 'día' : 'días'}` : `Hace ${-n} ${n === -1 ? 'día' : 'días'}`; };
-  let html = `<span class="cal__mes" style="grid-column:1 / span 28">Noviembre</span><span class="cal__mes" style="grid-column:29 / span 3">Dic.</span>`;
+  let html = `<span class="cal__mes" style="grid-column:1 / span 20">Noviembre</span><span class="cal__mes" style="grid-column:21 / span 17">Diciembre</span>`;
   for (let k = 0; k < ND; k++) {
     const d = iso(k), dt = new Date(`${d}T12:00:00-03:00`), dow = dt.getUTCDay();
-    html += `<button class="cal__dia ph-${fase(d)}${dow === 0 || dow === 6 ? ' finde' : ''}${d < hoyIso ? ' pasado' : ''}${d === hoyIso ? ' hoy' : ''}" type="button" style="grid-column:${k + 1}" data-d="${d}" tabindex="${d === (hoyCol >= 1 && hoyCol <= ND ? hoyIso : '2026-11-03') ? 0 : -1}" aria-pressed="false" aria-label="${fDia.format(dt)}: ${que(d)[0]}">${dt.getUTCDate()}</button>`;
+    html += `<button class="cal__dia ph-${fase(d)}${dow === 0 || dow === 6 ? ' finde' : ''}${d < hoyIso ? ' pasado' : ''}${d === hoyIso ? ' hoy' : ''}" type="button" style="grid-column:${k + 1}" data-d="${d}" tabindex="${d === (hoyCol >= 1 && hoyCol <= ND ? hoyIso : '2026-11-11') ? 0 : -1}" aria-pressed="false" aria-label="${fDia.format(dt)}: ${que(d)[0]}">${dt.getUTCDate()}</button>`;
   }
   // Banderas: arriba, con el cierre y los resultados como foco (máximo dos acentos)
-  html += `<span class="cal__hito" style="grid-column:1 / span 7"><small>3 nov</small>Apertura</span>
-    <span class="cal__hito" style="grid-column:8 / span 6"><small>10 nov</small>Fin de consultas</span>
-    <span class="cal__hito foco" style="grid-column:14 / span 9"><small>16 nov · 15:00</small>Cierre de postulaciones</span>
-    <span class="cal__hito foco fin" style="grid-column:23 / span 9"><small>3 dic</small>Resultados</span>`;
+  html += `<span class="cal__hito" style="grid-column:1 / span 8"><small>11 nov</small>Fechas de la convocatoria</span>
+    <span class="cal__hito" style="grid-column:15 / span 5"><small>25 nov</small>Fin de consultas</span>
+    <span class="cal__hito foco" style="grid-column:20 / span 9"><small>30 nov · 15:00</small>Cierre de postulaciones</span>
+    <span class="cal__hito foco fin" style="grid-column:29 / span 9"><small>17 dic</small>Resultados</span>`;
   // Barras de los plazos
-  html += `<span class="cal__barra cal__barra--post" style="grid-column:${col('2026-11-03')} / ${col('2026-11-16') + 1}">Postulación · 3 al 16 nov</span>
-    <span class="cal__barra cal__barra--eval" style="grid-column:${col('2026-11-17')} / ${col('2026-12-02') + 1}">Admisibilidad, evaluación, selección y verificación · 17 nov al 2 dic</span>
-    <span class="cal__barra cal__barra--cons" style="grid-column:${col('2026-11-03')} / ${col('2026-11-10') + 1}">Consultas · hasta el 10 nov</span>`;
+  html += `<span class="cal__barra cal__barra--post" style="grid-column:${col('2026-11-11')} / ${col('2026-11-30') + 1}">Postulación · 11 al 30 nov</span>
+    <span class="cal__barra cal__barra--eval" style="grid-column:${col('2026-12-01')} / ${col('2026-12-16') + 1}">Admisibilidad, evaluación y selección · 1 al 16 dic</span>
+    <span class="cal__barra cal__barra--cons" style="grid-column:${col('2026-11-11')} / ${col('2026-11-25') + 1}">Consultas · hasta el 25 nov</span>`;
   html += `<div class="cal__info" aria-live="polite" data-cal-info></div>`;
   cal.innerHTML = html;
   const info = cal.querySelector('[data-cal-info]'), dias = [...cal.querySelectorAll('.cal__dia')];
@@ -593,11 +592,11 @@
   elegirDia(dias[Math.min(ND, Math.max(1, hoyCol)) - 1]);
   // Leyenda con los 5 hitos del numeral 11, texto exacto de las bases
   leyenda.innerHTML = [
-    ['var(--lila)', '3 de noviembre de 2026', 'Apertura de la convocatoria'],
-    ['var(--n-450)', '10 de noviembre de 2026', 'Plazo para consultas'],
-    ['var(--lima)', '16 de noviembre de 2026, 15:00 horas', 'Cierre de postulaciones'],
-    ['var(--azul)', 'Del 17 de noviembre al 2 de diciembre de 2026', 'Admisibilidad, evaluación, selección y verificación documental'],
-    ['var(--lima)', '3 de diciembre de 2026', 'Publicación de resultados y notificación'],
+    ['var(--lila)', 'Miércoles 11 de noviembre de 2026', 'Fechas de la convocatoria'],
+    ['var(--n-450)', 'Miércoles 25 de noviembre de 2026', 'Plazo para consultas'],
+    ['var(--lima)', 'Lunes 30 de noviembre de 2026, 15:00 horas', 'Cierre de postulaciones'],
+    ['var(--azul)', '1 al 16 de diciembre de 2026', 'Admisibilidad, evaluación y selección'],
+    ['var(--lima)', '17 de diciembre de 2026', 'Publicación de resultados y notificación'],
   ].map(([c, f, t]) => `<li style="--c:${c}"><span><b>${t}</b> · ${f}</span></li>`).join('');
 
   // Recorrido: el número sigue al paso que está en pantalla
@@ -633,6 +632,6 @@
 <script src="../../../modulos/11-ventana-desde-la-tarjeta/modulo.js"></script>
 <script src="../../../modulos/12-preguntas-frecuentes/modulo.js"></script>
 <script src="../comun/graficos.js"></script>
-<script src="../comun/postulacion.js" data-endpoint=""></script>
+<script src="../comun/postulacion.js" data-endpoint="https://script.google.com/macros/s/AKfycbyO9-JQyFHIh2lekMhdLvm6LbbJz76wyjzfBhUeqUgPtbVgQBDGe5QD_ow3o4ZTf4gkTw/exec"></script>
 </body>
 </html>

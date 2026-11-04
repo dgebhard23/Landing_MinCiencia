@@ -5,8 +5,8 @@
 | Archivo | Origen |
 |---|---|
 | `elevenlabs-blanco.svg`, `elevenlabs-negro.svg`, `elevenlabs-simbolo.svg` | Kit oficial de marca de ElevenLabs, https://elevenlabs.io/brand. Respetar su espacio de resguardo (igual a la altura del logo) y escribir siempre «ElevenLabs». |
-| `minciencia-ctci-blanco.png` | Logo «Ministerio CTCI», tomado de la propuesta Lovable. `minciencia-ctci-navy.png` es la misma forma en navy/900. **Reemplazar por los SVG oficiales del design system MINCTCI 2026 (página Logos de Figma).** |
-| `minciencia-blanco.png`, `minciencia-color.png` | Logo institucional con escudo, de la landing de Reglamentos TT. |
+| `ministerio-ctci-logo.png` | Logo del Ministerio de Ciencia, Tecnología, Conocimiento e Innovación, el mismo de la landing Mujeres y Futuro del Trabajo. Es el que usa la versión final. |
+| `minciencia-ctci-blanco.png`, `minciencia-ctci-navy.png`, `minciencia-blanco.png`, `minciencia-color.png` | Logos anteriores, que solo usan las propuestas 1 y 3. |
 
 ## Fotos (`fotos/`)
 
