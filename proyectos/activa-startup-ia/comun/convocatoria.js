@@ -4,7 +4,7 @@
 (() => {
   const ACTIVA = {
     nombre: 'Activa Startup/EBCT con IA',
-    nombrePublico: 'Activa Startup/EBCT con IA',
+    nombrePublico: 'Activa Startup con IA',
     abre: '2026-11-11',
     consultas: '2026-11-25',
     cierre: '2026-11-30T15:00:00-03:00',   // numeral 11: lunes 30 de noviembre, 15:00
