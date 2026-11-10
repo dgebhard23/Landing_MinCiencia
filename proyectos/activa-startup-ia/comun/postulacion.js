@@ -82,7 +82,7 @@
         { fila: [{ n: 'contacto_nombre', l: 'Nombre completo', t: 'text', req: true }, { n: 'contacto_correo', l: 'Correo', t: 'email', req: true }] },
       ] },
     ] },
-    { titulo: 'Antecedentes', sec: 'C · Antecedentes de la startup/EBCT', campos: [
+    { titulo: 'Antecedentes', sec: 'C · Antecedentes de la startup', campos: [
       { n: 'intro_ant', t: 'html', html: '<p class="fx__ayuda">Declara solo lo que puedas acreditar y adjunta su respaldo cuando se pida (numeral 6 de las bases).</p>' },
       { n: 'producto', l: crit.producto.nombre, t: 'radio', req: true, opts: niveles('producto') },
       { si: (v) => Number(v.producto) > 0, fila: [
@@ -94,7 +94,7 @@
         { n: 'fin_detalle', l: 'Instrumento, institución y año de cada adjudicación', t: 'text', req: true, ph: 'Ej.: Semilla Inicia, CORFO, 2024' },
         { n: 'fin_doc', l: 'Resolución de adjudicación, convenio o certificado (PDF)', t: 'archivo', req: true },
       ] },
-      { n: 'equipo', l: `${crit.equipo.nombre}: personas técnicas adicionales a la responsable`, t: 'equipo', ayuda: 'Personas de desarrollo, datos o IA con contrato en la startup/EBCT. Si no hay, deja la lista vacía.' },
+      { n: 'equipo', l: `${crit.equipo.nombre}: personas técnicas adicionales a la responsable`, t: 'equipo', ayuda: 'Personas de desarrollo, datos o IA con contrato en la startup. Si no hay, deja la lista vacía.' },
       { n: 'ventas', l: crit.ventas.nombre, t: 'radio', req: true, opts: niveles('ventas'), ayuda: 'Se verifica con la Carpeta Tributaria que adjuntas en el paso 5.' },
       { n: 'mujeres', l: crit.mujeres.nombre, t: 'radio', req: true, opts: [
         { v: 'No', l: 'Ninguna de las dos' },
@@ -123,9 +123,10 @@
     { titulo: 'Enviar', sec: 'F · Revisa y envía', final: true, campos: [
       { n: 'resumen', t: 'html', html: '<div class="fx__resumen" data-resumen></div>' },
       { n: 'acepta', t: 'checks', req: true, todas: true, opts: [
-        'Leí las bases y la startup/EBCT cumple los requisitos del numeral 4 y no está en ninguna de las exclusiones.',
-        'La startup/EBCT no desarrolla productos que compitan con los de ElevenLabs.',
-        'La startup/EBCT no es cliente enterprise vigente de ElevenLabs ni ha recibido antes un grant de ElevenLabs.',
+        'Leí las bases y la startup cumple los requisitos del numeral 4 y no está en ninguna de las exclusiones.',
+        'Las personas fundadoras de la startup se dedican a tiempo completo a ella.',
+        'La startup no desarrolla productos que compitan con los de ElevenLabs.',
+        'La startup no es cliente enterprise vigente de ElevenLabs ni ha recibido antes un grant de ElevenLabs.',
         'La información y los documentos son fidedignos y están vigentes. Entiendo que, una vez enviada, la postulación no se puede modificar y que se admite una por empresa.',
         'Usaremos la licencia conforme a los Términos de Servicio y la Política de Uso Prohibido de ElevenLabs: sin clonar voces sin consentimiento expreso, sin suplantar identidades ni generar contenido engañoso.',
         'Recibí la información sobre el tratamiento de datos personales: ElevenLabs los trata, en calidad de responsable, para gestionar esta convocatoria, lo que puede implicar su transferencia a ElevenLabs, Inc. en los Estados Unidos de América (numeral 12).'] },

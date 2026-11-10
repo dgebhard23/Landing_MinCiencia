@@ -52,7 +52,7 @@ Es común a las 3 propuestas. Lo que cambió respecto de Lovable está detallado
 3. **Puntaje.** Los criterios con sus niveles y puntos visibles, y el respaldo solo cuando corresponde. Muestra el puntaje declarado en vivo.
 4. **Propuesta.** Las 3 preguntas de las bases, de hasta 1.000 caracteres y obligatorias, más el enlace a la demo.
 5. **Documentos.** Un casillero por PDF, que aparece solo si aplica (cotizaciones si hay trabajadores, presentación si no hay sitio web). Genera el **Anexo N° 1 con los datos ya ingresados**.
-6. **Enviar.** Resumen con «Editar» por sección, 4 aceptaciones y bloqueo después del 30-11-2026 a las 15:00.
+6. **Enviar.** Resumen con «Editar» por sección, 7 declaraciones y bloqueo después del 30-11-2026 a las 15:00.
 
 Además, guarda un borrador en el navegador (sin los archivos), descarga una copia en Word y entrega un folio al enviar. Sin `data-endpoint` funciona en modo demostración y no envía nada.
 
