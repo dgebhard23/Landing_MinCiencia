@@ -6,6 +6,24 @@
 <title>Activa Startup/EBCT con IA · Ministerio de Ciencia, Tecnología, Conocimiento e Innovación y ElevenLabs</title>
 <meta name="description" content="ElevenLabs, en alianza con el Ministerio de Ciencia, Tecnología, Conocimiento e Innovación, entrega sin costo licencias de IA de voz a hasta 100 startups y EBCT chilenas por 12 meses. Postulaciones hasta el 30 de noviembre de 2026.">
 <meta name="theme-color" content="#131332">
+<!-- Anti-framing: el host debe enviar CSP frame-ancestors 'none' y X-Frame-Options: DENY. -->
+<script>
+/* ponytail: client frame-bust; host CSP/XFO is the real control */
+(function () {
+  var framed = false;
+  try { framed = window.top !== window.self; } catch (e) { framed = true; }
+  if (!framed) return;
+  try { window.top.location = window.self.location.href; return; } catch (e) {}
+  document.documentElement.setAttribute('data-framed-block', '1');
+  document.addEventListener('DOMContentLoaded', function () {
+    document.body.replaceChildren();
+    var p = document.createElement('p');
+    p.textContent = 'Esta convocatoria no puede mostrarse dentro de otro sitio. Ábrela en una pestaña propia.';
+    p.style.cssText = 'max-width:36rem;margin:3rem auto;font:1rem/1.5 system-ui,sans-serif;padding:1rem';
+    document.body.appendChild(p);
+  });
+})();
+</script>
 <script>document.documentElement.classList.add('js')</script>
 <!-- Propuesta 2 · La voz. La más expresiva: la voz se vuelve forma.
      Portada con 100 barras de audio (una por cupo), orbe de voz en la alianza, casos que hablan,

@@ -6,6 +6,24 @@
 <title>Activa Startup/EBCT con IA · Ministerio de Ciencia, Tecnología, Conocimiento e Innovación y ElevenLabs</title>
 <meta name="description" content="ElevenLabs, en alianza con el Ministerio de Ciencia, Tecnología, Conocimiento e Innovación, entrega sin costo licencias de IA de voz a hasta 100 startups y EBCT chilenas por 12 meses. Postulaciones hasta el 30 de noviembre de 2026.">
 <meta name="theme-color" content="#131332">
+<!-- Anti-framing: el host debe enviar CSP frame-ancestors 'none' y X-Frame-Options: DENY. -->
+<script>
+/* ponytail: client frame-bust; host CSP/XFO is the real control */
+(function () {
+  var framed = false;
+  try { framed = window.top !== window.self; } catch (e) { framed = true; }
+  if (!framed) return;
+  try { window.top.location = window.self.location.href; return; } catch (e) {}
+  document.documentElement.setAttribute('data-framed-block', '1');
+  document.addEventListener('DOMContentLoaded', function () {
+    document.body.replaceChildren();
+    var p = document.createElement('p');
+    p.textContent = 'Esta convocatoria no puede mostrarse dentro de otro sitio. Ábrela en una pestaña propia.';
+    p.style.cssText = 'max-width:36rem;margin:3rem auto;font:1rem/1.5 system-ui,sans-serif;padding:1rem';
+    document.body.appendChild(p);
+  });
+})();
+</script>
 <script>document.documentElement.classList.add('js')</script>
 <!-- Propuesta 2 · La voz. La más expresiva: la voz se vuelve forma.
      Portada con 100 barras de audio (una por cupo), orbe de voz en la alianza, casos que hablan,
@@ -1085,8 +1103,10 @@ const IMG = (p) => window.__IMG[p] || p;</script>
   const ini = (iso) => new Date(iso.length > 10 ? iso : `${iso}T00:00:00-03:00`).getTime();
   const fin = (iso) => new Date(iso.length > 10 ? iso : `${iso}T23:59:59-03:00`).getTime();
   const fmt = (iso, o = { day: 'numeric', month: 'long' }) => new Intl.DateTimeFormat('es-CL', { ...o, timeZone: 'America/Santiago' }).format(new Date(iso.length > 10 ? iso : `${iso}T12:00:00-03:00`));
-  // ?hoy=AAAA-MM-DD permite revisar cómo se ve la página en otra fecha
-  const param = new URLSearchParams(location.search).get('hoy');
+  // ?hoy=AAAA-MM-DD solo en localhost/127.0.0.1 (preview). En publicación se ignora.
+  const param = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+    ? new URLSearchParams(location.search).get('hoy')
+    : null;
   const ahora = () => (param ? ini(param) + 12 * 36e5 : Date.now());
   ACTIVA.ahora = ahora; ACTIVA.fmt = fmt;
   ACTIVA.abierta = () => ahora() >= ini(ACTIVA.abre) && ahora() <= fin(ACTIVA.cierre);
@@ -1226,9 +1246,24 @@ const IMG = (p) => window.__IMG[p] || p;</script>
     const chips = caja.querySelector('[data-chips]'), hilo = caja.querySelector('[data-hilo]'), input = caja.querySelector('input');
     const ponerChips = (lista) => { chips.innerHTML = lista.map((e) => `<button type="button" data-q="${e.i}">${e.q}</button>`).join(''); };
     const responder = (pregunta, e, otras) => {
-      hilo.innerHTML = `<p class="preg__yo">${pregunta.replace(/</g, '&lt;')}</p>` + (e
-        ? `<div class="preg__resp"><b>${e.q}</b><p>${e.r}</p></div>`
-        : `<div class="preg__resp"><p>No encontré una respuesta para eso en las preguntas frecuentes. Revisa las bases o consulta en <a href="mailto:${ACTIVA.contacto}">${ACTIVA.contacto}</a>.</p></div>`);
+      hilo.replaceChildren();
+      const yo = document.createElement('p');
+      yo.className = 'preg__yo';
+      yo.textContent = pregunta;
+      hilo.appendChild(yo);
+      const caja = document.createElement('div');
+      caja.className = 'preg__resp';
+      if (e) {
+        const b = document.createElement('b'); b.textContent = e.q; caja.appendChild(b);
+        const p = document.createElement('p'); p.textContent = e.r; caja.appendChild(p);
+      } else {
+        const p = document.createElement('p');
+        p.append('No encontré una respuesta para eso en las preguntas frecuentes. Revisa las bases o consulta en ');
+        const a = document.createElement('a'); a.href = 'mailto:' + ACTIVA.contacto; a.textContent = ACTIVA.contacto;
+        p.appendChild(a); p.append('.');
+        caja.appendChild(p);
+      }
+      hilo.appendChild(caja);
       ponerChips(otras.length ? otras : populares.map((k) => indice[k]));
     };
     ponerChips(populares.map((k) => indice[k]));
@@ -1757,6 +1792,10 @@ const IMG = (p) => window.__IMG[p] || p;</script>
   const yo = document.currentScript;
   const ENDPOINT = yo?.dataset.endpoint || '';
   const CLAVE = 'activa-startup-ia-borrador';
+  const CLAVE_ENVIADOS = 'activa-startup-ia-enviados';
+  const CLAVE_COOLDOWN = 'activa-startup-ia-ultimo-envio';
+  const BORRADOR_MS = 7 * 24 * 3600 * 1000;
+  const COOLDOWN_MS = 60 * 1000;
   const MB = 1024 * 1024, MAX_MB = 5, TOTAL_MB = 25;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -1816,7 +1855,7 @@ const IMG = (p) => window.__IMG[p] || p;</script>
     { titulo: 'Personas', sec: 'B · Representante legal y equipo responsable', campos: [
       { bloque: 'Representante legal', campos: [
         { fila: [{ n: 'rep_nombre', l: 'Nombre completo', t: 'text', req: true, ac: 'name' }, { n: 'rep_rut', l: 'RUT', t: 'text', req: true, valida: vRut, fmt: rutFmt }] },
-        { fila: [{ n: 'rep_correo', l: 'Correo', t: 'email', req: true, ac: 'email' }, { n: 'rep_tel', l: 'Teléfono', t: 'tel', req: true, valida: vTel, ph: '+56 9 1234 5678' }] },
+        { fila: [{ n: 'rep_correo', l: 'Correo', t: 'email', req: true, ac: 'email' }, { n: 'rep_correo_confirma', l: 'Confirma el correo', t: 'email', req: true, ac: 'email', noEnviar: true, valida: (v, todosV) => (!v || !todosV.rep_correo || v.trim().toLowerCase() !== String(todosV.rep_correo).trim().toLowerCase()) ? 'Debe coincidir con el correo del representante.' : '' }, { n: 'rep_tel', l: 'Teléfono', t: 'tel', req: true, valida: vTel, ph: '+56 9 1234 5678' }] },
       ] },
       { bloque: 'Persona responsable de la implementación técnica', ayuda: 'Es un requisito de las bases (numeral 4).', campos: [
         { fila: [{ n: 'tec_nombre', l: 'Nombre completo', t: 'text', req: true }, { n: 'tec_cargo', l: 'Cargo', t: 'text', req: true }] },
@@ -1910,6 +1949,7 @@ const IMG = (p) => window.__IMG[p] || p;</script>
       <div class="fx__pie"><p class="fx__nota" data-nota></p><div class="fx__botones">
         <button class="btn btn--linea" type="button" data-atras>Atrás</button>
         <button class="btn" type="button" data-siguiente>Siguiente</button>
+        <button class="btn btn--linea" type="button" data-borrar-borrador>Eliminar borrador</button>
         <button class="btn btn--linea" type="button" data-copia hidden>Descargar copia</button>
         <button class="btn btn--acento" type="submit" data-enviar hidden><span>Enviar postulación</span></button></div></div>
     </form>
@@ -1980,9 +2020,12 @@ const IMG = (p) => window.__IMG[p] || p;</script>
   const nota = $('[data-nota]');
   let tg;
   const guardar = () => { clearTimeout(tg); tg = setTimeout(() => {
-    const v = valores(); todos.filter((c) => c.t === 'archivo').forEach((c) => delete v[c.n]); delete v.acepta;
-    try { localStorage.setItem(CLAVE, JSON.stringify(v)); nota.textContent = `Borrador guardado en este navegador · ${new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' })}`; }
-    catch { nota.textContent = 'Este navegador no permite guardar el borrador: no cierres la ventana hasta terminar.'; } }, 400); };
+    const v = valores(); todos.filter((c) => c.t === 'archivo').forEach((c) => delete v[c.n]); delete v.acepta; delete v.rep_correo_confirma;
+    v._guardado_en = Date.now();
+    try {
+      localStorage.setItem(CLAVE, JSON.stringify(v));
+      nota.textContent = `Borrador guardado en este navegador (caduca a los 7 días) · ${new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' })}. No uses un equipo compartido sin eliminar el borrador.`;
+    } catch { nota.textContent = 'Este navegador no permite guardar el borrador: no cierres la ventana hasta terminar.'; } }, 400); };
   const restaurar = (v) => {
     todos.forEach((c) => {
       const x = v[c.n]; if (x === undefined || ['html', 'archivo', 'equipo'].includes(c.t)) return;
@@ -1992,7 +2035,30 @@ const IMG = (p) => window.__IMG[p] || p;</script>
     });
     (v.equipo || []).forEach(filaEq);
   };
-  try { const b = JSON.parse(localStorage.getItem(CLAVE) || 'null'); if (b) { restaurar(b); nota.textContent = 'Recuperamos tu borrador guardado en este navegador.'; } } catch { /* sin borrador */ }
+  const borrarBorrador = () => {
+    try { localStorage.removeItem(CLAVE); } catch { /* */ }
+    form.reset();
+    cajaEq.replaceChildren();
+    Object.keys(archivos).forEach((k) => delete archivos[k]);
+    dlg.querySelectorAll('[data-nom]').forEach((el) => { el.textContent = ''; });
+    nota.textContent = 'Borrador eliminado de este navegador.';
+  };
+  $('[data-borrar-borrador]').addEventListener('click', () => {
+    if (confirm('¿Eliminar el borrador guardado en este navegador?')) borrarBorrador();
+  });
+  try {
+    const b = JSON.parse(localStorage.getItem(CLAVE) || 'null');
+    if (b) {
+      if (b._guardado_en && Date.now() - Number(b._guardado_en) > BORRADOR_MS) {
+        localStorage.removeItem(CLAVE);
+        nota.textContent = 'Había un borrador antiguo (más de 7 días) y lo eliminamos. Puedes empezar de nuevo.';
+      } else {
+        delete b._guardado_en;
+        restaurar(b);
+        nota.textContent = 'Recuperamos tu borrador de este navegador (caduca a los 7 días). Si no es tu equipo, elimínalo.';
+      }
+    }
+  } catch { /* sin borrador */ }
 
   // ---------- Validación ----------
   const limpiar = (c) => { if (!c) return; c.classList.remove('is-invalido'); const e = c.querySelector('.fx__err'); if (e) { c.querySelectorAll('[aria-describedby]').forEach((el) => { const r = el.getAttribute('aria-describedby').split(' ').filter((x) => x !== e.id).join(' '); r ? el.setAttribute('aria-describedby', r) : el.removeAttribute('aria-describedby'); }); e.remove(); }
@@ -2124,17 +2190,38 @@ ${puntos.map((p, i) => `<p>${i + 1}. ${p}</p>`).join('')}
   };
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (document.documentElement.getAttribute('data-framed-block') === '1') {
+      avisoProblemas('No se puede enviar la postulación desde un marco externo.');
+      return;
+    }
     if (paso !== ultimo) { if (revisar(paso)) { avisoProblemas(''); mostrar(paso + 1); } else noAvanza(); return; }
     if (A.cerrada()) return;
     if (!revisar(paso)) { avisoProblemas('No pudimos enviar: marca todas las declaraciones de este paso.'); return; }
     if (form.elements.namedItem('sitio_web_hp').value) return; // trampa anti-spam
     const v0 = valores(), malos = PASOS.slice(0, ultimo).map((_, i) => i).filter((i) => todos.some((c) => c.paso === i && problema(c, v0)));
     if (malos.length) { mostrar(malos[0]); revisar(malos[0]); avisoProblemas(`No pudimos enviar: faltan datos o hay errores en ${malos.map((i) => `el paso ${i + 1} (${PASOS[i].titulo})`).join(', ')}. Te llevamos al primero; los campos con problemas están marcados en rojo.`); return; }
+    try {
+      const ultimoEnvio = Number(localStorage.getItem(CLAVE_COOLDOWN) || 0);
+      if (ultimoEnvio && Date.now() - ultimoEnvio < COOLDOWN_MS) {
+        avisoProblemas('Espera un minuto antes de volver a enviar desde este navegador.');
+        return;
+      }
+      const enviados = JSON.parse(localStorage.getItem(CLAVE_ENVIADOS) || '[]');
+      const rutNorm = limpiaRut(v0.rut || '');
+      if (rutNorm && enviados.includes(rutNorm)) {
+        avisoProblemas('Desde este navegador ya se envió una postulación con ese RUT de empresa. Si necesitas corregir datos, escribe a ' + A.contacto + '.');
+        return;
+      }
+    } catch { /* storage opcional */ }
     avisoProblemas('');
     if (!ENDPOINT) { terminar(''); return; }
     const err = $('[data-error-envio]'); err.hidden = true;
     const v = valores(), datos = new URLSearchParams();
-    secciones().forEach(([, , items]) => items.forEach(([q, x]) => { if (!todos.find((c) => rotulo(c) === q && c.t === 'archivo')) datos.append(q, x); }));
+    const omitir = new Set(todos.filter((c) => c.noEnviar).map((c) => rotulo(c)));
+    secciones().forEach(([, , items]) => items.forEach(([q, x]) => {
+      if (omitir.has(q)) return;
+      if (!todos.find((c) => rotulo(c) === q && c.t === 'archivo')) datos.append(q, x);
+    }));
     datos.append('Declaraciones aceptadas', v.acepta.join(' | '));
     datos.append('Enviado (navegador)', new Date().toISOString());
     const leer = (n, f) => new Promise((ok, ko) => { const r = new FileReader(); r.onload = () => ok({ campo: todos.find((c) => c.n === n).l, nombre: f.name, tipo: 'application/pdf', datos: String(r.result).split(',')[1] }); r.onerror = ko; r.readAsDataURL(f); });
@@ -2145,7 +2232,18 @@ ${puntos.map((p, i) => `<p>${i + 1}. ${p}</p>`).join('')}
       const r = await fetch(ENDPOINT, { method: 'POST', body: datos }); // urlencoded: Apps Script lo recibe sin preflight CORS
       const res = await r.json().catch(() => ({}));
       if (!r.ok || res.ok !== true) throw new Error(res.error || `respuesta inesperada del servidor, ${r.status}`); // sin confirmación no se da por recibida
-      try { localStorage.removeItem(CLAVE); } catch { /* */ }
+      try {
+        localStorage.removeItem(CLAVE);
+        localStorage.setItem(CLAVE_COOLDOWN, String(Date.now()));
+        const rutNorm = limpiaRut(v.rut || '');
+        if (rutNorm) {
+          const enviados = JSON.parse(localStorage.getItem(CLAVE_ENVIADOS) || '[]');
+          if (!enviados.includes(rutNorm)) {
+            enviados.push(rutNorm);
+            localStorage.setItem(CLAVE_ENVIADOS, JSON.stringify(enviados.slice(-50)));
+          }
+        }
+      } catch { /* */ }
       terminar(res.folio || 'Recibida');
     } catch (x) { err.textContent = `No pudimos enviar la postulación (${x.message}). Revisa tu conexión e inténtalo otra vez. Si el problema sigue, descarga la copia y escríbenos a ${A.contacto}.`; err.hidden = false; }
     enviar.disabled = false; enviar.firstElementChild.textContent = 'Enviar postulación';
@@ -2153,6 +2251,7 @@ ${puntos.map((p, i) => `<p>${i + 1}. ${p}</p>`).join('')}
 
   // ---------- Abrir y cerrar ----------
   const abrir = (desde) => {
+    if (document.documentElement.getAttribute('data-framed-block') === '1') return;
     if (dlg.open) return;
     if (form.hidden) { listo.hidden = true; form.hidden = false; mostrar(0); }
     dlg.showModal(); cuerpo.scrollTop = 0;

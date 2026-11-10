@@ -8,6 +8,10 @@
   const yo = document.currentScript;
   const ENDPOINT = yo?.dataset.endpoint || '';
   const CLAVE = 'activa-startup-ia-borrador';
+  const CLAVE_ENVIADOS = 'activa-startup-ia-enviados';
+  const CLAVE_COOLDOWN = 'activa-startup-ia-ultimo-envio';
+  const BORRADOR_MS = 7 * 24 * 3600 * 1000;
+  const COOLDOWN_MS = 60 * 1000;
   const MB = 1024 * 1024, MAX_MB = 5, TOTAL_MB = 25;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -67,7 +71,7 @@
     { titulo: 'Personas', sec: 'B · Representante legal y equipo responsable', campos: [
       { bloque: 'Representante legal', campos: [
         { fila: [{ n: 'rep_nombre', l: 'Nombre completo', t: 'text', req: true, ac: 'name' }, { n: 'rep_rut', l: 'RUT', t: 'text', req: true, valida: vRut, fmt: rutFmt }] },
-        { fila: [{ n: 'rep_correo', l: 'Correo', t: 'email', req: true, ac: 'email' }, { n: 'rep_tel', l: 'Teléfono', t: 'tel', req: true, valida: vTel, ph: '+56 9 1234 5678' }] },
+        { fila: [{ n: 'rep_correo', l: 'Correo', t: 'email', req: true, ac: 'email' }, { n: 'rep_correo_confirma', l: 'Confirma el correo', t: 'email', req: true, ac: 'email', noEnviar: true, valida: (v, todosV) => (!v || !todosV.rep_correo || v.trim().toLowerCase() !== String(todosV.rep_correo).trim().toLowerCase()) ? 'Debe coincidir con el correo del representante.' : '' }, { n: 'rep_tel', l: 'Teléfono', t: 'tel', req: true, valida: vTel, ph: '+56 9 1234 5678' }] },
       ] },
       { bloque: 'Persona responsable de la implementación técnica', ayuda: 'Es un requisito de las bases (numeral 4).', campos: [
         { fila: [{ n: 'tec_nombre', l: 'Nombre completo', t: 'text', req: true }, { n: 'tec_cargo', l: 'Cargo', t: 'text', req: true }] },
@@ -161,6 +165,7 @@
       <div class="fx__pie"><p class="fx__nota" data-nota></p><div class="fx__botones">
         <button class="btn btn--linea" type="button" data-atras>Atrás</button>
         <button class="btn" type="button" data-siguiente>Siguiente</button>
+        <button class="btn btn--linea" type="button" data-borrar-borrador>Eliminar borrador</button>
         <button class="btn btn--linea" type="button" data-copia hidden>Descargar copia</button>
         <button class="btn btn--acento" type="submit" data-enviar hidden><span>Enviar postulación</span></button></div></div>
     </form>
@@ -231,9 +236,12 @@
   const nota = $('[data-nota]');
   let tg;
   const guardar = () => { clearTimeout(tg); tg = setTimeout(() => {
-    const v = valores(); todos.filter((c) => c.t === 'archivo').forEach((c) => delete v[c.n]); delete v.acepta;
-    try { localStorage.setItem(CLAVE, JSON.stringify(v)); nota.textContent = `Borrador guardado en este navegador · ${new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' })}`; }
-    catch { nota.textContent = 'Este navegador no permite guardar el borrador: no cierres la ventana hasta terminar.'; } }, 400); };
+    const v = valores(); todos.filter((c) => c.t === 'archivo').forEach((c) => delete v[c.n]); delete v.acepta; delete v.rep_correo_confirma;
+    v._guardado_en = Date.now();
+    try {
+      localStorage.setItem(CLAVE, JSON.stringify(v));
+      nota.textContent = `Borrador guardado en este navegador (caduca a los 7 días) · ${new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' })}. No uses un equipo compartido sin eliminar el borrador.`;
+    } catch { nota.textContent = 'Este navegador no permite guardar el borrador: no cierres la ventana hasta terminar.'; } }, 400); };
   const restaurar = (v) => {
     todos.forEach((c) => {
       const x = v[c.n]; if (x === undefined || ['html', 'archivo', 'equipo'].includes(c.t)) return;
@@ -243,7 +251,30 @@
     });
     (v.equipo || []).forEach(filaEq);
   };
-  try { const b = JSON.parse(localStorage.getItem(CLAVE) || 'null'); if (b) { restaurar(b); nota.textContent = 'Recuperamos tu borrador guardado en este navegador.'; } } catch { /* sin borrador */ }
+  const borrarBorrador = () => {
+    try { localStorage.removeItem(CLAVE); } catch { /* */ }
+    form.reset();
+    cajaEq.replaceChildren();
+    Object.keys(archivos).forEach((k) => delete archivos[k]);
+    dlg.querySelectorAll('[data-nom]').forEach((el) => { el.textContent = ''; });
+    nota.textContent = 'Borrador eliminado de este navegador.';
+  };
+  $('[data-borrar-borrador]').addEventListener('click', () => {
+    if (confirm('¿Eliminar el borrador guardado en este navegador?')) borrarBorrador();
+  });
+  try {
+    const b = JSON.parse(localStorage.getItem(CLAVE) || 'null');
+    if (b) {
+      if (b._guardado_en && Date.now() - Number(b._guardado_en) > BORRADOR_MS) {
+        localStorage.removeItem(CLAVE);
+        nota.textContent = 'Había un borrador antiguo (más de 7 días) y lo eliminamos. Puedes empezar de nuevo.';
+      } else {
+        delete b._guardado_en;
+        restaurar(b);
+        nota.textContent = 'Recuperamos tu borrador de este navegador (caduca a los 7 días). Si no es tu equipo, elimínalo.';
+      }
+    }
+  } catch { /* sin borrador */ }
 
   // ---------- Validación ----------
   const limpiar = (c) => { if (!c) return; c.classList.remove('is-invalido'); const e = c.querySelector('.fx__err'); if (e) { c.querySelectorAll('[aria-describedby]').forEach((el) => { const r = el.getAttribute('aria-describedby').split(' ').filter((x) => x !== e.id).join(' '); r ? el.setAttribute('aria-describedby', r) : el.removeAttribute('aria-describedby'); }); e.remove(); }
@@ -375,17 +406,38 @@ ${puntos.map((p, i) => `<p>${i + 1}. ${p}</p>`).join('')}
   };
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (document.documentElement.getAttribute('data-framed-block') === '1') {
+      avisoProblemas('No se puede enviar la postulación desde un marco externo.');
+      return;
+    }
     if (paso !== ultimo) { if (revisar(paso)) { avisoProblemas(''); mostrar(paso + 1); } else noAvanza(); return; }
     if (A.cerrada()) return;
     if (!revisar(paso)) { avisoProblemas('No pudimos enviar: marca todas las declaraciones de este paso.'); return; }
     if (form.elements.namedItem('sitio_web_hp').value) return; // trampa anti-spam
     const v0 = valores(), malos = PASOS.slice(0, ultimo).map((_, i) => i).filter((i) => todos.some((c) => c.paso === i && problema(c, v0)));
     if (malos.length) { mostrar(malos[0]); revisar(malos[0]); avisoProblemas(`No pudimos enviar: faltan datos o hay errores en ${malos.map((i) => `el paso ${i + 1} (${PASOS[i].titulo})`).join(', ')}. Te llevamos al primero; los campos con problemas están marcados en rojo.`); return; }
+    try {
+      const ultimoEnvio = Number(localStorage.getItem(CLAVE_COOLDOWN) || 0);
+      if (ultimoEnvio && Date.now() - ultimoEnvio < COOLDOWN_MS) {
+        avisoProblemas('Espera un minuto antes de volver a enviar desde este navegador.');
+        return;
+      }
+      const enviados = JSON.parse(localStorage.getItem(CLAVE_ENVIADOS) || '[]');
+      const rutNorm = limpiaRut(v0.rut || '');
+      if (rutNorm && enviados.includes(rutNorm)) {
+        avisoProblemas('Desde este navegador ya se envió una postulación con ese RUT de empresa. Si necesitas corregir datos, escribe a ' + A.contacto + '.');
+        return;
+      }
+    } catch { /* storage opcional */ }
     avisoProblemas('');
     if (!ENDPOINT) { terminar(''); return; }
     const err = $('[data-error-envio]'); err.hidden = true;
     const v = valores(), datos = new URLSearchParams();
-    secciones().forEach(([, , items]) => items.forEach(([q, x]) => { if (!todos.find((c) => rotulo(c) === q && c.t === 'archivo')) datos.append(q, x); }));
+    const omitir = new Set(todos.filter((c) => c.noEnviar).map((c) => rotulo(c)));
+    secciones().forEach(([, , items]) => items.forEach(([q, x]) => {
+      if (omitir.has(q)) return;
+      if (!todos.find((c) => rotulo(c) === q && c.t === 'archivo')) datos.append(q, x);
+    }));
     datos.append('Declaraciones aceptadas', v.acepta.join(' | '));
     datos.append('Enviado (navegador)', new Date().toISOString());
     const leer = (n, f) => new Promise((ok, ko) => { const r = new FileReader(); r.onload = () => ok({ campo: todos.find((c) => c.n === n).l, nombre: f.name, tipo: 'application/pdf', datos: String(r.result).split(',')[1] }); r.onerror = ko; r.readAsDataURL(f); });
@@ -396,7 +448,18 @@ ${puntos.map((p, i) => `<p>${i + 1}. ${p}</p>`).join('')}
       const r = await fetch(ENDPOINT, { method: 'POST', body: datos }); // urlencoded: Apps Script lo recibe sin preflight CORS
       const res = await r.json().catch(() => ({}));
       if (!r.ok || res.ok !== true) throw new Error(res.error || `respuesta inesperada del servidor, ${r.status}`); // sin confirmación no se da por recibida
-      try { localStorage.removeItem(CLAVE); } catch { /* */ }
+      try {
+        localStorage.removeItem(CLAVE);
+        localStorage.setItem(CLAVE_COOLDOWN, String(Date.now()));
+        const rutNorm = limpiaRut(v.rut || '');
+        if (rutNorm) {
+          const enviados = JSON.parse(localStorage.getItem(CLAVE_ENVIADOS) || '[]');
+          if (!enviados.includes(rutNorm)) {
+            enviados.push(rutNorm);
+            localStorage.setItem(CLAVE_ENVIADOS, JSON.stringify(enviados.slice(-50)));
+          }
+        }
+      } catch { /* */ }
       terminar(res.folio || 'Recibida');
     } catch (x) { err.textContent = `No pudimos enviar la postulación (${x.message}). Revisa tu conexión e inténtalo otra vez. Si el problema sigue, descarga la copia y escríbenos a ${A.contacto}.`; err.hidden = false; }
     enviar.disabled = false; enviar.firstElementChild.textContent = 'Enviar postulación';
@@ -404,6 +467,7 @@ ${puntos.map((p, i) => `<p>${i + 1}. ${p}</p>`).join('')}
 
   // ---------- Abrir y cerrar ----------
   const abrir = (desde) => {
+    if (document.documentElement.getAttribute('data-framed-block') === '1') return;
     if (dlg.open) return;
     if (form.hidden) { listo.hidden = true; form.hidden = false; mostrar(0); }
     dlg.showModal(); cuerpo.scrollTop = 0;

@@ -84,8 +84,10 @@
   const ini = (iso) => new Date(iso.length > 10 ? iso : `${iso}T00:00:00-03:00`).getTime();
   const fin = (iso) => new Date(iso.length > 10 ? iso : `${iso}T23:59:59-03:00`).getTime();
   const fmt = (iso, o = { day: 'numeric', month: 'long' }) => new Intl.DateTimeFormat('es-CL', { ...o, timeZone: 'America/Santiago' }).format(new Date(iso.length > 10 ? iso : `${iso}T12:00:00-03:00`));
-  // ?hoy=AAAA-MM-DD permite revisar cómo se ve la página en otra fecha
-  const param = new URLSearchParams(location.search).get('hoy');
+  // ?hoy=AAAA-MM-DD solo en localhost/127.0.0.1 (preview). En publicación se ignora.
+  const param = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+    ? new URLSearchParams(location.search).get('hoy')
+    : null;
   const ahora = () => (param ? ini(param) + 12 * 36e5 : Date.now());
   ACTIVA.ahora = ahora; ACTIVA.fmt = fmt;
   ACTIVA.abierta = () => ahora() >= ini(ACTIVA.abre) && ahora() <= fin(ACTIVA.cierre);
@@ -225,9 +227,24 @@
     const chips = caja.querySelector('[data-chips]'), hilo = caja.querySelector('[data-hilo]'), input = caja.querySelector('input');
     const ponerChips = (lista) => { chips.innerHTML = lista.map((e) => `<button type="button" data-q="${e.i}">${e.q}</button>`).join(''); };
     const responder = (pregunta, e, otras) => {
-      hilo.innerHTML = `<p class="preg__yo">${pregunta.replace(/</g, '&lt;')}</p>` + (e
-        ? `<div class="preg__resp"><b>${e.q}</b><p>${e.r}</p></div>`
-        : `<div class="preg__resp"><p>No encontré una respuesta para eso en las preguntas frecuentes. Revisa las bases o consulta en <a href="mailto:${ACTIVA.contacto}">${ACTIVA.contacto}</a>.</p></div>`);
+      hilo.replaceChildren();
+      const yo = document.createElement('p');
+      yo.className = 'preg__yo';
+      yo.textContent = pregunta;
+      hilo.appendChild(yo);
+      const caja = document.createElement('div');
+      caja.className = 'preg__resp';
+      if (e) {
+        const b = document.createElement('b'); b.textContent = e.q; caja.appendChild(b);
+        const p = document.createElement('p'); p.textContent = e.r; caja.appendChild(p);
+      } else {
+        const p = document.createElement('p');
+        p.append('No encontré una respuesta para eso en las preguntas frecuentes. Revisa las bases o consulta en ');
+        const a = document.createElement('a'); a.href = 'mailto:' + ACTIVA.contacto; a.textContent = ACTIVA.contacto;
+        p.appendChild(a); p.append('.');
+        caja.appendChild(p);
+      }
+      hilo.appendChild(caja);
       ponerChips(otras.length ? otras : populares.map((k) => indice[k]));
     };
     ponerChips(populares.map((k) => indice[k]));
